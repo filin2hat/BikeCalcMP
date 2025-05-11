@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <!-- Pressure calc screen string resources -->
-    <string name="app_name">Bike Calculator</string>
+    <string name="app_name">BikeCalc Pro</string>
     <string name="rider_weight">Your weight</string>
     <string name="kg">kg</string>
     <string name="lbs">lbs</string>

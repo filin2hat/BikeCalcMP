@@ -85,7 +85,7 @@ import org.koin.compose.viewmodel.koinViewModel
  * @param viewModel [PressureCalculatorViewModel]
  */
 @Composable
-internal fun PressureCalculatorScreen(viewModel: PressureCalculatorViewModel = koinViewModel()) {
+internal fun PressureCalculatorScreen(viewModel: PressureCalculatorViewModel = koinViewModel<PressureCalculatorViewModel>()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     PressureCalculatorScreen(

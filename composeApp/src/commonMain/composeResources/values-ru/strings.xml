@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Pressure calc screen string resources -->
-    <string name="app_name">Вело Калькулятор</string>
+    <string name="app_name">Велокалькулятор Про</string>
     <string name="rider_weight">Ваш вес</string>
     <string name="lbs">фунт</string>
     <string name="weight_incorrect">Указан некорректный вес</string>
