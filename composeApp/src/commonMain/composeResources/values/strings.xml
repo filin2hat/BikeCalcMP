@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <!-- Pressure calc screen string resources -->
+    <string name="app_name">Bike Calculator</string>
+    <string name="rider_weight">Your weight</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lbs</string>
+    <string name="weight_incorrect">Incorrect weight entered</string>
+    <string name="bike_weight">Bike weight</string>
+    <string name="wheel_size">Wheel size</string>
+    <string name="tire_size">Tire size</string>
+    <string name="calculate_pressure">Calculate pressure</string>
+    <string name="tubes">Tubes</string>
+    <string name="tubeless">Tubeless</string>
+    <string name="app_bar_title">Tire pressure calculator</string>
+    <string name="front_wheel_pressure">Front wheel pressure:</string>
+    <string name="rear_wheel_pressure">Rear wheel pressure:</string>
+    <string name="bar">bar</string>
+    <string name="kpa">kPa</string>
+    <string name="psi">psi</string>
+    <string name="bar_btn">Bar</string>
+    <string name="kpa_btn">kPa</string>
+    <string name="psi_btn">Psi</string>
+    <string name="i_understand_this">I understand this</string>
+    <string name="dialog_title">Disclaimer</string>
+    <string name="dialog_text_chapter_one">Calculation results presented in the application are not absolutely accurate and may differ from ideal values as they are based on the following sources:</string>
+    <string name="dialog_text_chapter_two">1. Publicly available data provided by bicycle tire manufacturers.</string>
+    <string name="dialog_text_chapter_three">2. Information from research articles on the topic of bicycle tire pressure.</string>
+    <string name="dialog_text_chapter_four">3. Personal experience and practical observations.</string>
+    <string name="dialog_text_end">It is recommended to use the calculation results as approximate values and always verify the data before use.</string>
+    <string name="app_version">App version: %1$s</string>
+
+
+    <!-- Error messages -->
+    <string name="error_disk_full">Insufficient storage space. Please free up some space and try again.</string>
+    <string name="error_no_data">No data available. Please check your internet connection and try again.</string>
+    <string name="error_unknown_local">An unknown local error occurred. Please try again later.</string>
+    <string name="error_request_timeout">Request timed out. Please check your internet connection and try again.</string>
+    <string name="error_too_many_requests">Too many requests. Please try again later.</string>
+    <string name="error_no_internet_connection">No internet connection. Please check your connection and try again.</string>
+    <string name="error_server">Server error. Please try again later.</string>
+    <string name="error_serialization">Data serialization error. Please try again later.</string>
+    <string name="error_unknown_remote">An unknown remote error occurred. Please try again later.</string>
+</resources>
