@@ -4,10 +4,12 @@ package dev.filinhat.bikecalc
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import dev.filinhat.bikecalc.di.initKoin
 import dev.filinhat.bikecalc.presentation.screen.main.MainScreen
 import dev.filinhat.bikecalc.presentation.ui.theme.BikeCalcTheme
 
-fun main() =
+fun main() {
+    initKoin()
     application {
         Window(
             onCloseRequest = ::exitApplication,
@@ -16,3 +18,4 @@ fun main() =
             BikeCalcTheme { MainScreen() }
         }
     }
+}
