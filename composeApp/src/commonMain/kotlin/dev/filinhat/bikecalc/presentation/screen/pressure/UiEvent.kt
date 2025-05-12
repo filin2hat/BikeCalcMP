@@ -18,11 +18,20 @@ sealed interface UiEvent {
      * @param tireSize Размер покрышки
      * @param weightUnit Единица измерения веса (кг или фунт)
      */
-    data class CalcPressure(
+    data class OnCalcPressure(
         val riderWeight: Double,
         val bikeWeight: Double,
         val wheelSize: WheelSize,
         val tireSize: TireSize,
         val weightUnit: WeightUnit,
+    ) : UiEvent
+
+    /**
+     * Выбор вкладки.
+     *
+     * @property index Индекс выбранной вкладки.
+     */
+    data class OnTabSelected(
+        val index: Int,
     ) : UiEvent
 }

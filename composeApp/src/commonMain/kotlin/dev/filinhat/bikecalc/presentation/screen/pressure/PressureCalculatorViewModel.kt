@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
@@ -22,7 +23,7 @@ class PressureCalculatorViewModel(
     private val repository: PressureCalcRepository,
 ) : ViewModel(),
     BaseViewModel<UiState, UiEvent> {
-    private val _uiState = MutableStateFlow<UiState>(UiState.Success(PressureCalcResult()))
+    private val _uiState = MutableStateFlow(initState)
     override val uiState =
         _uiState
             .asStateFlow()
@@ -34,7 +35,7 @@ class PressureCalculatorViewModel(
 
     override fun perform(event: UiEvent) =
         when (event) {
-            is UiEvent.CalcPressure ->
+            is UiEvent.OnCalcPressure ->
                 onCalcPressure(
                     event.bikeWeight,
                     event.riderWeight,
@@ -42,6 +43,11 @@ class PressureCalculatorViewModel(
                     event.tireSize,
                     event.weightUnit,
                 )
+
+            is UiEvent.OnTabSelected ->
+                _uiState.update { state ->
+                    state.copy(selectedTabIndex = event.index)
+                }
         }
 
     private fun onCalcPressure(
@@ -52,14 +58,16 @@ class PressureCalculatorViewModel(
         weightUnit: WeightUnit,
     ) {
         viewModelScope.launch {
-            _uiState.value = UiState.Loading
             repository
                 .calcPressure(riderWeight, bikeWeight, wheelSize, tireSize, weightUnit)
                 .catch { e ->
-                    _uiState.value = UiState.Error("Указаны не корректные данные для расчета.")
                 }.collect { result ->
                     _uiState.value = UiState.Success(result)
                 }
         }
+    }
+
+    companion object {
+        val initState = UiState.Success(PressureCalcResult(), selectedTabIndex = 0)
     }
 }

@@ -91,7 +91,7 @@ internal fun PressureCalculatorScreenRoot(viewModel: PressureCalculatorViewModel
         uiState = uiState,
         onCalcPressure = { bikeWeight, riderWeight, wheelSize, tireSize, weightUnit ->
             viewModel.perform(
-                UiEvent.CalcPressure(
+                UiEvent.OnCalcPressure(
                     bikeWeight,
                     riderWeight,
                     wheelSize,
