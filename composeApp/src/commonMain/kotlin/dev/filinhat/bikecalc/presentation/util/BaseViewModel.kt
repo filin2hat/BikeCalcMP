@@ -17,5 +17,5 @@ interface BaseViewModel<UiState, UiEvent> {
     /**
      * Обработать событие UI.
      */
-    fun perform(event: UiEvent)
+    fun onAction(event: UiEvent)
 }

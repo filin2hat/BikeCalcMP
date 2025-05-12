@@ -8,7 +8,7 @@ import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
  * Определяет события UI, инициированные пользователем,
  * на которые ViewModel должен отреагировать.
  */
-sealed interface UiEvent {
+sealed interface PressureCalcAction {
     /**
      * Событие "Рассчитать давление"
      *
@@ -24,7 +24,7 @@ sealed interface UiEvent {
         val wheelSize: WheelSize,
         val tireSize: TireSize,
         val weightUnit: WeightUnit,
-    ) : UiEvent
+    ) : PressureCalcAction
 
     /**
      * Выбор вкладки.
@@ -33,5 +33,5 @@ sealed interface UiEvent {
      */
     data class OnTabSelected(
         val index: Int,
-    ) : UiEvent
+    ) : PressureCalcAction
 }

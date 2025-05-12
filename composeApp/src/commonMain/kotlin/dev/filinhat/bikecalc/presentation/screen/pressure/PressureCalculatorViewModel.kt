@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize
 import dev.filinhat.bikecalc.domain.enums.unit.WeightUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
-import dev.filinhat.bikecalc.domain.model.PressureCalcResult
 import dev.filinhat.bikecalc.domain.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.presentation.util.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,20 +21,20 @@ import kotlinx.coroutines.launch
 class PressureCalculatorViewModel(
     private val repository: PressureCalcRepository,
 ) : ViewModel(),
-    BaseViewModel<UiState, UiEvent> {
-    private val _uiState = MutableStateFlow(initState)
+    BaseViewModel<PressureCalcState, PressureCalcAction> {
+    private val _uiState = MutableStateFlow<PressureCalcState>(PressureCalcState())
     override val uiState =
         _uiState
             .asStateFlow()
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.Lazily,
-                initialValue = UiState.Loading,
+                initialValue = _uiState.value,
             )
 
-    override fun perform(event: UiEvent) =
+    override fun onAction(event: PressureCalcAction) =
         when (event) {
-            is UiEvent.OnCalcPressure ->
+            is PressureCalcAction.OnCalcPressure ->
                 onCalcPressure(
                     event.bikeWeight,
                     event.riderWeight,
@@ -44,7 +43,7 @@ class PressureCalculatorViewModel(
                     event.weightUnit,
                 )
 
-            is UiEvent.OnTabSelected ->
+            is PressureCalcAction.OnTabSelected ->
                 _uiState.update { state ->
                     state.copy(selectedTabIndex = event.index)
                 }
@@ -62,12 +61,10 @@ class PressureCalculatorViewModel(
                 .calcPressure(riderWeight, bikeWeight, wheelSize, tireSize, weightUnit)
                 .catch { e ->
                 }.collect { result ->
-                    _uiState.value = UiState.Success(result)
+                    _uiState.update { state ->
+                        state.copy(result = result)
+                    }
                 }
         }
-    }
-
-    companion object {
-        val initState = UiState.Success(PressureCalcResult(), selectedTabIndex = 0)
     }
 }
