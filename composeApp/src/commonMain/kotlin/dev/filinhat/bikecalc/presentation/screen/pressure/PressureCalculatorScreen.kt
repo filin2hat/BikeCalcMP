@@ -77,7 +77,6 @@ import dev.filinhat.bikecalc.presentation.util.validateBikeWeight
 import dev.filinhat.bikecalc.presentation.util.validateUserWeight
 import kotlinx.collections.immutable.toPersistentList
 import org.jetbrains.compose.resources.stringResource
-import org.koin.compose.viewmodel.koinViewModel
 
 /**
  * Экран для расчета давления велосипеда.
@@ -85,7 +84,7 @@ import org.koin.compose.viewmodel.koinViewModel
  * @param viewModel [PressureCalculatorViewModel]
  */
 @Composable
-internal fun PressureCalculatorScreen(viewModel: PressureCalculatorViewModel = koinViewModel<PressureCalculatorViewModel>()) {
+internal fun PressureCalculatorScreenRoot(viewModel: PressureCalculatorViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     PressureCalculatorScreen(
