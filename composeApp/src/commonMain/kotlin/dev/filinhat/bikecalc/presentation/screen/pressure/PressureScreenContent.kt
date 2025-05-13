@@ -53,7 +53,7 @@ import dev.filinhat.bikecalc.domain.enums.wheel.Wheel
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.presentation.ui.kit.common.DropdownMenu
 import dev.filinhat.bikecalc.presentation.ui.kit.pressure.CalculatePressureButton
-import dev.filinhat.bikecalc.presentation.ui.kit.pressure.PressureCard
+import dev.filinhat.bikecalc.presentation.ui.kit.pressure.PressureCalcCard
 import dev.filinhat.bikecalc.presentation.ui.kit.pressure.TubeTypeChangeButton
 import dev.filinhat.bikecalc.presentation.util.validateBikeWeight
 import dev.filinhat.bikecalc.presentation.util.validateUserWeight
@@ -64,7 +64,6 @@ import org.jetbrains.compose.resources.stringResource
 fun PressureScreenContent(
     uiState: PressureCalcState,
     onAction: (PressureCalcAction) -> Unit,
-    modifier: Modifier = Modifier,
     keyboardController: SoftwareKeyboardController? = null,
     focusManager: FocusManager? = null,
 ) {
@@ -87,12 +86,9 @@ fun PressureScreenContent(
         modifier = Modifier.padding(bottom = 18.dp),
     ) {
         Column(
-            modifier =
-                Modifier
-                    .padding(top = 4.dp)
-                    .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
         ) {
-            PressureCard(
+            PressureCalcCard(
                 value =
                     when (selectedTubeType) {
                         TubeType.TUBES -> uiState.result.tubesFront
@@ -102,7 +98,7 @@ fun PressureScreenContent(
             )
             Spacer(modifier = Modifier.size(18.dp))
 
-            PressureCard(
+            PressureCalcCard(
                 value =
                     when (selectedTubeType) {
                         TubeType.TUBES -> uiState.result.tubesRear

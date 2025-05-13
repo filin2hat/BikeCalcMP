@@ -1,8 +1,6 @@
 package dev.filinhat.bikecalc.presentation.screen.pressure
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +12,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -102,7 +102,12 @@ private fun PressureCalculatorScreen(
             icon = FeatherIcons.Info,
         )
     }
-    Column(modifier = modifier.fillMaxSize()) {
+    Column(
+        modifier =
+            modifier
+                .verticalScroll(rememberScrollState())
+                .fillMaxSize(),
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -189,7 +194,7 @@ private fun PressureCalculatorScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(6.dp))
 
         HorizontalPager(
             state = pagerState,
@@ -212,14 +217,7 @@ private fun PressureCalculatorScreen(
                     }
 
                     1 -> {
-                        Box(
-                            modifier = Modifier
-                                .background(MaterialTheme.colorScheme.primaryContainer)
-                                .fillMaxSize(),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            Text(text = "TODO")
-                        }
+                        PressureResultContent()
                     }
                 }
             }

@@ -42,7 +42,7 @@ const val CARD_HEIGHT = 130
  * @param modifier модификатор карточки
  */
 @Composable
-fun PressureCard(
+fun PressureCalcCard(
     value: Double,
     wheel: Wheel,
     modifier: Modifier = Modifier,
