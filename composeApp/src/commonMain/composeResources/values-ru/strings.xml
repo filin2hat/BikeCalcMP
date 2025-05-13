@@ -13,6 +13,8 @@
     <string name="app_bar_title">Калькулятор давления шин</string>
     <string name="front_wheel_pressure">Давление переднего колеса:</string>
     <string name="rear_wheel_pressure">Давление заднего колеса:</string>
+    <string name="new_calculation">Расчёт</string>
+    <string name="previous_results">Результаты</string>
     <string name="bar">бар</string>
     <string name="kpa">кПа</string>
     <string name="psi">psi</string>
