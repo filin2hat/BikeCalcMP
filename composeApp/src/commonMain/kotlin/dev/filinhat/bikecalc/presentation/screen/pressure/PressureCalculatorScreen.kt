@@ -1,5 +1,6 @@
 package dev.filinhat.bikecalc.presentation.screen.pressure
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
@@ -31,6 +33,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextOverflow
@@ -131,52 +134,59 @@ private fun PressureCalculatorScreen(
                 )
             }
         }
-
-        TabRow(
-            selectedTabIndex = uiState.selectedTabIndex,
+        Surface(
+            shape = MaterialTheme.shapes.medium,
+            tonalElevation = 1.dp,
             modifier =
                 Modifier
-                    .padding(vertical = 12.dp)
+                    .padding(top = 4.dp, bottom = 10.dp)
                     .widthIn(max = 700.dp)
-                    .fillMaxWidth(),
-            indicator = { tabPositions ->
-                TabRowDefaults.SecondaryIndicator(
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier =
-                        Modifier
-                            .tabIndicatorOffset(tabPositions[uiState.selectedTabIndex]),
-                )
-            },
+                    .clip(MaterialTheme.shapes.medium),
         ) {
-            Tab(
-                selected = uiState.selectedTabIndex == 0,
-                onClick = {
-                    onAction(PressureCalcAction.OnTabSelected(0))
+            TabRow(
+                selectedTabIndex = uiState.selectedTabIndex,
+                Modifier
+                    .fillMaxWidth(),
+                indicator = { tabPositions ->
+                    TabRowDefaults.SecondaryIndicator(
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier =
+                            Modifier
+                                .tabIndicatorOffset(tabPositions[uiState.selectedTabIndex]),
+                    )
                 },
-                modifier = Modifier.weight(1f),
-                selectedContentColor = MaterialTheme.colorScheme.primary,
-                unselectedContentColor = MaterialTheme.colorScheme.onSurface,
-            ) {
-                Text(
-                    text = stringResource(Res.string.new_calculation),
-                    modifier = Modifier.padding(vertical = 12.dp),
-                )
-            }
+                tabs = {
+                    Tab(
+                        selected = uiState.selectedTabIndex == 0,
+                        onClick = {
+                            onAction(PressureCalcAction.OnTabSelected(0))
+                        },
+                        modifier = Modifier.weight(1f),
+                        selectedContentColor = MaterialTheme.colorScheme.primary,
+                        unselectedContentColor = MaterialTheme.colorScheme.onSurface,
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.new_calculation),
+                            modifier = Modifier.padding(vertical = 12.dp),
+                        )
+                    }
 
-            Tab(
-                selected = uiState.selectedTabIndex == 1,
-                onClick = {
-                    onAction(PressureCalcAction.OnTabSelected(1))
+                    Tab(
+                        selected = uiState.selectedTabIndex == 1,
+                        onClick = {
+                            onAction(PressureCalcAction.OnTabSelected(1))
+                        },
+                        modifier = Modifier.weight(1f),
+                        selectedContentColor = MaterialTheme.colorScheme.primary,
+                        unselectedContentColor = MaterialTheme.colorScheme.onSurface,
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.previous_results),
+                            modifier = Modifier.padding(vertical = 12.dp),
+                        )
+                    }
                 },
-                modifier = Modifier.weight(1f),
-                selectedContentColor = MaterialTheme.colorScheme.primary,
-                unselectedContentColor = MaterialTheme.colorScheme.onSurface,
-            ) {
-                Text(
-                    text = stringResource(Res.string.previous_results),
-                    modifier = Modifier.padding(vertical = 12.dp),
-                )
-            }
+            )
         }
 
         Spacer(modifier = Modifier.height(4.dp))
@@ -184,7 +194,9 @@ private fun PressureCalculatorScreen(
         HorizontalPager(
             state = pagerState,
             modifier =
-                Modifier.fillMaxSize(),
+                Modifier
+                    .widthIn(max = 700.dp)
+                    .fillMaxSize(),
         ) { pageIndex ->
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -201,7 +213,9 @@ private fun PressureCalculatorScreen(
 
                     1 -> {
                         Box(
-                            modifier = Modifier.fillMaxSize(),
+                            modifier = Modifier
+                                .background(MaterialTheme.colorScheme.primaryContainer)
+                                .fillMaxSize(),
                             contentAlignment = Alignment.Center,
                         ) {
                             Text(text = "TODO")
