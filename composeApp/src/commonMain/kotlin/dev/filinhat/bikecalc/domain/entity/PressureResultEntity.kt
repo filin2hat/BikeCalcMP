@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.data.database
+package dev.filinhat.bikecalc.domain.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "PressureResultsTable")
 data class PressureResultEntity(
-    @PrimaryKey(autoGenerate = false) val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long?,
     val pressureFront: Double,
     val pressureRear: Double,
     val riderWeight: Double,

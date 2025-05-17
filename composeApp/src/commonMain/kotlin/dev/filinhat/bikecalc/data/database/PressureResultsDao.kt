@@ -3,6 +3,7 @@ package dev.filinhat.bikecalc.data.database
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
+import dev.filinhat.bikecalc.domain.entity.PressureResultEntity
 import kotlinx.coroutines.flow.Flow
 
 /**

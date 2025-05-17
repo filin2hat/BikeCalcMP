@@ -3,6 +3,7 @@ package dev.filinhat.bikecalc.data.database
 import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import dev.filinhat.bikecalc.domain.entity.PressureResultEntity
 
 /**
  * База данных результатов расчета давлений
