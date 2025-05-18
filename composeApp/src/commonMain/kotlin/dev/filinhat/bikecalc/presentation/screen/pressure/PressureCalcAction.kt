@@ -1,6 +1,7 @@
 package dev.filinhat.bikecalc.presentation.screen.pressure
 
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize
+import dev.filinhat.bikecalc.domain.enums.tube.TubeType
 import dev.filinhat.bikecalc.domain.enums.unit.WeightUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
 
@@ -17,6 +18,7 @@ sealed interface PressureCalcAction {
      * @param wheelSize Размер колеса
      * @param tireSize Размер покрышки
      * @param weightUnit Единица измерения веса (кг или фунт)
+     * @param selectedTubeType Бескамерная / камерная сборка покрышек
      */
     data class OnCalcPressure(
         val riderWeight: Double,
@@ -24,6 +26,7 @@ sealed interface PressureCalcAction {
         val wheelSize: WheelSize,
         val tireSize: TireSize,
         val weightUnit: WeightUnit,
+        val selectedTubeType: TubeType,
     ) : PressureCalcAction
 
     /**
@@ -34,4 +37,9 @@ sealed interface PressureCalcAction {
     data class OnTabSelected(
         val index: Int,
     ) : PressureCalcAction
+
+    /**
+     * Удаление всех результатов.
+     */
+    data object OnDeleteAllResults : PressureCalcAction
 }

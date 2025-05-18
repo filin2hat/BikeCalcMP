@@ -217,7 +217,9 @@ private fun PressureCalculatorScreen(
                     }
 
                     1 -> {
-                        PressureResultContent()
+                        PressureResultContent(
+                            savedResults = uiState.savedCalcResult,
+                        )
                     }
                 }
             }

@@ -288,11 +288,12 @@ fun PressureScreenContent(
         onClick = {
             onAction(
                 PressureCalcAction.OnCalcPressure(
-                    bikeWeight.toDouble(),
-                    riderWeight.toDouble(),
-                    wheelSize ?: return@TubeTypeChangeButton,
-                    tireSize ?: return@TubeTypeChangeButton,
-                    selectedUnitWeight,
+                    riderWeight = bikeWeight.toDouble(),
+                    bikeWeight = riderWeight.toDouble(),
+                    wheelSize = wheelSize ?: return@TubeTypeChangeButton,
+                    tireSize = tireSize ?: return@TubeTypeChangeButton,
+                    weightUnit = selectedUnitWeight,
+                    selectedTubeType = selectedTubeType,
                 ),
             )
             keyboardController?.hide()
@@ -315,11 +316,12 @@ fun PressureScreenContent(
         onClick = {
             onAction(
                 PressureCalcAction.OnCalcPressure(
-                    bikeWeight.toDouble(),
-                    riderWeight.toDouble(),
-                    wheelSize ?: return@CalculatePressureButton,
-                    tireSize ?: return@CalculatePressureButton,
-                    selectedUnitWeight,
+                    riderWeight = bikeWeight.toDouble(),
+                    bikeWeight = riderWeight.toDouble(),
+                    wheelSize = wheelSize ?: return@CalculatePressureButton,
+                    tireSize = tireSize ?: return@CalculatePressureButton,
+                    weightUnit = selectedUnitWeight,
+                    selectedTubeType = selectedTubeType,
                 ),
             )
             keyboardController?.hide()

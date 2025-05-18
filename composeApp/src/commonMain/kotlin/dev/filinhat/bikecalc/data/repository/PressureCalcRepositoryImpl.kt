@@ -1,23 +1,32 @@
 package dev.filinhat.bikecalc.data.repository
 
+import dev.filinhat.bikecalc.data.database.PressureResultsDao
+import dev.filinhat.bikecalc.domain.entity.PressureResultEntity
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize
+import dev.filinhat.bikecalc.domain.enums.tube.TubeType
 import dev.filinhat.bikecalc.domain.enums.unit.WeightUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.domain.mapper.toSavedPressureCalcResult
 import dev.filinhat.bikecalc.domain.model.PressureCalcResult
 import dev.filinhat.bikecalc.domain.model.PressureCoefficients
+import dev.filinhat.bikecalc.domain.model.SavedPressureCalcResult
 import dev.filinhat.bikecalc.domain.repository.PressureCalcRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 private const val TUBELESS_PRESSURE_COEFFICIENT = 0.85
 
-class PressureCalcRepositoryImpl : PressureCalcRepository {
+class PressureCalcRepositoryImpl(
+    private val pressureResultDao: PressureResultsDao,
+) : PressureCalcRepository {
     override fun calcPressure(
         riderWeight: Double,
         bikeWeight: Double,
         wheelSize: WheelSize,
         tireSize: TireSize,
         weightUnit: WeightUnit,
+        selectedTubeType: TubeType,
     ): Flow<PressureCalcResult> =
         flow {
             val coefficients =
@@ -46,7 +55,17 @@ class PressureCalcRepositoryImpl : PressureCalcRepository {
                 )
             val frontPressureTubeless = frontPressureTubes * TUBELESS_PRESSURE_COEFFICIENT
             val rearPressureTubeless = rearPressureTubes * TUBELESS_PRESSURE_COEFFICIENT
-
+            saveCalcResult(
+                riderWeight,
+                bikeWeight,
+                wheelSize,
+                tireSize,
+                selectedTubeType,
+                frontPressureTubes,
+                rearPressureTubes,
+                frontPressureTubeless,
+                rearPressureTubeless,
+            )
             emit(
                 PressureCalcResult(
                     tubesFront = frontPressureTubes,
@@ -56,6 +75,43 @@ class PressureCalcRepositoryImpl : PressureCalcRepository {
                 ),
             )
         }
+
+    override suspend fun saveCalcResult(
+        riderWeight: Double,
+        bikeWeight: Double,
+        wheelSize: WheelSize,
+        tireSize: TireSize,
+        selectedTubeType: TubeType,
+        frontPressureTubes: Double,
+        rearPressureTubes: Double,
+        frontPressureTubeless: Double,
+        rearPressureTubeless: Double,
+    ) {
+        val entity =
+            PressureResultEntity(
+                riderWeight = riderWeight,
+                bikeWeight = bikeWeight,
+                wheelSize = wheelSize.toString(),
+                tireSize = tireSize.toString(),
+                pressureFront = if (selectedTubeType == TubeType.TUBES) frontPressureTubes else frontPressureTubeless,
+                pressureRear = if (selectedTubeType == TubeType.TUBES) rearPressureTubes else rearPressureTubeless,
+                id = null,
+            )
+        pressureResultDao.upsert(entity)
+    }
+
+    override suspend fun deleteAllResults() {
+        pressureResultDao.deleteAllResults()
+    }
+
+    override fun getAllResults(): Flow<List<SavedPressureCalcResult>> =
+        pressureResultDao
+            .getAllResults()
+            .map { entities ->
+                entities.map { entity ->
+                    entity.toSavedPressureCalcResult()
+                }
+            }
 
     private fun calculatePressure(
         riderWeight: Double,
