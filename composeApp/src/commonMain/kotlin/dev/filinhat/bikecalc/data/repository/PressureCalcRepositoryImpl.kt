@@ -97,7 +97,7 @@ class PressureCalcRepositoryImpl(
                 pressureRear = if (selectedTubeType == TubeType.TUBES) rearPressureTubes else rearPressureTubeless,
                 id = null,
             )
-        pressureResultDao.upsert(entity)
+        pressureResultDao.insertWithLimit(entity)
     }
 
     override suspend fun deleteAllResults() {
