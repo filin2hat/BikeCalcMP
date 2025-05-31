@@ -27,12 +27,13 @@ import bikecalcmp.composeapp.generated.resources.psi
 import bikecalcmp.composeapp.generated.resources.rear_wheel_pressure
 import dev.filinhat.bikecalc.domain.enums.unit.PressureUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.Wheel
+import dev.filinhat.bikecalc.presentation.ui.theme.BikeCalcTheme
+import dev.filinhat.bikecalc.presentation.util.formatValue
 import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.resources.stringResource
-import kotlin.math.ceil
-import kotlin.math.pow
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
-const val CARD_HEIGHT = 130
+private const val CARD_HEIGHT = 130
 
 /**
  * Карточка для расчета и просмотра давления велосипеда.
@@ -136,24 +137,17 @@ fun PressureCalcCard(
     }
 }
 
-fun formatValue(
-    value: Double,
-    decimalPlaces: Int = 1,
-): String {
-    val factor = 10.0.pow(decimalPlaces)
-    val rounded = ceil(value * factor) / factor
-    val parts = rounded.toString().split('.')
-    val intPart = parts[0]
-    val fracPart = parts.getOrNull(1).orEmpty()
-
-    return if (decimalPlaces > 0) {
-        val padded = (fracPart + "0".repeat(decimalPlaces)).take(decimalPlaces)
-        "$intPart.$padded"
-    } else {
-        intPart
-    }
-}
-
 private fun Double.barToKPa(): Double = this * 100
 
 private fun Double.barToPsi(): Double = this * 14.5038
+
+@Preview
+@Composable
+private fun PressureCalcCardPreview() {
+    BikeCalcTheme {
+        PressureCalcCard(
+            value = 2.4,
+            wheel = Wheel.Front,
+        )
+    }
+}

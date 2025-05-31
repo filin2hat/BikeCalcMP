@@ -288,8 +288,8 @@ fun PressureScreenContent(
         onClick = {
             onAction(
                 PressureCalcAction.OnCalcPressure(
-                    riderWeight = bikeWeight.toDouble(),
-                    bikeWeight = riderWeight.toDouble(),
+                    riderWeight = riderWeight.toDouble(),
+                    bikeWeight = bikeWeight.toDouble(),
                     wheelSize = wheelSize ?: return@TubeTypeChangeButton,
                     tireSize = tireSize ?: return@TubeTypeChangeButton,
                     weightUnit = selectedUnitWeight,
@@ -316,8 +316,8 @@ fun PressureScreenContent(
         onClick = {
             onAction(
                 PressureCalcAction.OnCalcPressure(
-                    riderWeight = bikeWeight.toDouble(),
-                    bikeWeight = riderWeight.toDouble(),
+                    riderWeight = riderWeight.toDouble(),
+                    bikeWeight = bikeWeight.toDouble(),
                     wheelSize = wheelSize ?: return@CalculatePressureButton,
                     tireSize = tireSize ?: return@CalculatePressureButton,
                     weightUnit = selectedUnitWeight,

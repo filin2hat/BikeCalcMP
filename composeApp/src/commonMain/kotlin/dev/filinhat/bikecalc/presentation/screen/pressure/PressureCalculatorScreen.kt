@@ -49,10 +49,12 @@ import bikecalcmp.composeapp.generated.resources.dialog_text_end
 import bikecalcmp.composeapp.generated.resources.dialog_title
 import bikecalcmp.composeapp.generated.resources.new_calculation
 import bikecalcmp.composeapp.generated.resources.previous_results
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.Info
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.InfoCircleSolid
 import dev.filinhat.bikecalc.presentation.ui.kit.common.InfoDialog
+import dev.filinhat.bikecalc.presentation.ui.theme.BikeCalcTheme
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Экран расчета давления велосипеда.
@@ -99,7 +101,7 @@ private fun PressureCalculatorScreen(
                     stringResource(Res.string.dialog_text_chapter_three) + "\n" +
                     stringResource(Res.string.dialog_text_chapter_four) + "\n\n" +
                     stringResource(Res.string.dialog_text_end),
-            icon = FeatherIcons.Info,
+            icon = LineAwesomeIcons.InfoCircleSolid,
         )
     }
     Column(
@@ -134,7 +136,7 @@ private fun PressureCalculatorScreen(
                 modifier = Modifier.size(48.dp),
             ) {
                 Icon(
-                    imageVector = FeatherIcons.Info,
+                    imageVector = LineAwesomeIcons.InfoCircleSolid,
                     contentDescription = null,
                 )
             }
@@ -218,11 +220,23 @@ private fun PressureCalculatorScreen(
 
                     1 -> {
                         PressureResultContent(
+                            onAction = onAction,
                             savedResults = uiState.savedCalcResult,
                         )
                     }
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun PressureCalculatorScreenPreview() {
+    BikeCalcTheme {
+        PressureCalculatorScreen(
+            uiState = PressureCalcState(),
+            onAction = {},
+        )
     }
 }

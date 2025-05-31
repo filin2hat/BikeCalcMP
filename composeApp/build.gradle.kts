@@ -73,7 +73,7 @@ kotlin {
             implementation(libs.bundles.ktor)
             implementation(libs.bundles.coil)
 
-            implementation(libs.iconPack.feather)
+            implementation(libs.iconPack.lineAwesome)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

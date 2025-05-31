@@ -1,6 +1,6 @@
 [versions]
 # Gradle & Android SDK
-agp = "8.10.0"
+agp = "8.10.1"
 android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
@@ -45,7 +45,7 @@ sqlite = "2.5.1"
 room = "2.7.1"
 
 # Icons
-feather = "1.1.1"
+composeIcons = "1.1.1"
 
 
 
@@ -96,7 +96,7 @@ androidx-room-runtime = { group = "androidx.room", name = "room-runtime", versio
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 
 # Icons
-iconPack-feather = { module = "br.com.devsrsouza.compose.icons:feather", version.ref = "feather" }
+iconPack-lineAwesome = { module = "br.com.devsrsouza.compose.icons:line-awesome", version.ref = "composeIcons" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

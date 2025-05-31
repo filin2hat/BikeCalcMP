@@ -9,10 +9,13 @@
     <string name="wheel_size">Размер колеса</string>
     <string name="tire_size">Размер покрышки</string>
     <string name="calculate_pressure">Рассчитать давление</string>
+    <string name="clear_results">Очистить результаты</string>
     <string name="tubeless">Без камеры</string>
     <string name="app_bar_title">Калькулятор давления шин</string>
     <string name="front_wheel_pressure">Давление переднего колеса:</string>
+    <string name="front_wheel">Переднее колесо:</string>
     <string name="rear_wheel_pressure">Давление заднего колеса:</string>
+    <string name="rear_wheel">Заднее колесо:</string>
     <string name="new_calculation">Расчёт</string>
     <string name="previous_results">Результаты</string>
     <string name="bar">бар</string>

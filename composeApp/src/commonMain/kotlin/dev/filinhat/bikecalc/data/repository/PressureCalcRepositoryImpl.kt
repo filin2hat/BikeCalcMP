@@ -56,15 +56,15 @@ class PressureCalcRepositoryImpl(
             val frontPressureTubeless = frontPressureTubes * TUBELESS_PRESSURE_COEFFICIENT
             val rearPressureTubeless = rearPressureTubes * TUBELESS_PRESSURE_COEFFICIENT
             saveCalcResult(
-                riderWeight,
-                bikeWeight,
-                wheelSize,
-                tireSize,
-                selectedTubeType,
-                frontPressureTubes,
-                rearPressureTubes,
-                frontPressureTubeless,
-                rearPressureTubeless,
+                riderWeight = riderWeight,
+                bikeWeight = bikeWeight,
+                wheelSize = wheelSize,
+                tireSize = tireSize,
+                selectedTubeType = selectedTubeType,
+                frontPressureTubes = frontPressureTubes,
+                rearPressureTubes = rearPressureTubes,
+                frontPressureTubeless = frontPressureTubeless,
+                rearPressureTubeless = rearPressureTubeless,
             )
             emit(
                 PressureCalcResult(
@@ -91,8 +91,8 @@ class PressureCalcRepositoryImpl(
             PressureResultEntity(
                 riderWeight = riderWeight,
                 bikeWeight = bikeWeight,
-                wheelSize = wheelSize.toString(),
-                tireSize = tireSize.toString(),
+                wheelSize = wheelSize.inchesSize.toString(),
+                tireSize = tireSize.tireWidthInInches.toString(),
                 pressureFront = if (selectedTubeType == TubeType.TUBES) frontPressureTubes else frontPressureTubeless,
                 pressureRear = if (selectedTubeType == TubeType.TUBES) rearPressureTubes else rearPressureTubeless,
                 id = null,
