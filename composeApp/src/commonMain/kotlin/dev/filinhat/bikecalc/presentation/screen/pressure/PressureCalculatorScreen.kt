@@ -36,9 +36,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import bikecalcmp.composeapp.generated.resources.Montserrat_Regular
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.app_name
 import bikecalcmp.composeapp.generated.resources.dialog_text_chapter_four
@@ -56,6 +58,7 @@ import compose.icons.lineawesomeicons.InfoCircleSolid
 import dev.filinhat.bikecalc.presentation.ui.kit.common.InfoDialog
 import dev.filinhat.bikecalc.presentation.ui.theme.BikeCalcTheme
 import dev.filinhat.bikecalc.presentation.ui.theme.LocalThemeIsDark
+import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

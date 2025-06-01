@@ -94,6 +94,7 @@ fun BikeCalcTheme(content: @Composable () -> Unit) {
             colorScheme = if (isDark) DarkColorScheme else LightColorScheme,
             content = { Surface(content = content) },
             shapes = Shapes,
+            typography = MontserratTypography(),
         )
     }
 }

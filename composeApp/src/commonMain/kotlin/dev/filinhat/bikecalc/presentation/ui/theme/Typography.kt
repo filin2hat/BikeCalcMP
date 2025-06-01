@@ -1,128 +1,49 @@
-// package dev.filinhat.bikecalc.presentation.ui.theme
-//
-// import androidx.compose.material3.Typography
-// import androidx.compose.ui.text.TextStyle
-// import androidx.compose.ui.text.font.Font
-// import androidx.compose.ui.text.font.FontFamily
-// import androidx.compose.ui.text.font.FontWeight
-// import androidx.compose.ui.unit.sp
-// import dev.filinhat.bikecalc.R
-//
-// private val robotoFamily =
-//    FontFamily(
-//        Font(R.font.roboto_regular, FontWeight.Normal),
-//        Font(R.font.roboto_medium, FontWeight.Medium),
-//    )
-//
-// val Typography =
-//    Typography(
-//        displayLarge =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Normal,
-//                fontSize = 57.sp,
-//                lineHeight = 64.sp,
-//                letterSpacing = (-0.25).sp,
-//            ),
-//        displayMedium =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Normal,
-//                fontSize = 50.sp,
-//            ),
-//        displaySmall =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Normal,
-//                fontSize = 36.sp,
-//                lineHeight = 44.sp,
-//            ),
-//        headlineLarge =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Normal,
-//                fontSize = 32.sp,
-//                lineHeight = 40.sp,
-//            ),
-//        headlineMedium =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Normal,
-//                fontSize = 28.sp,
-//                lineHeight = 36.sp,
-//            ),
-//        headlineSmall =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Normal,
-//                fontSize = 24.sp,
-//                lineHeight = 32.sp,
-//            ),
-//        bodyLarge =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Normal,
-//                fontSize = 17.sp,
-//                lineHeight = 22.sp,
-//            ),
-//        bodyMedium =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Normal,
-//                fontSize = 13.sp,
-//                lineHeight = 17.sp,
-//            ),
-//        bodySmall =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Normal,
-//                fontSize = 10.sp,
-//            ),
-//        labelLarge =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Medium,
-//                fontSize = 14.sp,
-//                lineHeight = 20.sp,
-//                letterSpacing = 0.1.sp,
-//            ),
-//        labelMedium =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Medium,
-//                fontSize = 12.sp,
-//                lineHeight = 16.sp,
-//                letterSpacing = 0.5.sp,
-//            ),
-//        labelSmall =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Medium,
-//                fontSize = 11.sp,
-//                lineHeight = 16.sp,
-//                letterSpacing = 0.5.sp,
-//            ),
-//        titleLarge =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Normal,
-//                fontSize = 22.sp,
-//                lineHeight = 28.sp,
-//            ),
-//        titleMedium =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Medium,
-//                fontSize = 16.sp,
-//                lineHeight = 24.sp,
-//                letterSpacing = 0.15.sp,
-//            ),
-//        titleSmall =
-//            TextStyle(
-//                fontFamily = robotoFamily,
-//                fontWeight = FontWeight.Medium,
-//                fontSize = 14.sp,
-//                lineHeight = 20.sp,
-//                letterSpacing = 0.1.sp,
-//            ),
-//    )
+package dev.filinhat.bikecalc.presentation.ui.theme
+
+import androidx.compose.material3.Typography
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import bikecalcmp.composeapp.generated.resources.Montserrat_Bold
+import bikecalcmp.composeapp.generated.resources.Montserrat_Light
+import bikecalcmp.composeapp.generated.resources.Montserrat_Medium
+import bikecalcmp.composeapp.generated.resources.Montserrat_Regular
+import bikecalcmp.composeapp.generated.resources.Montserrat_Thin
+import bikecalcmp.composeapp.generated.resources.Res
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.Font
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+fun MontserratFontFamily() =
+    FontFamily(
+        Font(Res.font.Montserrat_Thin, FontWeight.Thin, FontStyle.Normal),
+        Font(Res.font.Montserrat_Light, FontWeight.Light, FontStyle.Normal),
+        Font(Res.font.Montserrat_Regular, FontWeight.Normal, FontStyle.Normal),
+        Font(Res.font.Montserrat_Medium, FontWeight.Medium, FontStyle.Normal),
+        Font(Res.font.Montserrat_Bold, FontWeight.Bold, FontStyle.Normal),
+    )
+
+@Composable
+fun MontserratTypography() =
+    Typography().run {
+        val fontFamily = MontserratFontFamily()
+        copy(
+            displayLarge = displayLarge.copy(fontFamily = fontFamily),
+            displayMedium = displayMedium.copy(fontFamily = fontFamily),
+            displaySmall = displaySmall.copy(fontFamily = fontFamily),
+            headlineLarge = headlineLarge.copy(fontFamily = fontFamily),
+            headlineMedium = headlineMedium.copy(fontFamily = fontFamily),
+            headlineSmall = headlineSmall.copy(fontFamily = fontFamily),
+            titleLarge = titleLarge.copy(fontFamily = fontFamily),
+            titleMedium = titleMedium.copy(fontFamily = fontFamily),
+            titleSmall = titleSmall.copy(fontFamily = fontFamily),
+            bodyLarge = bodyLarge.copy(fontFamily = fontFamily),
+            bodyMedium = bodyMedium.copy(fontFamily = fontFamily),
+            bodySmall = bodySmall.copy(fontFamily = fontFamily),
+            labelLarge = labelLarge.copy(fontFamily = fontFamily),
+            labelMedium = labelMedium.copy(fontFamily = fontFamily),
+            labelSmall = labelSmall.copy(fontFamily = fontFamily),
+        )
+    }
