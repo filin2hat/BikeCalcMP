@@ -1,8 +1,13 @@
 package dev.filinhat.bikecalc.presentation.screen.pressure
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -87,8 +92,12 @@ fun PressureScreenContent(
 
     AnimatedVisibility(
         visible = expandedCalcResult,
-        enter = expandVertically(),
-        exit = shrinkVertically(),
+        enter =
+            fadeIn(animationSpec = tween(durationMillis = 150)) +
+                slideInVertically(animationSpec = tween(durationMillis = 150)),
+        exit =
+            fadeOut(animationSpec = tween(durationMillis = 150)) +
+                slideOutVertically(animationSpec = tween(durationMillis = 150)),
         modifier = Modifier.padding(bottom = 18.dp),
     ) {
         Column(
@@ -102,6 +111,7 @@ fun PressureScreenContent(
                     },
                 wheel = Wheel.Front,
             )
+
             Spacer(modifier = Modifier.size(18.dp))
 
             PressureCalcCard(
@@ -162,6 +172,7 @@ fun PressureScreenContent(
                 ),
             singleLine = true,
         )
+
         OutlinedTextField(
             value = bikeWeight,
             onValueChange = {
@@ -202,6 +213,7 @@ fun PressureScreenContent(
                 ),
             singleLine = true,
         )
+
         FilledIconButton(
             modifier =
                 Modifier
@@ -293,8 +305,10 @@ fun PressureScreenContent(
                     .fillMaxWidth(),
         )
     }
+
     TubeTypeChangeButton(
         onClick = { tubeType ->
+            expandedCalcResult = false
             selectedTubeType = tubeType
             keyboardController?.hide()
             focusManager?.clearFocus()

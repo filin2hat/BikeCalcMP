@@ -107,8 +107,8 @@ android {
             libs.versions.android.targetSdk
                 .get()
                 .toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 7
+        versionName = "3.0.0"
     }
     packaging {
         resources {
@@ -116,7 +116,22 @@ android {
         }
     }
     buildTypes {
-        getByName("release") {
+        release {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
+            isDebuggable = false
+            isJniDebuggable = false
+            renderscriptOptimLevel = 3
+        }
+        debug {
+            isDebuggable = true
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+            signingConfig = signingConfigs.getByName("debug")
+
             isMinifyEnabled = false
         }
     }
