@@ -55,6 +55,7 @@ import dev.filinhat.bikecalc.presentation.ui.kit.common.DropdownMenu
 import dev.filinhat.bikecalc.presentation.ui.kit.pressure.CalculatePressureButton
 import dev.filinhat.bikecalc.presentation.ui.kit.pressure.PressureCalcCard
 import dev.filinhat.bikecalc.presentation.ui.kit.pressure.TubeTypeChangeButton
+import dev.filinhat.bikecalc.presentation.util.toBikeDouble
 import dev.filinhat.bikecalc.presentation.util.validateBikeWeight
 import dev.filinhat.bikecalc.presentation.util.validateUserWeight
 import kotlinx.collections.immutable.toPersistentList
@@ -154,6 +155,7 @@ fun PressureScreenContent(
                     focusedTextColor = MaterialTheme.colorScheme.primary,
                     unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
                 ),
+            singleLine = true,
         )
         OutlinedTextField(
             value = bikeWeight,
@@ -193,6 +195,7 @@ fun PressureScreenContent(
                     focusedTextColor = MaterialTheme.colorScheme.primary,
                     unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
                 ),
+            singleLine = true,
         )
         FilledIconButton(
             modifier =
@@ -285,21 +288,11 @@ fun PressureScreenContent(
         )
     }
     TubeTypeChangeButton(
-        onClick = {
-            onAction(
-                PressureCalcAction.OnCalcPressure(
-                    riderWeight = riderWeight.toDouble(),
-                    bikeWeight = bikeWeight.toDouble(),
-                    wheelSize = wheelSize ?: return@TubeTypeChangeButton,
-                    tireSize = tireSize ?: return@TubeTypeChangeButton,
-                    weightUnit = selectedUnitWeight,
-                    selectedTubeType = selectedTubeType,
-                ),
-            )
+        onClick = { tubeType ->
+            selectedTubeType = tubeType
             keyboardController?.hide()
             focusManager?.clearFocus()
         },
-        onTypeChange = { selectedTubeType = it },
         enabled =
             validateIfEmpty(
                 wrongRiderWeight,
@@ -316,8 +309,8 @@ fun PressureScreenContent(
         onClick = {
             onAction(
                 PressureCalcAction.OnCalcPressure(
-                    riderWeight = riderWeight.toDouble(),
-                    bikeWeight = bikeWeight.toDouble(),
+                    riderWeight = riderWeight.toBikeDouble(),
+                    bikeWeight = bikeWeight.toBikeDouble(),
                     wheelSize = wheelSize ?: return@CalculatePressureButton,
                     tireSize = tireSize ?: return@CalculatePressureButton,
                     weightUnit = selectedUnitWeight,
@@ -340,7 +333,6 @@ fun PressureScreenContent(
     )
 }
 
-@Composable
 private fun validateIfEmpty(
     wrongRiderWeight: Boolean,
     wrongBikeWeight: Boolean,

@@ -40,7 +40,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import bikecalcmp.composeapp.generated.resources.Res
-import bikecalcmp.composeapp.generated.resources.app_bar_title
+import bikecalcmp.composeapp.generated.resources.app_name
 import bikecalcmp.composeapp.generated.resources.dialog_text_chapter_four
 import bikecalcmp.composeapp.generated.resources.dialog_text_chapter_one
 import bikecalcmp.composeapp.generated.resources.dialog_text_chapter_three
@@ -116,7 +116,7 @@ private fun PressureCalculatorScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = stringResource(Res.string.app_bar_title),
+                text = stringResource(Res.string.app_name),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.titleLarge,
@@ -162,6 +162,7 @@ private fun PressureCalculatorScreen(
                                 .tabIndicatorOffset(tabPositions[uiState.selectedTabIndex]),
                     )
                 },
+                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                 tabs = {
                     Tab(
                         selected = uiState.selectedTabIndex == 0,

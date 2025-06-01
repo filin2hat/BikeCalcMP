@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -27,14 +27,13 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TubeTypeChangeButton(
-    onClick: () -> Unit,
-    onTypeChange: (TubeType) -> Unit,
+    onClick: (TubeType) -> Unit,
     enabled: Boolean,
     selectedType: TubeType,
     modifier: Modifier = Modifier,
 ) {
-    var selectType by remember { mutableStateOf(selectedType) }
-    var selectedIndex by remember { mutableIntStateOf(0) }
+    var selectType by rememberSaveable { mutableStateOf(selectedType) }
+    var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
     val items =
         listOf(
             stringResource(Res.string.tubes),
@@ -74,14 +73,13 @@ fun TubeTypeChangeButton(
                             ),
                     ),
                 onClick = {
-                    onClick()
                     selectedIndex = index
                     selectType =
                         when (index) {
                             0 -> TubeType.TUBES
                             else -> TubeType.TUBELESS
                         }
-                    onTypeChange(selectType)
+                    onClick(selectType)
                 },
                 selected = index == selectedIndex,
                 label = {

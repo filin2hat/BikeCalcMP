@@ -3,7 +3,9 @@ package dev.filinhat.bikecalc.presentation.util
 import kotlin.math.ceil
 import kotlin.math.pow
 
-
+/**
+ * Функция для форматирования числа с заданной точностью
+ */
 fun formatValue(
     value: Double,
     decimalPlaces: Int = 1,
@@ -21,3 +23,8 @@ fun formatValue(
         intPart
     }
 }
+
+/**
+ * Функция для безопасного преобразования строки в Double
+ */
+fun String.toBikeDouble(): Double = this.trim().replace(',', '.').toDoubleOrNull() ?: 0.0

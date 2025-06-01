@@ -12,13 +12,13 @@
     <string name="calculate_pressure">Calculate pressure</string>
     <string name="clear_results">Clear results</string>
     <string name="tubes">Tubes</string>
-    <string name="tubeless">Tubeless</string>
-    <string name="app_bar_title">Tire pressure calculator</string>
+    <string name="tubeless">Tubeless</string>\
     <string name="front_wheel_pressure">Front wheel pressure:</string>
     <string name="front_wheel">Front wheel:</string>
     <string name="rear_wheel_pressure">Rear wheel pressure:</string>
     <string name="rear_wheel">Rear wheel:</string>
     <string name="new_calculation">New calculation</string>
+    <string name="no_results">Oops! It's empty here for now...</string>
     <string name="previous_results">Previous results</string>
     <string name="bar">bar</string>
     <string name="kpa">kPa</string>

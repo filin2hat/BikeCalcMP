@@ -3,7 +3,6 @@ package dev.filinhat.bikecalc.presentation.ui.kit.pressure
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -13,7 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.clear_results
+import dev.filinhat.bikecalc.presentation.ui.theme.BikeCalcTheme
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+
+private const val BUTTON_HEIGHT = 48
 
 @Composable
 fun DeleteResultsButton(
@@ -33,17 +36,27 @@ fun DeleteResultsButton(
         modifier =
             modifier
                 .fillMaxWidth()
-                .height(75.dp)
-                .padding(bottom = 18.dp),
+                .height(BUTTON_HEIGHT.dp),
         colors =
             ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.scrim,
+                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                contentColor = MaterialTheme.colorScheme.secondary,
             ),
     ) {
         Text(
             text = stringResource(Res.string.clear_results),
             style = MaterialTheme.typography.titleLarge,
+        )
+    }
+}
+
+@Preview()
+@Composable
+fun PreviewDeleteResultsButtonLight() {
+    BikeCalcTheme {
+        DeleteResultsButton(
+            onClick = {},
+            enabled = true,
         )
     }
 }

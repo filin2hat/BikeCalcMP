@@ -26,9 +26,7 @@ import compose.icons.LineAwesomeIcons
 import compose.icons.lineawesomeicons.ArrowsAltHSolid
 import compose.icons.lineawesomeicons.BicycleSolid
 import compose.icons.lineawesomeicons.CircleNotchSolid
-import compose.icons.lineawesomeicons.ExpandArrowsAltSolid
 import compose.icons.lineawesomeicons.UserSolid
-import compose.icons.lineawesomeicons.WeightSolid
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize29Inches
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.domain.model.SavedPressureCalcResult
@@ -59,7 +57,7 @@ fun PressureResultCard(
             modifier =
                 Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                    .padding(horizontal = 8.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Row(
