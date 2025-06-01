@@ -18,6 +18,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.tubeless
@@ -39,6 +41,7 @@ fun TubeTypeChangeButton(
             stringResource(Res.string.tubes),
             stringResource(Res.string.tubeless),
         )
+    val haptic = LocalHapticFeedback.current
 
     SingleChoiceSegmentedButtonRow(
         modifier = modifier.fillMaxWidth(),
@@ -80,6 +83,7 @@ fun TubeTypeChangeButton(
                             else -> TubeType.TUBELESS
                         }
                     onClick(selectType)
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 },
                 selected = index == selectedIndex,
                 label = {

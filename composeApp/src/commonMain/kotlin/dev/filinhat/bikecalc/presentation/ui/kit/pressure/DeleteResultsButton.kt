@@ -9,6 +9,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.clear_results
@@ -24,8 +26,13 @@ fun DeleteResultsButton(
     enabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
+    val haptic = LocalHapticFeedback.current
+
     Button(
-        onClick = onClick,
+        onClick = {
+            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+            onClick()
+        },
         enabled = enabled,
         shape = MaterialTheme.shapes.medium,
         border =

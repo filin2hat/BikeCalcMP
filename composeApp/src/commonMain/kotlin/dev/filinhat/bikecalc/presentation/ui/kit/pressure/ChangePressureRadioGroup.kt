@@ -22,6 +22,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import bikecalcmp.composeapp.generated.resources.Res
@@ -39,6 +41,7 @@ fun ChangePressureRadioGroup(
     modifier: Modifier = Modifier,
 ) {
     val (selectedOption, onOptionSelected) = rememberSaveable { mutableStateOf(pressureUnits[0]) }
+    val haptic = LocalHapticFeedback.current
 
     Column(
         modifier
@@ -64,6 +67,7 @@ fun ChangePressureRadioGroup(
                         onClick = {
                             onOptionSelected(item)
                             onPressureChange(item)
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                         },
                         role = Role.RadioButton,
                     ),

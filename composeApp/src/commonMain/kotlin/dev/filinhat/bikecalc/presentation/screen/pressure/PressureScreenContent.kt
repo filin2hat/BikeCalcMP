@@ -27,6 +27,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
@@ -80,6 +82,9 @@ fun PressureScreenContent(
 
     var expandedTireSize by rememberSaveable { mutableStateOf(false) }
     var expandedCalcResult by rememberSaveable { mutableStateOf(false) }
+
+    val haptic = LocalHapticFeedback.current
+
     AnimatedVisibility(
         visible = expandedCalcResult,
         enter = expandVertically(),
@@ -222,6 +227,7 @@ fun PressureScreenContent(
                             WeightUnit.KG
                         }
                     }
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
             },
         ) {
             Text(

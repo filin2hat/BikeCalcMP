@@ -47,13 +47,17 @@ import bikecalcmp.composeapp.generated.resources.dialog_text_chapter_three
 import bikecalcmp.composeapp.generated.resources.dialog_text_chapter_two
 import bikecalcmp.composeapp.generated.resources.dialog_text_end
 import bikecalcmp.composeapp.generated.resources.dialog_title
+import bikecalcmp.composeapp.generated.resources.ic_dark_mode
+import bikecalcmp.composeapp.generated.resources.ic_light_mode
 import bikecalcmp.composeapp.generated.resources.new_calculation
 import bikecalcmp.composeapp.generated.resources.previous_results
 import compose.icons.LineAwesomeIcons
 import compose.icons.lineawesomeicons.InfoCircleSolid
 import dev.filinhat.bikecalc.presentation.ui.kit.common.InfoDialog
 import dev.filinhat.bikecalc.presentation.ui.theme.BikeCalcTheme
+import dev.filinhat.bikecalc.presentation.ui.theme.LocalThemeIsDark
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
@@ -83,6 +87,15 @@ private fun PressureCalculatorScreen(
     val focusManager = LocalFocusManager.current
     val pagerState = rememberPagerState { 2 }
     val currentOnAction by rememberUpdatedState(onAction)
+    var isDark by LocalThemeIsDark.current
+    val iconTheme =
+        remember(isDark) {
+            if (isDark) {
+                Res.drawable.ic_light_mode
+            } else {
+                Res.drawable.ic_dark_mode
+            }
+        }
 
     LaunchedEffect(uiState.selectedTabIndex) {
         pagerState.animateScrollToPage(uiState.selectedTabIndex)
@@ -122,6 +135,20 @@ private fun PressureCalculatorScreen(
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.primary,
             )
+            Spacer(modifier = Modifier.weight(1f))
+
+            IconButton(
+                onClick = {
+                    isDark = !isDark
+                },
+                colors =
+                    IconButtonDefaults.iconButtonColors(
+                        contentColor = MaterialTheme.colorScheme.primary,
+                    ),
+                modifier = Modifier.size(48.dp),
+            ) {
+                Icon(vectorResource(iconTheme), contentDescription = null)
+            }
 
             IconButton(
                 onClick = {
