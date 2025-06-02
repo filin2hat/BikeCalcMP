@@ -18,7 +18,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -90,267 +92,275 @@ fun PressureScreenContent(
 
     val haptic = LocalHapticFeedback.current
 
-    AnimatedVisibility(
-        visible = expandedCalcResult,
-        enter =
-            fadeIn(animationSpec = tween(durationMillis = 150)) +
-                slideInVertically(animationSpec = tween(durationMillis = 150)),
-        exit =
-            fadeOut(animationSpec = tween(durationMillis = 150)) +
-                slideOutVertically(animationSpec = tween(durationMillis = 150)),
-        modifier = Modifier.padding(bottom = 18.dp),
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            PressureCalcCard(
-                value =
-                    when (selectedTubeType) {
-                        TubeType.TUBES -> uiState.result.tubesFront
-                        TubeType.TUBELESS -> uiState.result.tubelessFront
-                    },
-                wheel = Wheel.Front,
-            )
-
-            Spacer(modifier = Modifier.size(18.dp))
-
-            PressureCalcCard(
-                value =
-                    when (selectedTubeType) {
-                        TubeType.TUBES -> uiState.result.tubesRear
-                        TubeType.TUBELESS -> uiState.result.tubelessRear
-                    },
-                wheel = Wheel.Rear,
-            )
-        }
-    }
-    Row(
+    Column(
         modifier =
             Modifier
                 .fillMaxSize()
-                .padding(bottom = 14.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.CenterVertically,
+                .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Top,
     ) {
-        OutlinedTextField(
-            value = riderWeight,
-            onValueChange = {
-                riderWeight =
-                    if (it.startsWith("0")) {
-                        it.trimStart('0')
-                    } else {
-                        it
-                    }
-                wrongRiderWeight = !validateUserWeight(riderWeight)
-                expandedCalcResult = false
-            },
-            label = {
-                Text(
-                    text = stringResource(Res.string.rider_weight),
-                    fontSize = 14.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            },
-            modifier =
-                Modifier
-                    .weight(0.5f)
-                    .fillMaxWidth(),
-            isError = wrongRiderWeight,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            textStyle = MaterialTheme.typography.displaySmall,
-            shape = MaterialTheme.shapes.medium,
-            colors =
-                OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = MaterialTheme.colorScheme.background,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                    unfocusedLabelColor = MaterialTheme.colorScheme.onBackground,
-                    focusedLabelColor = MaterialTheme.colorScheme.primary,
-                    unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
-                    focusedTextColor = MaterialTheme.colorScheme.primary,
-                    unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
-                ),
-            singleLine = true,
-        )
-
-        OutlinedTextField(
-            value = bikeWeight,
-            onValueChange = {
-                bikeWeight =
-                    if (it.startsWith("0")) {
-                        it.trimStart('0')
-                    } else {
-                        it
-                    }
-                wrongBikeWeight = !validateBikeWeight(bikeWeight)
-                expandedCalcResult = false
-            },
-            label = {
-                Text(
-                    text = stringResource(Res.string.bike_weight),
-                    fontSize = 14.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            },
-            modifier =
-                Modifier
-                    .weight(0.5f)
-                    .fillMaxWidth(),
-            isError = wrongBikeWeight,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            textStyle = MaterialTheme.typography.displaySmall,
-            shape = MaterialTheme.shapes.medium,
-            colors =
-                OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = MaterialTheme.colorScheme.background,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                    unfocusedLabelColor = MaterialTheme.colorScheme.onBackground,
-                    focusedLabelColor = MaterialTheme.colorScheme.primary,
-                    unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
-                    focusedTextColor = MaterialTheme.colorScheme.primary,
-                    unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
-                ),
-            singleLine = true,
-        )
-
-        FilledIconButton(
-            modifier =
-                Modifier
-                    .weight(0.20f)
-                    .fillMaxWidth()
-                    .height(78.dp)
-                    .padding(top = 4.dp)
-                    .border(
-                        width = 2.dp,
-                        color = MaterialTheme.colorScheme.inversePrimary,
-                        shape = MaterialTheme.shapes.medium,
-                    ),
-            shape = MaterialTheme.shapes.medium,
-            onClick = {
-                expandedCalcResult = false
-                selectedUnitWeight =
-                    when (selectedUnitWeight) {
-                        WeightUnit.KG -> {
-                            WeightUnit.LBS
-                        }
-
-                        WeightUnit.LBS -> {
-                            WeightUnit.KG
-                        }
-                    }
-                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-            },
+        AnimatedVisibility(
+            visible = expandedCalcResult,
+            enter =
+                fadeIn(animationSpec = tween(durationMillis = 150)) +
+                    slideInVertically(animationSpec = tween(durationMillis = 150)),
+            exit =
+                fadeOut(animationSpec = tween(durationMillis = 150)) +
+                    slideOutVertically(animationSpec = tween(durationMillis = 150)),
+            modifier = Modifier.padding(bottom = 18.dp),
         ) {
-            Text(
-                text =
-                    if (selectedUnitWeight == WeightUnit.KG) {
-                        stringResource(Res.string.kg)
-                    } else {
-                        stringResource(Res.string.lbs)
-                    },
-                style = MaterialTheme.typography.titleMedium.copy(fontSize = 18.sp),
-            )
-        }
-    }
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                PressureCalcCard(
+                    value =
+                        when (selectedTubeType) {
+                            TubeType.TUBES -> uiState.result.tubesFront
+                            TubeType.TUBELESS -> uiState.result.tubelessFront
+                        },
+                    wheel = Wheel.Front,
+                )
 
-    DropdownMenu(
-        onItemSelect = {
-            if (it != wheelSize) {
-                tireSize = null
-                expandedTireSize = false
-                expandedCalcResult = false
+                Spacer(modifier = Modifier.size(18.dp))
+
+                PressureCalcCard(
+                    value =
+                        when (selectedTubeType) {
+                            TubeType.TUBES -> uiState.result.tubesRear
+                            TubeType.TUBELESS -> uiState.result.tubelessRear
+                        },
+                    wheel = Wheel.Rear,
+                )
             }
-            wheelSize = it
-            expandedTireSize = true
-        },
-        label = stringResource(Res.string.wheel_size),
-        items = WheelSize.entries.toPersistentList(),
-        value = wheelSize,
-        itemLabel = { it?.nameSize },
-        modifier =
-            Modifier
-                .padding(
-                    bottom = if (expandedTireSize) 18.dp else 22.dp,
-                ).fillMaxWidth(),
-    )
+        }
+        Row(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(bottom = 14.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            OutlinedTextField(
+                value = riderWeight,
+                onValueChange = {
+                    riderWeight =
+                        if (it.startsWith("0")) {
+                            it.trimStart('0')
+                        } else {
+                            it
+                        }
+                    wrongRiderWeight = !validateUserWeight(riderWeight)
+                    expandedCalcResult = false
+                },
+                label = {
+                    Text(
+                        text = stringResource(Res.string.rider_weight),
+                        fontSize = 14.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                },
+                modifier =
+                    Modifier
+                        .weight(0.5f)
+                        .fillMaxWidth(),
+                isError = wrongRiderWeight,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                textStyle = MaterialTheme.typography.displaySmall,
+                shape = MaterialTheme.shapes.medium,
+                colors =
+                    OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedLabelColor = MaterialTheme.colorScheme.onBackground,
+                        focusedLabelColor = MaterialTheme.colorScheme.primary,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+                        focusedTextColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
+                    ),
+                singleLine = true,
+            )
 
-    AnimatedVisibility(
-        visible = expandedTireSize,
-        enter = expandVertically(),
-        exit = shrinkVertically(),
-    ) {
+            OutlinedTextField(
+                value = bikeWeight,
+                onValueChange = {
+                    bikeWeight =
+                        if (it.startsWith("0")) {
+                            it.trimStart('0')
+                        } else {
+                            it
+                        }
+                    wrongBikeWeight = !validateBikeWeight(bikeWeight)
+                    expandedCalcResult = false
+                },
+                label = {
+                    Text(
+                        text = stringResource(Res.string.bike_weight),
+                        fontSize = 14.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                },
+                modifier =
+                    Modifier
+                        .weight(0.5f)
+                        .fillMaxWidth(),
+                isError = wrongBikeWeight,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                textStyle = MaterialTheme.typography.displaySmall,
+                shape = MaterialTheme.shapes.medium,
+                colors =
+                    OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedLabelColor = MaterialTheme.colorScheme.onBackground,
+                        focusedLabelColor = MaterialTheme.colorScheme.primary,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+                        focusedTextColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
+                    ),
+                singleLine = true,
+            )
+
+            FilledIconButton(
+                modifier =
+                    Modifier
+                        .weight(0.20f)
+                        .fillMaxWidth()
+                        .height(78.dp)
+                        .padding(top = 4.dp)
+                        .border(
+                            width = 2.dp,
+                            color = MaterialTheme.colorScheme.inversePrimary,
+                            shape = MaterialTheme.shapes.medium,
+                        ),
+                shape = MaterialTheme.shapes.medium,
+                onClick = {
+                    expandedCalcResult = false
+                    selectedUnitWeight =
+                        when (selectedUnitWeight) {
+                            WeightUnit.KG -> {
+                                WeightUnit.LBS
+                            }
+
+                            WeightUnit.LBS -> {
+                                WeightUnit.KG
+                            }
+                        }
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                },
+            ) {
+                Text(
+                    text =
+                        if (selectedUnitWeight == WeightUnit.KG) {
+                            stringResource(Res.string.kg)
+                        } else {
+                            stringResource(Res.string.lbs)
+                        },
+                    style = MaterialTheme.typography.titleMedium.copy(fontSize = 18.sp),
+                )
+            }
+        }
+
         DropdownMenu(
             onItemSelect = {
-                tireSize = it
-                expandedCalcResult = false
+                if (it != wheelSize) {
+                    tireSize = null
+                    expandedTireSize = false
+                    expandedCalcResult = false
+                }
+                wheelSize = it
+                expandedTireSize = true
             },
-            label = stringResource(Res.string.tire_size),
-            items =
-                when (wheelSize) {
-                    WheelSize.Inches20BMX -> TireSize20InchesBMX.entries.toPersistentList()
-                    WheelSize.Inches20 -> TireSize20Inches.entries.toPersistentList()
-                    WheelSize.Inches24 -> TireSize24Inches.entries.toPersistentList()
-                    WheelSize.Inches26 -> TireSize26Inches.entries.toPersistentList()
-                    WheelSize.Inches275 -> TireSize275Inches.entries.toPersistentList()
-                    WheelSize.Inches28 -> TireSize28Inches.entries.toPersistentList()
-                    WheelSize.Inches29 -> TireSize29Inches.entries.toPersistentList()
-                    else -> null
-                },
-            value = tireSize,
+            label = stringResource(Res.string.wheel_size),
+            items = WheelSize.entries.toPersistentList(),
+            value = wheelSize,
             itemLabel = { it?.nameSize },
             modifier =
                 Modifier
-                    .padding(bottom = 22.dp)
-                    .fillMaxWidth(),
+                    .padding(
+                        bottom = if (expandedTireSize) 18.dp else 22.dp,
+                    ).fillMaxWidth(),
+        )
+
+        AnimatedVisibility(
+            visible = expandedTireSize,
+            enter = expandVertically(),
+            exit = shrinkVertically(),
+        ) {
+            DropdownMenu(
+                onItemSelect = {
+                    tireSize = it
+                    expandedCalcResult = false
+                },
+                label = stringResource(Res.string.tire_size),
+                items =
+                    when (wheelSize) {
+                        WheelSize.Inches20BMX -> TireSize20InchesBMX.entries.toPersistentList()
+                        WheelSize.Inches20 -> TireSize20Inches.entries.toPersistentList()
+                        WheelSize.Inches24 -> TireSize24Inches.entries.toPersistentList()
+                        WheelSize.Inches26 -> TireSize26Inches.entries.toPersistentList()
+                        WheelSize.Inches275 -> TireSize275Inches.entries.toPersistentList()
+                        WheelSize.Inches28 -> TireSize28Inches.entries.toPersistentList()
+                        WheelSize.Inches29 -> TireSize29Inches.entries.toPersistentList()
+                        else -> null
+                    },
+                value = tireSize,
+                itemLabel = { it?.nameSize },
+                modifier =
+                    Modifier
+                        .padding(bottom = 22.dp)
+                        .fillMaxWidth(),
+            )
+        }
+
+        TubeTypeChangeButton(
+            onClick = { tubeType ->
+                expandedCalcResult = false
+                selectedTubeType = tubeType
+                keyboardController?.hide()
+                focusManager?.clearFocus()
+            },
+            enabled =
+                validateIfEmpty(
+                    wrongRiderWeight,
+                    wrongBikeWeight,
+                    wheelSize,
+                    tireSize,
+                    riderWeight,
+                    bikeWeight,
+                ),
+            selectedType = selectedTubeType,
+        )
+
+        CalculatePressureButton(
+            onClick = {
+                onAction(
+                    PressureCalcAction.OnCalcPressure(
+                        riderWeight = riderWeight.toBikeDouble(),
+                        bikeWeight = bikeWeight.toBikeDouble(),
+                        wheelSize = wheelSize ?: return@CalculatePressureButton,
+                        tireSize = tireSize ?: return@CalculatePressureButton,
+                        weightUnit = selectedUnitWeight,
+                        selectedTubeType = selectedTubeType,
+                    ),
+                )
+                keyboardController?.hide()
+                focusManager?.clearFocus()
+                expandedCalcResult = true
+            },
+            enabled =
+                validateIfEmpty(
+                    wrongRiderWeight,
+                    wrongBikeWeight,
+                    wheelSize,
+                    tireSize,
+                    riderWeight,
+                    bikeWeight,
+                ),
         )
     }
-
-    TubeTypeChangeButton(
-        onClick = { tubeType ->
-            expandedCalcResult = false
-            selectedTubeType = tubeType
-            keyboardController?.hide()
-            focusManager?.clearFocus()
-        },
-        enabled =
-            validateIfEmpty(
-                wrongRiderWeight,
-                wrongBikeWeight,
-                wheelSize,
-                tireSize,
-                riderWeight,
-                bikeWeight,
-            ),
-        selectedType = selectedTubeType,
-    )
-
-    CalculatePressureButton(
-        onClick = {
-            onAction(
-                PressureCalcAction.OnCalcPressure(
-                    riderWeight = riderWeight.toBikeDouble(),
-                    bikeWeight = bikeWeight.toBikeDouble(),
-                    wheelSize = wheelSize ?: return@CalculatePressureButton,
-                    tireSize = tireSize ?: return@CalculatePressureButton,
-                    weightUnit = selectedUnitWeight,
-                    selectedTubeType = selectedTubeType,
-                ),
-            )
-            keyboardController?.hide()
-            focusManager?.clearFocus()
-            expandedCalcResult = true
-        },
-        enabled =
-            validateIfEmpty(
-                wrongRiderWeight,
-                wrongBikeWeight,
-                wheelSize,
-                tireSize,
-                riderWeight,
-                bikeWeight,
-            ),
-    )
 }
 
 private fun validateIfEmpty(

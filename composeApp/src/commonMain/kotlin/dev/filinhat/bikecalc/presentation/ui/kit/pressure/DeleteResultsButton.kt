@@ -23,7 +23,6 @@ private const val BUTTON_HEIGHT = 48
 @Composable
 fun DeleteResultsButton(
     onClick: () -> Unit,
-    enabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
     val haptic = LocalHapticFeedback.current
@@ -33,7 +32,6 @@ fun DeleteResultsButton(
             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
             onClick()
         },
-        enabled = enabled,
         shape = MaterialTheme.shapes.medium,
         border =
             BorderStroke(
@@ -63,7 +61,6 @@ fun PreviewDeleteResultsButtonLight() {
     BikeCalcTheme {
         DeleteResultsButton(
             onClick = {},
-            enabled = true,
         )
     }
 }

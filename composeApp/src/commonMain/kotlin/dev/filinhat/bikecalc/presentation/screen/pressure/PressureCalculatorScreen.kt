@@ -1,5 +1,6 @@
 package dev.filinhat.bikecalc.presentation.screen.pressure
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,13 +8,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -36,11 +37,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import bikecalcmp.composeapp.generated.resources.Montserrat_Regular
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.app_name
 import bikecalcmp.composeapp.generated.resources.dialog_text_chapter_four
@@ -58,7 +57,6 @@ import compose.icons.lineawesomeicons.InfoCircleSolid
 import dev.filinhat.bikecalc.presentation.ui.kit.common.InfoDialog
 import dev.filinhat.bikecalc.presentation.ui.theme.BikeCalcTheme
 import dev.filinhat.bikecalc.presentation.ui.theme.LocalThemeIsDark
-import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -123,8 +121,13 @@ private fun PressureCalculatorScreen(
     Column(
         modifier =
             modifier
-                .verticalScroll(rememberScrollState())
-                .fillMaxSize(),
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .statusBarsPadding()
+                .navigationBarsPadding()
+                .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -227,34 +230,32 @@ private fun PressureCalculatorScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(
+            modifier = Modifier.height(6.dp),
+        )
 
         HorizontalPager(
             state = pagerState,
             modifier =
                 Modifier
                     .widthIn(max = 700.dp)
-                    .fillMaxSize(),
+                    .fillMaxWidth(),
         ) { pageIndex ->
-            Column(
-                modifier = Modifier.fillMaxSize(),
-            ) {
-                when (pageIndex) {
-                    0 -> {
-                        PressureScreenContent(
-                            uiState = uiState,
-                            onAction = onAction,
-                            keyboardController = keyboardController,
-                            focusManager = focusManager,
-                        )
-                    }
+            when (pageIndex) {
+                0 -> {
+                    PressureScreenContent(
+                        uiState = uiState,
+                        onAction = onAction,
+                        keyboardController = keyboardController,
+                        focusManager = focusManager,
+                    )
+                }
 
-                    1 -> {
-                        PressureResultContent(
-                            onAction = onAction,
-                            savedResults = uiState.savedCalcResult,
-                        )
-                    }
+                1 -> {
+                    PressureResultContent(
+                        onAction = onAction,
+                        savedResults = uiState.savedCalcResult,
+                    )
                 }
             }
         }
