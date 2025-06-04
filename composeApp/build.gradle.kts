@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+    alias(libs.plugins.kotzilla)
 }
 
 kotlin {
@@ -72,8 +73,8 @@ kotlin {
 
             implementation(libs.bundles.ktor)
             implementation(libs.bundles.coil)
-
             implementation(libs.iconPack.lineAwesome)
+            implementation(libs.kotzilla.sdk.ktor3)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -91,14 +92,14 @@ kotlin {
 }
 
 android {
-    namespace = "dev.filinhat.bikecalc"
+    namespace = libs.versions.namespace.get()
     compileSdk =
         libs.versions.android.compileSdk
             .get()
             .toInt()
 
     defaultConfig {
-        applicationId = "dev.filinhat.bikecalc"
+        applicationId = libs.versions.applicationId.get()
         minSdk =
             libs.versions.android.minSdk
                 .get()
@@ -107,8 +108,11 @@ android {
             libs.versions.android.targetSdk
                 .get()
                 .toInt()
-        versionCode = 7
-        versionName = "3.0.0"
+        versionCode =
+            libs.versions.appVersionCode
+                .get()
+                .toInt()
+        versionName = libs.versions.appVersionName.get()
     }
     packaging {
         resources {
@@ -127,6 +131,7 @@ android {
             renderscriptOptimLevel = 3
         }
         debug {
+            isDefault = true
             isDebuggable = true
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
@@ -142,7 +147,7 @@ android {
     tasks.withType<JavaCompile> {
         options.compilerArgs.add("-Xlint:deprecation")
     }
-    buildToolsVersion = "36.0.0"
+    buildToolsVersion = libs.versions.buildToolsVersion.get()
 }
 
 dependencies {

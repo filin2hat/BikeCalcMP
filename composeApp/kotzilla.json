@@ -1,0 +1,12 @@
+{
+    "sdkVersion": "1.1.0",
+    "keys": [
+        {
+            "appId": "f051e7d4-926e-4874-b441-4261a714a482",
+            "applicationPackageName": "dev.filinhat.bikecalc",
+            "keyId": "01973923-afff-7cc7-8ca2-c4086dcbcaa1",
+            "apiKey": "ktz-sdk-KyPJN8Tpu8_6DYYqwqqENDn23QqAcfamaPNiPkCj5XU",
+            "isDefault": true
+        }
+    ]
+}

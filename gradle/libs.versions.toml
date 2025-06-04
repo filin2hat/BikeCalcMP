@@ -4,6 +4,11 @@ agp = "8.10.1"
 android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
+appVersionCode = "8"
+appVersionName = "3.1.0"
+namespace = "dev.filinhat.bikecalc"
+applicationId = "dev.filinhat.bikecalc"
+buildToolsVersion = "36.0.0"
 
 # AndroidX
 androidx-activityCompose = "1.10.1"
@@ -14,7 +19,7 @@ androidx-lifecycle = "2.8.4"
 androidx-material = "1.12.0"
 
 # Compose Multiplatform
-compose-multiplatform = "1.8.0"
+compose-multiplatform = "1.8.1"
 
 # Testing
 junit = "4.13.2"
@@ -22,7 +27,7 @@ androidx-test-junit = "1.2.1"
 androidx-espresso-core = "3.6.1"
 
 # KotlinX
-kotlin = "2.1.20"
+kotlin = "2.1.21"
 kotlinx-coroutines = "1.10.2"
 ksp = "2.1.20-2.0.1"
 kotlinSerialization = "1.8.1"
@@ -47,6 +52,8 @@ room = "2.7.1"
 # Icons
 composeIcons = "1.1.1"
 
+# Analytics
+kotzilla = "1.1.0"
 
 
 [libraries]
@@ -98,6 +105,9 @@ sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sql
 # Icons
 iconPack-lineAwesome = { module = "br.com.devsrsouza.compose.icons:line-awesome", version.ref = "composeIcons" }
 
+# Analytics
+kotzilla-sdk-ktor3 = {group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "kotzilla" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -107,6 +117,7 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
+kotzilla = { id  = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla" }
 
 [bundles]
 ktor = [
