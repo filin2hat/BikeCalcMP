@@ -6,6 +6,7 @@ import dev.filinhat.bikecalc.domain.enums.tire.TireSize
 import dev.filinhat.bikecalc.domain.enums.tube.TubeType
 import dev.filinhat.bikecalc.domain.enums.unit.WeightUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.domain.model.PressureCalcParams
 import dev.filinhat.bikecalc.domain.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.presentation.util.BaseViewModel
 import kotlinx.coroutines.Dispatchers
@@ -45,12 +46,14 @@ class PressureCalculatorViewModel(
         when (event) {
             is PressureCalcAction.OnCalcPressure ->
                 calcPressureResult(
-                    event.riderWeight,
-                    event.bikeWeight,
-                    event.wheelSize,
-                    event.tireSize,
-                    event.weightUnit,
-                    event.selectedTubeType,
+                    PressureCalcParams(
+                        riderWeight = event.riderWeight,
+                        bikeWeight = event.bikeWeight,
+                        wheelSize = event.wheelSize,
+                        tireSize = event.tireSize,
+                        weightUnit = event.weightUnit,
+                        selectedTubeType = event.selectedTubeType,
+                    ),
                 )
 
             is PressureCalcAction.OnTabSelected ->
@@ -72,24 +75,11 @@ class PressureCalculatorViewModel(
                 }.launchIn(viewModelScope)
     }
 
-    private fun calcPressureResult(
-        riderWeight: Double,
-        bikeWeight: Double,
-        wheelSize: WheelSize,
-        tireSize: TireSize,
-        weightUnit: WeightUnit,
-        selectedTubeType: TubeType,
-    ) {
+    private fun calcPressureResult(params: PressureCalcParams) {
         viewModelScope.launch(Dispatchers.IO) {
             repository
-                .calcPressure(
-                    riderWeight,
-                    bikeWeight,
-                    wheelSize,
-                    tireSize,
-                    weightUnit,
-                    selectedTubeType,
-                ).catch { e ->
+                .calcPressure(params)
+                .catch { e ->
                 }.collect { result ->
                     _uiState.update { state ->
                         state.copy(result = result)
