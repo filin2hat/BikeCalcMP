@@ -8,10 +8,13 @@ import dev.filinhat.bikecalc.domain.enums.unit.WeightUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.domain.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.presentation.util.BaseViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -63,6 +66,7 @@ class PressureCalculatorViewModel(
         observeSavedResultsJob =
             repository
                 .getAllResults()
+                .flowOn(Dispatchers.IO)
                 .onEach { savedResults ->
                     _uiState.update { it.copy(savedCalcResult = savedResults) }
                 }.launchIn(viewModelScope)
@@ -76,7 +80,7 @@ class PressureCalculatorViewModel(
         weightUnit: WeightUnit,
         selectedTubeType: TubeType,
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository
                 .calcPressure(
                     riderWeight,

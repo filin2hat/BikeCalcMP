@@ -11,8 +11,11 @@ import dev.filinhat.bikecalc.domain.model.PressureCalcResult
 import dev.filinhat.bikecalc.domain.model.PressureCoefficients
 import dev.filinhat.bikecalc.domain.model.SavedPressureCalcResult
 import dev.filinhat.bikecalc.domain.repository.PressureCalcRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
 private const val TUBELESS_PRESSURE_COEFFICIENT = 0.85
@@ -74,7 +77,7 @@ class PressureCalcRepositoryImpl(
                     tubelessRear = rearPressureTubeless,
                 ),
             )
-        }
+        }.flowOn(Dispatchers.IO)
 
     override suspend fun saveCalcResult(
         riderWeight: Double,
@@ -111,7 +114,7 @@ class PressureCalcRepositoryImpl(
                 entities.map { entity ->
                     entity.toSavedPressureCalcResult()
                 }
-            }
+            }.flowOn(Dispatchers.Default)
 
     private fun calculatePressure(
         riderWeight: Double,
