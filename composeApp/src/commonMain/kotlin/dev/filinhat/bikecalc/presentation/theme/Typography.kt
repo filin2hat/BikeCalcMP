@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.presentation.ui.theme
+package dev.filinhat.bikecalc.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable

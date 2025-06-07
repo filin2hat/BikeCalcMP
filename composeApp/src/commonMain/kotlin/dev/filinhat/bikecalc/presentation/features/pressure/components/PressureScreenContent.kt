@@ -61,7 +61,7 @@ import dev.filinhat.bikecalc.domain.enums.wheel.Wheel
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcAction
 import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcState
-import dev.filinhat.bikecalc.presentation.ui.kit.DropdownMenu
+import dev.filinhat.bikecalc.presentation.kit.DropdownMenu
 import dev.filinhat.bikecalc.presentation.util.toBikeDouble
 import dev.filinhat.bikecalc.presentation.util.validateBikeWeight
 import dev.filinhat.bikecalc.presentation.util.validateUserWeight

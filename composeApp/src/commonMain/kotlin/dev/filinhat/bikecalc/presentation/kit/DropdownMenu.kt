@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.presentation.ui.kit
+package dev.filinhat.bikecalc.presentation.kit
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

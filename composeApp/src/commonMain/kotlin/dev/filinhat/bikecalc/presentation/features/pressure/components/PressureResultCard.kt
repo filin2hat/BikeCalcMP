@@ -30,7 +30,7 @@ import compose.icons.lineawesomeicons.UserSolid
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize29Inches
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.domain.model.SavedPressureCalcResult
-import dev.filinhat.bikecalc.presentation.ui.theme.BikeCalcTheme
+import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
 import dev.filinhat.bikecalc.presentation.util.formatValue
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

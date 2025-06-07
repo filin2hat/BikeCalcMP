@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.clear_results
-import dev.filinhat.bikecalc.presentation.ui.theme.BikeCalcTheme
+import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

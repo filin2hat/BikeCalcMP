@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Pressure calc screen string resources -->
+    <!-- Common string resources -->
     <string name="app_name">ВелоКалькулятор Pro</string>
-    <string name="rider_weight">Ваш вес</string>
-    <string name="lbs">фунт</string>
-    <string name="weight_incorrect">Указан некорректный вес</string>
+    <string name="app_version">Версия: %1$s</string>
+
+    <!-- Pressure calc screen string resources -->
+    <string name="bar">бар</string>
+    <string name="bar_btn">Бар</string>
     <string name="bike_weight">Вес велосипеда</string>
-    <string name="wheel_size">Размер колеса</string>
-    <string name="tire_size">Размер покрышки</string>
     <string name="calculate_pressure">Рассчитать давление</string>
     <string name="clear_results">Очистить результаты</string>
-    <string name="tubeless">Без камеры</string>
-    <string name="front_wheel_pressure">Давление переднего колеса:</string>
+    <string name="dialog_text_chapter_four">3. Личный опыт и практические наблюдения.</string>
+    <string name="dialog_text_chapter_one">Результаты расчетов, представленные в приложении, не являются абсолютно верными и могут отличаться от идеальных значений, так как они основаны на следующих источниках:</string>
+    <string name="dialog_text_chapter_three">2. Информация из исследовательских статей на тему давления в велопокрышках.</string>
+    <string name="dialog_text_chapter_two">1. Общедоступные данные, предоставленные производителями велопокрышек.</string>
+    <string name="dialog_text_end">Рекомендуется использовать результаты расчетов в качестве ориентировочных значений и всегда проверять данные перед использованием.</string>
+    <string name="dialog_title">Отказ от ответственности</string>
     <string name="front_wheel">Переднее колесо:</string>
-    <string name="rear_wheel_pressure">Давление заднего колеса:</string>
-    <string name="rear_wheel">Заднее колесо:</string>
+    <string name="front_wheel_pressure">Давление переднего колеса:</string>
+    <string name="i_understand_this">Мне это понятно</string>
+    <string name="kg">кг</string>
+    <string name="kpa">кПа</string>
+    <string name="kpa_btn">кПа</string>
+    <string name="lbs">фунт</string>
     <string name="new_calculation">Расчёт</string>
     <string name="no_results">Упс! Тут пока пусто...</string>
     <string name="previous_results">Результаты</string>
-    <string name="bar">бар</string>
-    <string name="kpa">кПа</string>
     <string name="psi">psi</string>
-    <string name="bar_btn">Бар</string>
-    <string name="kpa_btn">кПа</string>
     <string name="psi_btn">Psi</string>
-    <string name="i_understand_this">Мне это понятно</string>
-    <string name="dialog_title">Отказ от ответственности</string>
-    <string name="dialog_text_chapter_one">Результаты расчетов, представленные в приложении, не являются абсолютно верными и могут отличаться от идеальных значений, так как они основаны на следующих источниках:</string>
-    <string name="dialog_text_chapter_two">1. Общедоступные данные, предоставленные производителями велопокрышек.</string>
-    <string name="dialog_text_chapter_three">2. Информация из исследовательских статей на тему давления в велопокрышках.</string>
-    <string name="dialog_text_chapter_four">3. Личный опыт и практические наблюдения.</string>
-    <string name="dialog_text_end">Рекомендуется использовать результаты расчетов в качестве ориентировочных значений и всегда проверять данные перед использованием.</string>
-    <string name="app_version">Версия: %1$s</string>
+    <string name="rear_wheel">Заднее колесо:</string>
+    <string name="rear_wheel_pressure">Давление заднего колеса:</string>
+    <string name="rider_weight">Ваш вес</string>
+    <string name="tubeless">Без камеры</string>
     <string name="tubes">С камерой</string>
-    <string name="kg">кг</string>
+    <string name="tire_size">Размер покрышки</string>
+    <string name="weight_incorrect">Указан некорректный вес</string>
+    <string name="wheel_size">Размер колеса</string>
 </resources>

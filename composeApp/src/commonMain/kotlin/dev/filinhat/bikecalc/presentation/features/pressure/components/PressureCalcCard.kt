@@ -27,7 +27,7 @@ import bikecalcmp.composeapp.generated.resources.psi
 import bikecalcmp.composeapp.generated.resources.rear_wheel_pressure
 import dev.filinhat.bikecalc.domain.enums.unit.PressureUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.Wheel
-import dev.filinhat.bikecalc.presentation.ui.theme.BikeCalcTheme
+import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
 import dev.filinhat.bikecalc.presentation.util.formatValue
 import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.resources.stringResource

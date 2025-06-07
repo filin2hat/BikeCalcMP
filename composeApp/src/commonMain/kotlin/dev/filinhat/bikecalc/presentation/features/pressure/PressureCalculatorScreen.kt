@@ -59,9 +59,9 @@ import dev.filinhat.bikecalc.presentation.features.pressure.components.PressureS
 import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcAction
 import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcState
 import dev.filinhat.bikecalc.presentation.features.pressure.viewmodel.PressureCalculatorViewModel
-import dev.filinhat.bikecalc.presentation.ui.kit.InfoDialog
-import dev.filinhat.bikecalc.presentation.ui.theme.BikeCalcTheme
-import dev.filinhat.bikecalc.presentation.ui.theme.LocalThemeIsDark
+import dev.filinhat.bikecalc.presentation.kit.InfoDialog
+import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
+import dev.filinhat.bikecalc.presentation.theme.LocalThemeIsDark
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
