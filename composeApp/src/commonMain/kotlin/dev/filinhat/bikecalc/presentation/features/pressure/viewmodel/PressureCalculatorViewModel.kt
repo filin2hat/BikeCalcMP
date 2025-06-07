@@ -7,6 +7,7 @@ import dev.filinhat.bikecalc.domain.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcAction
 import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcState
 import dev.filinhat.bikecalc.presentation.util.BaseViewModel
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
@@ -76,7 +77,7 @@ class PressureCalculatorViewModel(
                 .getAllResults()
                 .flowOn(Dispatchers.IO)
                 .onEach { savedResults ->
-                    _uiState.update { it.copy(savedCalcResult = savedResults) }
+                    _uiState.update { it.copy(savedCalcResult = savedResults.toImmutableList()) }
                 }.launchIn(viewModelScope)
     }
 

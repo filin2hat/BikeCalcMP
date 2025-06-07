@@ -18,6 +18,7 @@ import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.no_results
 import dev.filinhat.bikecalc.domain.model.SavedPressureCalcResult
 import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcAction
+import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource
 
 /**
@@ -26,16 +27,11 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun PressureResultContent(
     onAction: (PressureCalcAction) -> Unit,
-    savedResults: List<SavedPressureCalcResult>,
+    savedResults: ImmutableList<SavedPressureCalcResult>,
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier =
-            modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier.fillMaxSize(),
     ) {
         when (savedResults.isNotEmpty()) {
             true -> {
@@ -46,8 +42,18 @@ fun PressureResultContent(
                         )
                     },
                 )
-                savedResults.onEach { savedResults ->
-                    PressureResultCard(savedResults)
+                Column(
+                    modifier =
+                        modifier
+                            .fillMaxSize()
+                            .padding(vertical = 16.dp)
+                            .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    savedResults.onEach { savedResults ->
+                        PressureResultCard(savedResults)
+                    }
                 }
             }
 
