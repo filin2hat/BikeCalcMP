@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.presentation.screen.pressure
+package dev.filinhat.bikecalc.presentation.features.pressure.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,10 +17,12 @@ import androidx.compose.ui.unit.dp
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.no_results
 import dev.filinhat.bikecalc.domain.model.SavedPressureCalcResult
-import dev.filinhat.bikecalc.presentation.ui.kit.pressure.DeleteResultsButton
-import dev.filinhat.bikecalc.presentation.ui.kit.pressure.PressureResultCard
+import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcAction
 import org.jetbrains.compose.resources.stringResource
 
+/**
+ * Компонент отображения сохраненных результатов расчета давления.
+ */
 @Composable
 fun PressureResultContent(
     onAction: (PressureCalcAction) -> Unit,

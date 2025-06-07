@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.presentation.ui.kit.pressure
+package dev.filinhat.bikecalc.presentation.features.pressure.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement

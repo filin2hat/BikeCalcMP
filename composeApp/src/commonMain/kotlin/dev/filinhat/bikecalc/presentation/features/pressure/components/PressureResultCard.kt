@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.presentation.ui.kit.pressure
+package dev.filinhat.bikecalc.presentation.features.pressure.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -37,6 +37,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 private const val CARD_HEIGHT = 110
 
+/**
+ * Карточка с результатами расчета давления.
+ */
 @Composable
 fun PressureResultCard(
     result: SavedPressureCalcResult,

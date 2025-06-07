@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.presentation.ui.kit.common
+package dev.filinhat.bikecalc.presentation.ui.kit
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size

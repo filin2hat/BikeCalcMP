@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.presentation.ui.kit.pressure
+package dev.filinhat.bikecalc.presentation.features.pressure.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -34,6 +34,9 @@ import dev.filinhat.bikecalc.domain.enums.unit.PressureUnit
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource
 
+/**
+ * Радио кнопки для выбора единиц отоброжения давления
+ */
 @Composable
 fun ChangePressureRadioGroup(
     pressureUnits: ImmutableList<PressureUnit>,

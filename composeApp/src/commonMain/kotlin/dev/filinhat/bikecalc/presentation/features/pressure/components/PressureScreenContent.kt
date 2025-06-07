@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.presentation.screen.pressure
+package dev.filinhat.bikecalc.presentation.features.pressure.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -59,16 +59,18 @@ import dev.filinhat.bikecalc.domain.enums.tire.TireSize29Inches
 import dev.filinhat.bikecalc.domain.enums.unit.WeightUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.Wheel
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
-import dev.filinhat.bikecalc.presentation.ui.kit.common.DropdownMenu
-import dev.filinhat.bikecalc.presentation.ui.kit.pressure.CalculatePressureButton
-import dev.filinhat.bikecalc.presentation.ui.kit.pressure.PressureCalcCard
-import dev.filinhat.bikecalc.presentation.ui.kit.pressure.TubeTypeChangeButton
+import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcAction
+import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcState
+import dev.filinhat.bikecalc.presentation.ui.kit.DropdownMenu
 import dev.filinhat.bikecalc.presentation.util.toBikeDouble
 import dev.filinhat.bikecalc.presentation.util.validateBikeWeight
 import dev.filinhat.bikecalc.presentation.util.validateUserWeight
 import kotlinx.collections.immutable.toPersistentList
 import org.jetbrains.compose.resources.stringResource
 
+/**
+ * Комонент экрана расчета давления.
+ */
 @Composable
 fun PressureScreenContent(
     uiState: PressureCalcState,

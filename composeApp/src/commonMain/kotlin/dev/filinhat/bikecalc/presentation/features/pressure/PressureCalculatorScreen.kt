@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.presentation.screen.pressure
+package dev.filinhat.bikecalc.presentation.features.pressure
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -54,7 +54,12 @@ import bikecalcmp.composeapp.generated.resources.new_calculation
 import bikecalcmp.composeapp.generated.resources.previous_results
 import compose.icons.LineAwesomeIcons
 import compose.icons.lineawesomeicons.InfoCircleSolid
-import dev.filinhat.bikecalc.presentation.ui.kit.common.InfoDialog
+import dev.filinhat.bikecalc.presentation.features.pressure.components.PressureResultContent
+import dev.filinhat.bikecalc.presentation.features.pressure.components.PressureScreenContent
+import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcAction
+import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcState
+import dev.filinhat.bikecalc.presentation.features.pressure.viewmodel.PressureCalculatorViewModel
+import dev.filinhat.bikecalc.presentation.ui.kit.InfoDialog
 import dev.filinhat.bikecalc.presentation.ui.theme.BikeCalcTheme
 import dev.filinhat.bikecalc.presentation.ui.theme.LocalThemeIsDark
 import org.jetbrains.compose.resources.stringResource

@@ -1,9 +1,11 @@
-package dev.filinhat.bikecalc.presentation.screen.pressure
+package dev.filinhat.bikecalc.presentation.features.pressure.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.filinhat.bikecalc.domain.model.PressureCalcParams
 import dev.filinhat.bikecalc.domain.repository.PressureCalcRepository
+import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcAction
+import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcState
 import dev.filinhat.bikecalc.presentation.util.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -21,6 +23,8 @@ import kotlinx.coroutines.launch
 
 /**
  * ViewModel экрана [PressureCalculatorScreen]
+ *
+ * @property repository - репозиторий для работы с данными расчета давления.
  */
 class PressureCalculatorViewModel(
     private val repository: PressureCalcRepository,
@@ -34,7 +38,7 @@ class PressureCalculatorViewModel(
             .onStart { observeSavedResults() }
             .stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.Lazily,
+                started = SharingStarted.Companion.Lazily,
                 initialValue = _uiState.value,
             )
 

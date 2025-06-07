@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.presentation.screen.pressure
+package dev.filinhat.bikecalc.presentation.features.pressure.state
 
 import dev.filinhat.bikecalc.domain.enums.tube.TubeType
 import dev.filinhat.bikecalc.domain.model.PressureCalcResult

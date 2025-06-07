@@ -7,7 +7,7 @@ import dev.filinhat.bikecalc.data.repository.PressureCalcRepositoryImpl
 import dev.filinhat.bikecalc.data.service.PressureCalculationServiceImpl
 import dev.filinhat.bikecalc.domain.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.domain.service.PressureCalculationService
-import dev.filinhat.bikecalc.presentation.screen.pressure.PressureCalculatorViewModel
+import dev.filinhat.bikecalc.presentation.features.pressure.viewmodel.PressureCalculatorViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf

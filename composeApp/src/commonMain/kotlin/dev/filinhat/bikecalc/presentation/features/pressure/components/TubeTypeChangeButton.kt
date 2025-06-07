@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.presentation.ui.kit.pressure
+package dev.filinhat.bikecalc.presentation.features.pressure.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Spacer
@@ -27,6 +27,9 @@ import bikecalcmp.composeapp.generated.resources.tubes
 import dev.filinhat.bikecalc.domain.enums.tube.TubeType
 import org.jetbrains.compose.resources.stringResource
 
+/**
+ * Селектор выбора типа монташа камеры в покрышке.
+ */
 @Composable
 fun TubeTypeChangeButton(
     onClick: (TubeType) -> Unit,
