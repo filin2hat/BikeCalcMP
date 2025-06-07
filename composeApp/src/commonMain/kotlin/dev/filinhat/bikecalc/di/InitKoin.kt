@@ -11,6 +11,10 @@ fun initKoin(config: KoinAppDeclaration? = null) {
     startKoin {
         config?.invoke(this)
         modules(sharedModule, platformModule)
-        analytics()
+        try {
+            analytics()
+        } catch (e: NotImplementedError) {
+            println("Analytics not supported on this platform: ${e.message}")
+        }
     }
 }
