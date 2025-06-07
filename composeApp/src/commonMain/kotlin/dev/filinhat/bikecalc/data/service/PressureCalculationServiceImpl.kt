@@ -1,5 +1,6 @@
 package dev.filinhat.bikecalc.data.service
 
+import dev.filinhat.bikecalc.domain.enums.tube.TubeType
 import dev.filinhat.bikecalc.domain.enums.unit.WeightUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.domain.model.PressureCalcParams
@@ -7,16 +8,13 @@ import dev.filinhat.bikecalc.domain.model.PressureCalcResult
 import dev.filinhat.bikecalc.domain.model.PressureCoefficients
 import dev.filinhat.bikecalc.domain.service.PressureCalculationService
 
-/**
- * Реализация сервиса для расчета давления в колесах велосипеда
- */
 class PressureCalculationServiceImpl : PressureCalculationService {
     override fun calculatePressure(params: PressureCalcParams): PressureCalcResult {
         val coefficients =
             pressureCoefficientsMap[params.wheelSize]
                 ?: throw IllegalArgumentException("Unsupported wheel size: ${params.wheelSize}")
 
-        val frontPressureTubes =
+        val frontPressure =
             calculateWheelPressure(
                 params.riderWeight,
                 params.bikeWeight,
@@ -26,7 +24,7 @@ class PressureCalculationServiceImpl : PressureCalculationService {
                 coefficients,
                 isFront = true,
             )
-        val rearPressureTubes =
+        val rearPressure =
             calculateWheelPressure(
                 params.riderWeight,
                 params.bikeWeight,
@@ -36,15 +34,20 @@ class PressureCalculationServiceImpl : PressureCalculationService {
                 coefficients,
                 isFront = false,
             )
-        val frontPressureTubeless = frontPressureTubes * TUBELESS_PRESSURE_COEFFICIENT
-        val rearPressureTubeless = rearPressureTubes * TUBELESS_PRESSURE_COEFFICIENT
 
-        return PressureCalcResult(
-            tubesFront = frontPressureTubes,
-            tubesRear = rearPressureTubes,
-            tubelessFront = frontPressureTubeless,
-            tubelessRear = rearPressureTubeless,
-        )
+        return when (params.selectedTubeType) {
+            TubeType.TUBES ->
+                PressureCalcResult(
+                    frontPressure = frontPressure,
+                    rearPressure = rearPressure,
+                )
+
+            TubeType.TUBELESS ->
+                PressureCalcResult(
+                    frontPressure = frontPressure * TUBELESS_PRESSURE_COEFFICIENT,
+                    rearPressure = rearPressure * TUBELESS_PRESSURE_COEFFICIENT,
+                )
+        }
     }
 
     private fun calculateWheelPressure(

@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.Flow
 interface PressureCalcRepository {
     /**
      * Расчет давления колес велосипеда.
+     *
+     * @param params Параметры расчета.
      */
     fun calcPressure(params: PressureCalcParams): Flow<PressureCalcResult>
 
@@ -19,10 +21,8 @@ interface PressureCalcRepository {
      */
     suspend fun saveCalcResult(
         params: PressureCalcParams,
-        frontPressureTubes: Double,
-        rearPressureTubes: Double,
-        frontPressureTubeless: Double,
-        rearPressureTubeless: Double,
+        frontPressure: Double,
+        rearPressure: Double,
     )
 
     /**

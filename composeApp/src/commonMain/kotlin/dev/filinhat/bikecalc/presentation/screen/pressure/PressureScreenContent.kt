@@ -56,7 +56,6 @@ import dev.filinhat.bikecalc.domain.enums.tire.TireSize26Inches
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize275Inches
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize28Inches
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize29Inches
-import dev.filinhat.bikecalc.domain.enums.tube.TubeType
 import dev.filinhat.bikecalc.domain.enums.unit.WeightUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.Wheel
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
@@ -82,7 +81,6 @@ fun PressureScreenContent(
     var bikeWeight: String by rememberSaveable { mutableStateOf("") }
     var wheelSize: WheelSize? by rememberSaveable { mutableStateOf(null) }
     var tireSize: TireSize? by rememberSaveable { mutableStateOf(null) }
-    var selectedTubeType by rememberSaveable { mutableStateOf(TubeType.TUBES) }
 
     var wrongRiderWeight by rememberSaveable { mutableStateOf(false) }
     var wrongBikeWeight by rememberSaveable { mutableStateOf(false) }
@@ -113,22 +111,14 @@ fun PressureScreenContent(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 PressureCalcCard(
-                    value =
-                        when (selectedTubeType) {
-                            TubeType.TUBES -> uiState.result.tubesFront
-                            TubeType.TUBELESS -> uiState.result.tubelessFront
-                        },
+                    value = uiState.result.frontPressure,
                     wheel = Wheel.Front,
                 )
 
                 Spacer(modifier = Modifier.size(18.dp))
 
                 PressureCalcCard(
-                    value =
-                        when (selectedTubeType) {
-                            TubeType.TUBES -> uiState.result.tubesRear
-                            TubeType.TUBELESS -> uiState.result.tubelessRear
-                        },
+                    value = uiState.result.rearPressure,
                     wheel = Wheel.Rear,
                 )
             }
@@ -317,8 +307,7 @@ fun PressureScreenContent(
 
         TubeTypeChangeButton(
             onClick = { tubeType ->
-                expandedCalcResult = false
-                selectedTubeType = tubeType
+                onAction(PressureCalcAction.OnTubeTypeChanged(tubeType))
                 keyboardController?.hide()
                 focusManager?.clearFocus()
             },
@@ -331,7 +320,7 @@ fun PressureScreenContent(
                     riderWeight,
                     bikeWeight,
                 ),
-            selectedType = selectedTubeType,
+            selectedType = uiState.selectedTubeType,
         )
 
         CalculatePressureButton(
@@ -343,7 +332,7 @@ fun PressureScreenContent(
                         wheelSize = wheelSize ?: return@CalculatePressureButton,
                         tireSize = tireSize ?: return@CalculatePressureButton,
                         weightUnit = selectedUnitWeight,
-                        selectedTubeType = selectedTubeType,
+                        selectedTubeType = uiState.selectedTubeType,
                     ),
                 )
                 keyboardController?.hide()

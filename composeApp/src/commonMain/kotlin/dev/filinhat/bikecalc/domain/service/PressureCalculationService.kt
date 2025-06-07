@@ -9,6 +9,9 @@ import dev.filinhat.bikecalc.domain.model.PressureCalcResult
 interface PressureCalculationService {
     /**
      * Рассчитывает давление в колесах велосипеда
+     *
+     * @param params параметры для расчета
+     * @return результат расчета давления
      */
     fun calculatePressure(params: PressureCalcParams): PressureCalcResult
 }

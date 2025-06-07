@@ -1,5 +1,6 @@
 package dev.filinhat.bikecalc.presentation.screen.pressure
 
+import dev.filinhat.bikecalc.domain.enums.tube.TubeType
 import dev.filinhat.bikecalc.domain.model.PressureCalcResult
 import dev.filinhat.bikecalc.domain.model.SavedPressureCalcResult
 import dev.filinhat.bikecalc.presentation.util.UiText
@@ -16,10 +17,12 @@ data class PressureCalcState(
      * @param isLoading Признак загрузки
      * @param errorMessage Текст ошибки
      * @param savedCalcResult Список сохраненных результатов расчета
+     * @param selectedTubeType Выбранный тип покрышки
      */
     val result: PressureCalcResult = PressureCalcResult(),
     val selectedTabIndex: Int = 0,
     val isLoading: Boolean = true,
     val errorMessage: UiText? = null,
     val savedCalcResult: List<SavedPressureCalcResult> = emptyList(),
+    val selectedTubeType: TubeType = TubeType.TUBES,
 )

@@ -39,6 +39,15 @@ sealed interface PressureCalcAction {
     ) : PressureCalcAction
 
     /**
+     * Изменение типа покрышки.
+     *
+     * @property tubeType Выбранный тип покрышки.
+     */
+    data class OnTubeTypeChanged(
+        val tubeType: TubeType,
+    ) : PressureCalcAction
+
+    /**
      * Удаление всех результатов.
      */
     data object OnDeleteAllResults : PressureCalcAction

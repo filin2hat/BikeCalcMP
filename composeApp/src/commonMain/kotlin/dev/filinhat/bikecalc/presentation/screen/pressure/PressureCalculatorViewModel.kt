@@ -2,10 +2,6 @@ package dev.filinhat.bikecalc.presentation.screen.pressure
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.filinhat.bikecalc.domain.enums.tire.TireSize
-import dev.filinhat.bikecalc.domain.enums.tube.TubeType
-import dev.filinhat.bikecalc.domain.enums.unit.WeightUnit
-import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.domain.model.PressureCalcParams
 import dev.filinhat.bikecalc.domain.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.presentation.util.BaseViewModel
@@ -59,6 +55,11 @@ class PressureCalculatorViewModel(
             is PressureCalcAction.OnTabSelected ->
                 _uiState.update { state ->
                     state.copy(selectedTabIndex = event.index)
+                }
+
+            is PressureCalcAction.OnTubeTypeChanged ->
+                _uiState.update { state ->
+                    state.copy(selectedTubeType = event.tubeType)
                 }
 
             is PressureCalcAction.OnDeleteAllResults -> deleteAllResults()

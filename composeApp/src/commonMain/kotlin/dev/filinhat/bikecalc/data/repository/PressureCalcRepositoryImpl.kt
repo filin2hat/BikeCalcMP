@@ -2,7 +2,6 @@ package dev.filinhat.bikecalc.data.repository
 
 import dev.filinhat.bikecalc.data.database.PressureResultsDao
 import dev.filinhat.bikecalc.domain.entity.PressureResultEntity
-import dev.filinhat.bikecalc.domain.enums.tube.TubeType
 import dev.filinhat.bikecalc.domain.mapper.toSavedPressureCalcResult
 import dev.filinhat.bikecalc.domain.model.PressureCalcParams
 import dev.filinhat.bikecalc.domain.model.PressureCalcResult
@@ -25,20 +24,16 @@ class PressureCalcRepositoryImpl(
             val result = pressureCalculationService.calculatePressure(params)
             saveCalcResult(
                 params = params,
-                frontPressureTubes = result.tubesFront,
-                rearPressureTubes = result.tubesRear,
-                frontPressureTubeless = result.tubelessFront,
-                rearPressureTubeless = result.tubelessRear,
+                frontPressure = result.frontPressure,
+                rearPressure = result.rearPressure,
             )
             emit(result)
         }.flowOn(Dispatchers.IO)
 
     override suspend fun saveCalcResult(
         params: PressureCalcParams,
-        frontPressureTubes: Double,
-        rearPressureTubes: Double,
-        frontPressureTubeless: Double,
-        rearPressureTubeless: Double,
+        frontPressure: Double,
+        rearPressure: Double,
     ) {
         pressureResultDao.insertWithLimit(
             PressureResultEntity(
@@ -46,8 +41,8 @@ class PressureCalcRepositoryImpl(
                 bikeWeight = params.bikeWeight,
                 wheelSize = params.wheelSize.inchesSize.toString(),
                 tireSize = params.tireSize.tireWidthInInches.toString(),
-                pressureFront = if (params.selectedTubeType == TubeType.TUBES) frontPressureTubes else frontPressureTubeless,
-                pressureRear = if (params.selectedTubeType == TubeType.TUBES) rearPressureTubes else rearPressureTubeless,
+                pressureFront = frontPressure,
+                pressureRear = rearPressure,
                 id = null,
             ),
         )
