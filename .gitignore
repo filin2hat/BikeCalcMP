@@ -166,3 +166,4 @@ google-services.json
 # Android Profiling
 *.hprof
 
+/composeApp/src/main/assets/kotzilla.key
