@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import dev.filinhat.bikecalc.presentation.features.development.DevelopmentCalculatorScreenRoot
+import dev.filinhat.bikecalc.presentation.features.development.viewmodel.DevelopmentCalculatorViewModel
 import dev.filinhat.bikecalc.presentation.features.pressure.PressureCalculatorScreenRoot
 import dev.filinhat.bikecalc.presentation.features.pressure.viewmodel.PressureCalculatorViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -28,6 +30,8 @@ fun BikeCalcNavigation() {
             ) {
                 val viewModel = koinViewModel<PressureCalculatorViewModel>()
                 PressureCalculatorScreenRoot(viewModel)
+//                val viewModel = koinViewModel<DevelopmentCalculatorViewModel>()
+//                DevelopmentCalculatorScreenRoot(viewModel)
             }
         }
     }

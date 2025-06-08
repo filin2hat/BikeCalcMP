@@ -167,3 +167,6 @@ google-services.json
 *.hprof
 
 /composeApp/src/main/assets/kotzilla.key
+/composeApp/release/baselineProfiles/0/composeApp-release.dm
+/composeApp/release/baselineProfiles/1/composeApp-release.dm
+/composeApp/release/output-metadata.json

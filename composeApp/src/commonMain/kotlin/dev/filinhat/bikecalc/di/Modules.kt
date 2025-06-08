@@ -8,6 +8,11 @@ import dev.filinhat.bikecalc.data.service.PressureCalculationServiceImpl
 import dev.filinhat.bikecalc.domain.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.domain.service.PressureCalculationService
 import dev.filinhat.bikecalc.presentation.features.pressure.viewmodel.PressureCalculatorViewModel
+import dev.filinhat.bikecalc.data.service.DevelopmentCalculationServiceImpl
+import dev.filinhat.bikecalc.domain.service.DevelopmentCalculationService
+import dev.filinhat.bikecalc.data.repository.DevelopmentCalcRepositoryImpl
+import dev.filinhat.bikecalc.domain.repository.DevelopmentCalcRepository
+import dev.filinhat.bikecalc.presentation.features.development.viewmodel.DevelopmentCalculatorViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
@@ -21,12 +26,15 @@ val sharedModule =
     module {
         // Сервисы
         singleOf(::PressureCalculationServiceImpl).bind<PressureCalculationService>()
+        singleOf(::DevelopmentCalculationServiceImpl).bind<DevelopmentCalculationService>()
 
         // Репозитории
         singleOf(::PressureCalcRepositoryImpl).bind<PressureCalcRepository>()
+        singleOf(::DevelopmentCalcRepositoryImpl).bind<DevelopmentCalcRepository>()
 
         // Вьюмодели
         viewModelOf(::PressureCalculatorViewModel)
+        viewModelOf(::DevelopmentCalculatorViewModel)
 
         // База данных
         single {
