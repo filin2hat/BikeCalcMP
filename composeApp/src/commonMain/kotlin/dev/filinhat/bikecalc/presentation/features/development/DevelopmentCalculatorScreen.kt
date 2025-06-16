@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
@@ -11,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,6 +21,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
+import com.patrykandpatrick.vico.multiplatform.cartesian.axis.HorizontalAxis
+import com.patrykandpatrick.vico.multiplatform.cartesian.axis.VerticalAxis
+import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
+import com.patrykandpatrick.vico.multiplatform.cartesian.data.lineSeries
+import com.patrykandpatrick.vico.multiplatform.cartesian.layer.rememberLineCartesianLayer
+import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
 import dev.filinhat.bikecalc.domain.model.DevelopmentCalcParams
 import dev.filinhat.bikecalc.presentation.features.development.state.DevelopmentCalcAction
 import dev.filinhat.bikecalc.presentation.features.development.state.DevelopmentCalcState
@@ -143,8 +152,56 @@ fun DevelopmentCalculatorScreen(
             Text("Рассчитать")
         }
         Spacer(modifier = Modifier.padding(8.dp))
+
         if (uiState.result.isNotEmpty()) {
             Text("Результаты:", style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(8.dp))
+
+            val modelProducer = remember { CartesianChartModelProducer() }
+            val rearTeethList =
+                remember(uiState.result) {
+                    uiState.result
+                        .map { it.rearTeeth }
+                        .distinct()
+                        .sorted()
+                }
+
+            LaunchedEffect(uiState.result) {
+                val series =
+                    rearTeethList.map { rearTeeth ->
+                        uiState.result
+                            .find { it.rearTeeth == rearTeeth }
+                            ?.developmentMeters
+                            ?.toFloat()
+                            ?: 0f
+                    }
+                modelProducer.runTransaction {
+                    lineSeries { series(*series.toTypedArray()) }
+                }
+            }
+
+            CartesianChartHost(
+                chart =
+                    rememberCartesianChart(
+                        rememberLineCartesianLayer(),
+                        startAxis = VerticalAxis.rememberStart(),
+                        bottomAxis =
+                            HorizontalAxis.rememberBottom(
+                                valueFormatter = { _, value, _ ->
+                                    rearTeethList.getOrNull(value.toInt())?.toString() ?: ""
+                                },
+                            ),
+                    ),
+                modelProducer = modelProducer,
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(300.dp),
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Text results
             uiState.result.forEach {
                 Text("${it.frontTeeth}/${it.rearTeeth}: ${formatValue(it.developmentMeters, 2)} м")
             }

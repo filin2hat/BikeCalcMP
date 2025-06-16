@@ -75,6 +75,8 @@ kotlin {
             implementation(libs.bundles.coil)
             implementation(libs.iconPack.lineAwesome)
             implementation(libs.kotzilla.sdk.ktor3)
+            implementation(libs.vico.multiplatform)
+            implementation(libs.vico.multiplatform.m3)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
