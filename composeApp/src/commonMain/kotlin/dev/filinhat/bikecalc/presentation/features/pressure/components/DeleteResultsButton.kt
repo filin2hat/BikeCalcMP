@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.unit.dp
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.clear_results
@@ -54,6 +55,8 @@ fun DeleteResultsButton(
         Text(
             text = stringResource(Res.string.clear_results),
             style = MaterialTheme.typography.titleLarge,
+            maxLines = 1,
+            overflow = Ellipsis,
         )
     }
 }

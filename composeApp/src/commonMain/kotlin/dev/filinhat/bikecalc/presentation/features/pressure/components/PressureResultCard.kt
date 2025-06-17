@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.unit.dp
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.bar
@@ -72,11 +73,15 @@ fun PressureResultCard(
                         text = stringResource(Res.string.front_wheel),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.scrim,
+                        maxLines = 1,
+                        overflow = Ellipsis,
                     )
                     Text(
                         text = formatValue(result.pressureFront) + " " + stringResource(Res.string.bar),
                         style = MaterialTheme.typography.displaySmall,
                         color = MaterialTheme.colorScheme.scrim,
+                        maxLines = 1,
+                        overflow = Ellipsis,
                     )
                 }
 
@@ -87,11 +92,15 @@ fun PressureResultCard(
                         text = stringResource(Res.string.rear_wheel),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.scrim,
+                        maxLines = 1,
+                        overflow = Ellipsis,
                     )
                     Text(
                         text = formatValue(result.pressureRear) + " " + stringResource(Res.string.bar),
                         style = MaterialTheme.typography.displaySmall,
                         color = MaterialTheme.colorScheme.scrim,
+                        maxLines = 1,
+                        overflow = Ellipsis,
                     )
                 }
             }
