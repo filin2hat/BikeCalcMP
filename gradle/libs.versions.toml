@@ -4,8 +4,8 @@ agp = "8.10.1"
 android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
-appVersionCode = "9"
-appVersionName = "3.1.1"
+appVersionCode = "10"
+appVersionName = "3.1.2"
 namespace = "dev.filinhat.bikecalc"
 applicationId = "dev.filinhat.bikecalc"
 buildToolsVersion = "36.0.0"
@@ -19,7 +19,7 @@ androidx-lifecycle = "2.8.4"
 androidx-material = "1.12.0"
 
 # Compose Multiplatform
-compose-multiplatform = "1.8.1"
+compose-multiplatform = "1.8.2"
 
 # Testing
 junit = "4.13.2"
@@ -46,8 +46,8 @@ ktor = "3.1.3"
 coil3 = "3.1.0"
 
 # Data base
-sqlite = "2.5.1"
-room = "2.7.1"
+sqlite = "2.5.2"
+room = "2.7.2"
 
 # Icons
 composeIcons = "1.1.1"
