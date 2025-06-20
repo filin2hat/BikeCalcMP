@@ -107,17 +107,18 @@ fun PressureScreenContent(
             exit =
                 fadeOut(animationSpec = tween(durationMillis = 150)) +
                     slideOutVertically(animationSpec = tween(durationMillis = 150)),
-            modifier = Modifier.padding(bottom = 18.dp),
+            modifier = Modifier.padding(bottom = 12.dp),
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
             ) {
+                Spacer(modifier = Modifier.height(8.dp))
                 PressureCalcCard(
                     value = uiState.result.frontPressure,
                     wheel = Wheel.Front,
                 )
 
-                Spacer(modifier = Modifier.size(18.dp))
+                Spacer(modifier = Modifier.size(14.dp))
 
                 PressureCalcCard(
                     value = uiState.result.rearPressure,
@@ -129,7 +130,7 @@ fun PressureScreenContent(
             modifier =
                 Modifier
                     .fillMaxSize()
-                    .padding(bottom = 14.dp),
+                    .padding(bottom = 10.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -220,8 +221,8 @@ fun PressureScreenContent(
                     Modifier
                         .weight(0.20f)
                         .fillMaxWidth()
-                        .height(78.dp)
-                        .padding(top = 4.dp)
+                        .height(84.dp)
+                        .padding(top = 8.dp)
                         .border(
                             width = 2.dp,
                             color = MaterialTheme.colorScheme.inversePrimary,
@@ -250,7 +251,7 @@ fun PressureScreenContent(
                         } else {
                             stringResource(Res.string.lbs)
                         },
-                    style = MaterialTheme.typography.titleMedium.copy(fontSize = 18.sp),
+                    style = MaterialTheme.typography.titleMedium.copy(fontSize = 20.sp),
                 )
             }
         }
@@ -271,9 +272,8 @@ fun PressureScreenContent(
             itemLabel = { it?.nameSize },
             modifier =
                 Modifier
-                    .padding(
-                        bottom = if (expandedTireSize) 18.dp else 22.dp,
-                    ).fillMaxWidth(),
+                    .padding(bottom = if (expandedTireSize) 10.dp else 16.dp)
+                    .fillMaxWidth(),
         )
 
         AnimatedVisibility(
@@ -302,7 +302,7 @@ fun PressureScreenContent(
                 itemLabel = { it?.nameSize },
                 modifier =
                     Modifier
-                        .padding(bottom = 22.dp)
+                        .padding(bottom = 16.dp)
                         .fillMaxWidth(),
             )
         }

@@ -99,7 +99,7 @@ fun TubeTypeChangeButton(
                     Modifier
                         .fillMaxWidth()
                         .height(75.dp)
-                        .padding(bottom = 22.dp),
+                        .padding(bottom = 16.dp),
             )
             if (index != items.lastIndex) {
                 Spacer(modifier = Modifier.width(12.dp))

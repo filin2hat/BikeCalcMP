@@ -3,8 +3,10 @@ package dev.filinhat.bikecalc.presentation.features.pressure.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -35,6 +37,7 @@ fun PressureResultContent(
     ) {
         when (savedResults.isNotEmpty()) {
             true -> {
+                Spacer(modifier = Modifier.height(8.dp))
                 DeleteResultsButton(
                     onClick = {
                         onAction(
@@ -42,13 +45,14 @@ fun PressureResultContent(
                         )
                     },
                 )
+                Spacer(modifier = Modifier.height(2.dp))
                 Column(
                     modifier =
                         modifier
                             .fillMaxSize()
                             .padding(vertical = 16.dp)
                             .verticalScroll(rememberScrollState()),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     savedResults.onEach { savedResults ->
@@ -62,7 +66,7 @@ fun PressureResultContent(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .padding(top = 24.dp),
+                            .padding(top = 8.dp),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
