@@ -7,14 +7,14 @@ import kotlinx.serialization.Serializable
  */
 sealed interface BikeCalcRoute {
     /**
-     * Главный граф навигации приложения.
-     */
-    @Serializable
-    data object PressureGraph : BikeCalcRoute
-
-    /**
      * Маршрут экрана расчета давления.
      */
     @Serializable
     data object PressureCalculator : BikeCalcRoute
+
+    /**
+     * Маршрут экрана расчета развития метража.
+     */
+    @Serializable
+    data object DevelopmentCalculator : BikeCalcRoute
 }

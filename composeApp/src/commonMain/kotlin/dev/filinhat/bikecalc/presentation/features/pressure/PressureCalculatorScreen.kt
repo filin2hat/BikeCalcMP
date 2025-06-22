@@ -3,16 +3,12 @@ package dev.filinhat.bikecalc.presentation.features.pressure
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -36,8 +32,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -73,13 +71,19 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  * @param viewModel [PressureCalculatorViewModel]
  */
 @Composable
-internal fun PressureCalculatorScreenRoot(viewModel: PressureCalculatorViewModel) {
+internal fun PressureCalculatorScreenRoot(
+    viewModel: PressureCalculatorViewModel,
+    keyboardController: SoftwareKeyboardController?,
+    focusManager: FocusManager,
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     PressureCalculatorScreen(
         uiState = uiState,
         onAction = viewModel::onAction,
         modifier = Modifier,
+        keyboardController = keyboardController,
+        focusManager = focusManager,
     )
 }
 
@@ -88,21 +92,11 @@ private fun PressureCalculatorScreen(
     uiState: PressureCalcState,
     onAction: (PressureCalcAction) -> Unit,
     modifier: Modifier = Modifier,
+    keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
+    focusManager: FocusManager? = LocalFocusManager.current,
 ) {
-    var openInfoDialog by remember { mutableStateOf(false) }
-    val keyboardController = LocalSoftwareKeyboardController.current
-    val focusManager = LocalFocusManager.current
     val pagerState = rememberPagerState { 2 }
     val currentOnAction by rememberUpdatedState(onAction)
-    var isDark by LocalThemeIsDark.current
-    val iconTheme =
-        remember(isDark) {
-            if (isDark) {
-                Res.drawable.ic_light_mode
-            } else {
-                Res.drawable.ic_dark_mode
-            }
-        }
 
     LaunchedEffect(uiState.selectedTabIndex) {
         pagerState.animateScrollToPage(uiState.selectedTabIndex)
@@ -111,81 +105,21 @@ private fun PressureCalculatorScreen(
         currentOnAction(PressureCalcAction.OnTabSelected(pagerState.currentPage))
     }
 
-    if (openInfoDialog) {
-        InfoDialog(
-            onCloseDialog = { openInfoDialog = false },
-            dialogTitle = stringResource(Res.string.dialog_title),
-            dialogText =
-                stringResource(Res.string.dialog_text_chapter_one) + "\n\n" +
-                    stringResource(Res.string.dialog_text_chapter_two) + "\n" +
-                    stringResource(Res.string.dialog_text_chapter_three) + "\n" +
-                    stringResource(Res.string.dialog_text_chapter_four) + "\n\n" +
-                    stringResource(Res.string.dialog_text_end),
-            icon = LineAwesomeIcons.InfoCircleSolid,
-        )
-    }
     Column(
         modifier =
             modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
-                .statusBarsPadding()
-                .navigationBarsPadding()
                 .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = stringResource(Res.string.app_name),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.primary,
-            )
-            Spacer(modifier = Modifier.weight(1f))
-
-            IconButton(
-                onClick = {
-                    isDark = !isDark
-                },
-                colors =
-                    IconButtonDefaults.iconButtonColors(
-                        contentColor = MaterialTheme.colorScheme.primary,
-                    ),
-                modifier = Modifier.size(48.dp),
-            ) {
-                Icon(vectorResource(iconTheme), contentDescription = null)
-            }
-
-            IconButton(
-                onClick = {
-                    keyboardController?.hide()
-                    focusManager.clearFocus()
-                    openInfoDialog = true
-                },
-                colors =
-                    IconButtonDefaults.iconButtonColors(
-                        contentColor = MaterialTheme.colorScheme.primary,
-                    ),
-                modifier = Modifier.size(48.dp),
-            ) {
-                Icon(
-                    imageVector = LineAwesomeIcons.InfoCircleSolid,
-                    contentDescription = null,
-                )
-            }
-        }
         Surface(
             shape = MaterialTheme.shapes.medium,
             tonalElevation = 1.dp,
             modifier =
                 Modifier
-                    .padding(top = 4.dp, bottom = 10.dp)
+                    .padding(top = 16.dp, bottom = 10.dp)
                     .widthIn(max = 700.dp)
                     .clip(MaterialTheme.shapes.medium),
         ) {

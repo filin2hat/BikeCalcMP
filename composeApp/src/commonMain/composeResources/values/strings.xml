@@ -47,4 +47,8 @@
     <string name="error_too_many_requests">Too many requests. Please try again later.</string>
     <string name="error_unknown_local">An unknown local error occurred. Please try again later.</string>
     <string name="error_unknown_remote">An unknown remote error occurred. Please try again later.</string>
+
+    <!-- Navigation -->
+    <string name="nav_pressure_calculator">Pressure Calculator</string>
+    <string name="nav_development_calculator">Development Calculator</string>
 </resources>

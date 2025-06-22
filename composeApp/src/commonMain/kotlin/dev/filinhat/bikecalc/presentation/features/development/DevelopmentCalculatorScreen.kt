@@ -14,11 +14,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
@@ -42,11 +47,17 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  * @param viewModel ViewModel для экрана развития метража
  */
 @Composable
-fun DevelopmentCalculatorScreenRoot(viewModel: DevelopmentCalculatorViewModel) {
+fun DevelopmentCalculatorScreenRoot(
+    viewModel: DevelopmentCalculatorViewModel,
+    keyboardController: SoftwareKeyboardController?,
+    focusManager: FocusManager,
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     DevelopmentCalculatorScreen(
         uiState = uiState,
         onAction = viewModel::onAction,
+        keyboardController = keyboardController,
+        focusManager = focusManager,
     )
 }
 
@@ -54,19 +65,21 @@ fun DevelopmentCalculatorScreenRoot(viewModel: DevelopmentCalculatorViewModel) {
 fun DevelopmentCalculatorScreen(
     uiState: DevelopmentCalcState,
     onAction: (DevelopmentCalcAction) -> Unit,
+    modifier: Modifier = Modifier,
+    keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
+    focusManager: FocusManager? = LocalFocusManager.current,
 ) {
-    var rimDiameter by remember { mutableStateOf(622.0) }
-    var tireWidth by remember { mutableStateOf(25.0) }
+    var rimDiameter by remember { mutableDoubleStateOf(622.0) }
+    var tireWidth by remember { mutableDoubleStateOf(25.0) }
     var frontTeeth by remember { mutableStateOf("50") }
     var rearTeeth by remember { mutableStateOf("12,13,15,17,19,21,23,25,28") }
 
     Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = modifier.padding(16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text("Калькулятор развития метража", style = MaterialTheme.typography.titleLarge)
-        Spacer(modifier = Modifier.padding(8.dp))
+        Spacer(modifier = Modifier.padding(16.dp))
         BasicTextField(
             value = rimDiameter.toString(),
             onValueChange = { it.toDoubleOrNull()?.let { v -> rimDiameter = v } },

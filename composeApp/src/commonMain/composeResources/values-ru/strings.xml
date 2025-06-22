@@ -36,4 +36,8 @@
     <string name="tire_size">Размер покрышки</string>
     <string name="weight_incorrect">Указан некорректный вес</string>
     <string name="wheel_size">Размер колеса</string>
+
+    <!-- Navigation -->
+    <string name="nav_pressure_calculator">Калькулятор давления</string>
+    <string name="nav_development_calculator">Калькулятор развития</string>
 </resources>
