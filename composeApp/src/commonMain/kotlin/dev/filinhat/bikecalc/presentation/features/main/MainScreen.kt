@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -16,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -48,16 +48,19 @@ import bikecalcmp.composeapp.generated.resources.ic_pressure_calculator
 import bikecalcmp.composeapp.generated.resources.nav_development_calculator
 import bikecalcmp.composeapp.generated.resources.nav_pressure_calculator
 import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.CalculatorSolid
+import compose.icons.lineawesomeicons.ChartLineSolid
 import compose.icons.lineawesomeicons.InfoCircleSolid
 import dev.filinhat.bikecalc.app.navigation.BikeCalcNavigation
 import dev.filinhat.bikecalc.app.navigation.BikeCalcRoute
 import dev.filinhat.bikecalc.app.navigation.NavigationItem
 import dev.filinhat.bikecalc.presentation.kit.InfoDialog
+import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
 import dev.filinhat.bikecalc.presentation.theme.LocalThemeIsDark
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
@@ -91,27 +94,27 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         bottomBar = {
             NavigationBar(
                 windowInsets = NavigationBarDefaults.windowInsets,
-                containerColor = MaterialTheme.colorScheme.surface,
+                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                contentColor = MaterialTheme.colorScheme.primary,
                 tonalElevation = 8.dp,
             ) {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
-
                 val screens =
                     listOf(
                         NavigationItem(
                             route = BikeCalcRoute.PressureCalculator,
                             title = stringResource(Res.string.nav_pressure_calculator),
-                            icon = vectorResource(Res.drawable.ic_pressure_calculator),
+                            icon = LineAwesomeIcons.CalculatorSolid,
                         ),
                         NavigationItem(
                             route = BikeCalcRoute.DevelopmentCalculator,
                             title = stringResource(Res.string.nav_development_calculator),
-                            icon = vectorResource(Res.drawable.ic_development_calculator),
+                            icon = LineAwesomeIcons.ChartLineSolid,
                         ),
                     )
 
@@ -121,10 +124,10 @@ fun MainScreen(modifier: Modifier = Modifier) {
                             Icon(
                                 imageVector = screen.icon,
                                 contentDescription = screen.title,
-                                tint = MaterialTheme.colorScheme.onSurface,
+                                tint = MaterialTheme.colorScheme.primary,
                             )
                         },
-                        label = { androidx.compose.material3.Text(screen.title) },
+                        label = { Text(screen.title) },
                         selected = currentDestination?.hierarchy?.any { it.route == screen.route.toString() } == true,
                         onClick = {
                             navController.navigate(screen.route) {
@@ -201,4 +204,12 @@ fun MainScreen(modifier: Modifier = Modifier) {
             }
         },
     )
+}
+
+@Preview
+@Composable
+private fun MainScreenPreview() {
+    BikeCalcTheme {
+        MainScreen()
+    }
 }
