@@ -13,10 +13,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.i_understand_this
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.InfoCircleSolid
+import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Информационное окно.
@@ -49,6 +54,7 @@ fun InfoDialog(
             Text(
                 text = dialogTitle,
                 style = MaterialTheme.typography.titleLarge,
+                textAlign = TextAlign.Center,
             )
         },
         text = {
@@ -74,4 +80,17 @@ fun InfoDialog(
         },
         onDismissRequest = { },
     )
+}
+
+@Preview
+@Composable
+private fun InfoDialogPreview() {
+    BikeCalcTheme {
+        InfoDialog(
+            dialogText = "Dialog long text. Dialog long text. Dialog long text. Dialog long text. Dialog long text. Dialog long text. Dialog long text. Dialog long text. Dialog long text.",
+            dialogTitle = "Dialoknknkng textrkjllkjkjlkjkljkl",
+            icon = LineAwesomeIcons.InfoCircleSolid,
+            onCloseDialog = {},
+        )
+    }
 }
