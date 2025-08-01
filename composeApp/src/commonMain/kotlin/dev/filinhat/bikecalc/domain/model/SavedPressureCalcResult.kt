@@ -2,6 +2,7 @@ package dev.filinhat.bikecalc.domain.model
 
 /**
  * Объект для хранения результатов расчета давления.
+ * @property id уникальный идентификатор
  * @property pressureFront давление переднего колеса
  * @property pressureRear давление заднего колеса
  * @property riderWeight вес велосипедиста
@@ -10,6 +11,7 @@ package dev.filinhat.bikecalc.domain.model
  * @property tireSize размер шины
  */
 data class SavedPressureCalcResult(
+    val id: Long = 0,
     val pressureFront: Double = 0.0,
     val pressureRear: Double = 0.0,
     val riderWeight: Double = 0.0,

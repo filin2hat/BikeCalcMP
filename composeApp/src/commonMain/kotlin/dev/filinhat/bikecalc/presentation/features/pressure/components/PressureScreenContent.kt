@@ -56,17 +56,21 @@ import dev.filinhat.bikecalc.domain.enums.tire.TireSize26Inches
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize275Inches
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize28Inches
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize29Inches
+import dev.filinhat.bikecalc.domain.enums.tube.TubeType
 import dev.filinhat.bikecalc.domain.enums.unit.WeightUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.Wheel
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.domain.model.PressureCalcResult
 import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcAction
 import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcState
 import dev.filinhat.bikecalc.presentation.kit.DropdownMenu
+import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
 import dev.filinhat.bikecalc.presentation.util.toBikeDouble
 import dev.filinhat.bikecalc.presentation.util.validateBikeWeight
 import dev.filinhat.bikecalc.presentation.util.validateUserWeight
 import kotlinx.collections.immutable.toPersistentList
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Комонент экрана расчета давления.
@@ -75,6 +79,7 @@ import org.jetbrains.compose.resources.stringResource
 fun PressureScreenContent(
     uiState: PressureCalcState,
     onAction: (PressureCalcAction) -> Unit,
+    modifier: Modifier = Modifier,
     keyboardController: SoftwareKeyboardController? = null,
     focusManager: FocusManager? = null,
 ) {
@@ -94,7 +99,7 @@ fun PressureScreenContent(
 
     Column(
         modifier =
-            Modifier
+            modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Top,
@@ -367,3 +372,24 @@ private fun validateIfEmpty(
     tireSize != null &&
     riderWeight.isNotEmpty() &&
     bikeWeight.isNotEmpty()
+
+@Preview
+@Composable
+private fun PressureScreenContentPreview() {
+    BikeCalcTheme {
+        PressureScreenContent(
+            uiState =
+                PressureCalcState(
+                    result =
+                        PressureCalcResult(
+                            frontPressure = 2.5,
+                            rearPressure = 2.8,
+                        ),
+                    selectedTubeType = TubeType.TUBELESS,
+                ),
+            onAction = {},
+            keyboardController = null,
+            focusManager = null,
+        )
+    }
+}

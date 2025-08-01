@@ -22,6 +22,7 @@ fun SavedPressureCalcResult.toPressureResultEntity(): PressureResultEntity =
  */
 fun PressureResultEntity.toSavedPressureCalcResult(): SavedPressureCalcResult =
     SavedPressureCalcResult(
+        id = id ?: 0,
         pressureFront = pressureFront,
         pressureRear = pressureRear,
         riderWeight = riderWeight,

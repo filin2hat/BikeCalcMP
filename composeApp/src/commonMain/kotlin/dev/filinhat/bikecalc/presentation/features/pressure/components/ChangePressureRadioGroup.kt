@@ -31,8 +31,11 @@ import bikecalcmp.composeapp.generated.resources.bar_btn
 import bikecalcmp.composeapp.generated.resources.kpa_btn
 import bikecalcmp.composeapp.generated.resources.psi_btn
 import dev.filinhat.bikecalc.domain.enums.unit.PressureUnit
+import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Радио кнопки для выбора единиц отоброжения давления
@@ -102,5 +105,17 @@ fun ChangePressureRadioGroup(
                 Spacer(modifier = Modifier.height(8.dp))
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun ChangePressureRadioGroupPreview() {
+    BikeCalcTheme {
+        val pressureUnits = persistentListOf(PressureUnit.KPa, PressureUnit.BAR, PressureUnit.PSI)
+        ChangePressureRadioGroup(
+            pressureUnits = pressureUnits,
+            onPressureChange = {},
+        )
     }
 }
