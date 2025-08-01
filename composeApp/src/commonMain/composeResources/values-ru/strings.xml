@@ -37,6 +37,13 @@
     <string name="weight_incorrect">Указан некорректный вес</string>
     <string name="wheel_size">Размер колеса</string>
 
+    <string name="delete_confirmation_title">Подтвердите удаление</string>
+    <string name="delete_confirmation_text">Вы уверены, что хотите удалить эту запись? Это действие нельзя отменить.</string>
+    <string name="delete_all_confirmation_title">Подтвердите удаление</string>
+    <string name="delete_all_confirmation_text">Вы уверены, что хотите удалить все записи? Это действие нельзя отменить.</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
     <!-- Navigation -->
     <string name="nav_pressure_calculator">Калькулятор давления</string>
     <string name="nav_development_calculator">Калькулятор развития</string>

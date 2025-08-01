@@ -62,7 +62,14 @@ fun PressureResultContent(
                         items = savedResults,
                         key = { result -> result.id },
                     ) { result ->
-                        PressureResultCard(result)
+                        PressureResultCard(
+                            result = result,
+                            onLongClick = { savedResult ->
+                                onAction(
+                                    PressureCalcAction.OnDeleteResult(savedResult.id),
+                                )
+                            },
+                        )
                     }
                 }
             }

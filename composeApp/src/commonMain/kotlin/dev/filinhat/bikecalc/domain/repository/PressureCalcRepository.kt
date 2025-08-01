@@ -26,6 +26,11 @@ interface PressureCalcRepository {
     )
 
     /**
+     * Удаление результата расчета по его идентификатору.
+     */
+    suspend fun deleteResult(id: Long)
+
+    /**
      * Удаление всех сохраненных результатов расчета.
      */
     suspend fun deleteAllResults()

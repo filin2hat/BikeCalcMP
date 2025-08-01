@@ -1,6 +1,8 @@
 package dev.filinhat.bikecalc.presentation.features.pressure.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,10 +43,12 @@ private const val CARD_HEIGHT = 110
 /**
  * Карточка с результатами расчета давления.
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PressureResultCard(
     result: SavedPressureCalcResult,
     modifier: Modifier = Modifier,
+    onLongClick: (SavedPressureCalcResult) -> Unit,
 ) {
     Card(
         colors =
@@ -55,7 +59,11 @@ fun PressureResultCard(
         modifier =
             modifier
                 .fillMaxWidth()
-                .height(CARD_HEIGHT.dp),
+                .height(CARD_HEIGHT.dp)
+                .combinedClickable(
+                    onClick = {},
+                    onLongClick = { onLongClick(result) },
+                ),
     ) {
         Column(
             modifier =
@@ -152,6 +160,7 @@ private fun PressureResultCardPreview() {
         PressureResultCard(
             result =
                 SavedPressureCalcResult(
+                    id = 0,
                     pressureFront = 2.4,
                     pressureRear = 2.6,
                     riderWeight = 84.1,
@@ -159,6 +168,7 @@ private fun PressureResultCardPreview() {
                     wheelSize = WheelSize.Inches29.inchesSize.toString(),
                     tireSize = TireSize29Inches.Size29x225.tireWidthInInches.toString(),
                 ),
+            onLongClick = {},
         )
     }
 }

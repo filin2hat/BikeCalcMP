@@ -37,6 +37,13 @@
     <string name="weight_incorrect">Incorrect weight entered</string>
     <string name="wheel_size">Wheel size</string>
 
+    <string name="delete_confirmation_title">Confirm Deletion</string>
+    <string name="delete_confirmation_text">Are you sure you want to delete this record? This action cannot be undone.</string>
+    <string name="delete_all_confirmation_title">Confirm Deletion</string>
+    <string name="delete_all_confirmation_text">Are you sure you want to delete all records? This action cannot be undone.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
     <!-- Error messages -->
     <string name="error_disk_full">Insufficient storage space. Please free up some space and try again.</string>
     <string name="error_no_data">No data available. Please check your internet connection and try again.</string>

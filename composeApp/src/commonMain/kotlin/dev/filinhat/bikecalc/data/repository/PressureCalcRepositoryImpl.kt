@@ -52,6 +52,10 @@ class PressureCalcRepositoryImpl(
         pressureResultDao.deleteAllResults()
     }
 
+    override suspend fun deleteResult(id: Long) {
+        pressureResultDao.deleteResult(id)
+    }
+
     override fun getAllResults(): Flow<List<SavedPressureCalcResult>> =
         pressureResultDao
             .getAllResults()
