@@ -3,13 +3,14 @@ package dev.filinhat.bikecalc.presentation.features.pressure.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,28 +46,30 @@ fun PressureResultContent(
                         )
                     },
                 )
-                Spacer(modifier = Modifier.height(2.dp))
-                Column(
-                    modifier =
-                        modifier
-                            .fillMaxSize()
-                            .padding(vertical = 16.dp)
-                            .verticalScroll(rememberScrollState()),
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                LazyColumn(
+                    modifier = modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(bottom = 24.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    savedResults.onEach { savedResults ->
-                        PressureResultCard(savedResults)
+                    items(
+                        items = savedResults,
+                        key = { result ->
+                            // Создаем уникальный ключ из данных объекта
+                            "${result.pressureFront}-${result.pressureRear}-${result.riderWeight}-${result.bikeWeight}-${result.wheelSize}-${result.tireSize}"
+                        },
+                    ) { result ->
+                        PressureResultCard(result)
                     }
                 }
             }
 
             false -> {
                 Box(
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp),
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
