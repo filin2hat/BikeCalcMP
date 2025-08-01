@@ -12,10 +12,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarDefaults
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,9 +25,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.app_name
@@ -43,15 +36,10 @@ import bikecalcmp.composeapp.generated.resources.dialog_text_end
 import bikecalcmp.composeapp.generated.resources.dialog_title
 import bikecalcmp.composeapp.generated.resources.ic_dark_mode
 import bikecalcmp.composeapp.generated.resources.ic_light_mode
-import bikecalcmp.composeapp.generated.resources.nav_development_calculator
-import bikecalcmp.composeapp.generated.resources.nav_pressure_calculator
 import compose.icons.LineAwesomeIcons
-import compose.icons.lineawesomeicons.CalculatorSolid
-import compose.icons.lineawesomeicons.ChartLineSolid
 import compose.icons.lineawesomeicons.InfoCircleSolid
 import dev.filinhat.bikecalc.app.navigation.BikeCalcNavigation
 import dev.filinhat.bikecalc.app.navigation.BikeCalcRoute
-import dev.filinhat.bikecalc.app.navigation.NavigationItem
 import dev.filinhat.bikecalc.presentation.kit.InfoDialog
 import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
 import dev.filinhat.bikecalc.presentation.theme.LocalThemeIsDark

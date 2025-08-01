@@ -63,7 +63,7 @@ fun DeleteResultsButton(
 
 @Preview()
 @Composable
-fun PreviewDeleteResultsButtonLight() {
+private fun PreviewDeleteResultsButtonLight() {
     BikeCalcTheme {
         DeleteResultsButton(
             onClick = {},

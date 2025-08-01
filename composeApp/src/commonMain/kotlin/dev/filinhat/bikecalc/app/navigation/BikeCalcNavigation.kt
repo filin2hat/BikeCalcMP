@@ -6,8 +6,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import dev.filinhat.bikecalc.presentation.features.development.DevelopmentCalculatorScreenRoot
-import dev.filinhat.bikecalc.presentation.features.development.viewmodel.DevelopmentCalculatorViewModel
 import dev.filinhat.bikecalc.presentation.features.pressure.PressureCalculatorScreenRoot
 import dev.filinhat.bikecalc.presentation.features.pressure.viewmodel.PressureCalculatorViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -30,11 +28,6 @@ fun BikeCalcNavigation(
         composable<BikeCalcRoute.PressureCalculator> {
             val viewModel = koinViewModel<PressureCalculatorViewModel>()
             PressureCalculatorScreenRoot(viewModel, keyboardController, focusManager)
-        }
-
-        composable<BikeCalcRoute.DevelopmentCalculator> {
-            val viewModel = koinViewModel<DevelopmentCalculatorViewModel>()
-            DevelopmentCalculatorScreenRoot(viewModel, keyboardController, focusManager)
         }
     }
 }
