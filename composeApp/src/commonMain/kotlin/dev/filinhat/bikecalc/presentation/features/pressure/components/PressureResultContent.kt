@@ -1,5 +1,9 @@
 package dev.filinhat.bikecalc.presentation.features.pressure.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +34,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 /**
  * Компонент отображения сохраненных результатов расчета давления.
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PressureResultContent(
     onAction: (PressureCalcAction) -> Unit,
@@ -39,8 +44,12 @@ fun PressureResultContent(
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-        when (savedResults.isNotEmpty()) {
-            true -> {
+        AnimatedVisibility(
+            visible = savedResults.isNotEmpty(),
+            enter = fadeIn(),
+            exit = fadeOut(),
+        ) {
+            Column {
                 Spacer(modifier = Modifier.height(8.dp))
                 DeleteResultsButton(
                     onClick = {
@@ -63,6 +72,7 @@ fun PressureResultContent(
                         key = { result -> result.id },
                     ) { result ->
                         PressureResultCard(
+                            modifier = Modifier.animateItem(),
                             result = result,
                             onLongClick = { savedResult ->
                                 onAction(
@@ -73,17 +83,21 @@ fun PressureResultContent(
                     }
                 }
             }
+        }
 
-            false -> {
-                Box(
-                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text(
-                        text = stringResource(Res.string.no_results),
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                }
+        AnimatedVisibility(
+            visible = savedResults.isEmpty(),
+            enter = fadeIn(),
+            exit = fadeOut(),
+        ) {
+            Box(
+                modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = stringResource(Res.string.no_results),
+                    style = MaterialTheme.typography.titleLarge,
+                )
             }
         }
     }
