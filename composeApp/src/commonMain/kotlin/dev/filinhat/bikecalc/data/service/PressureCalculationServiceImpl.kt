@@ -7,6 +7,7 @@ import dev.filinhat.bikecalc.domain.model.PressureCalcParams
 import dev.filinhat.bikecalc.domain.model.PressureCalcResult
 import dev.filinhat.bikecalc.domain.model.PressureCoefficients
 import dev.filinhat.bikecalc.domain.service.PressureCalculationService
+import dev.filinhat.bikecalc.presentation.util.lbsToKg
 
 class PressureCalculationServiceImpl : PressureCalculationService {
     override fun calculatePressure(params: PressureCalcParams): PressureCalcResult {
@@ -61,17 +62,13 @@ class PressureCalculationServiceImpl : PressureCalculationService {
     ): Double {
         val factor = if (isFront) coefficients.frontFactor else coefficients.rearFactor
 
-        val riderWeight =
-            if (weightUnit == WeightUnit.KG) riderWeight else lbsToKg(riderWeight)
-        val bikeWeight =
-            if (weightUnit == WeightUnit.KG) bikeWeight else lbsToKg(bikeWeight)
+        val riderWeight = if (weightUnit == WeightUnit.KG) riderWeight else riderWeight.lbsToKg()
+        val bikeWeight = if (weightUnit == WeightUnit.KG) bikeWeight else bikeWeight.lbsToKg()
         val empiricalCoefficient =
             if (isFront) coefficients.frontEmpiricalCoefficient else coefficients.rearEmpiricalCoefficient
 
         return ((riderWeight * factor + bikeWeight * factor) / (wheelSize * tireSize)) * empiricalCoefficient
     }
-
-    private fun lbsToKg(lbs: Double) = lbs / 2.20462
 
     companion object {
         private const val TUBELESS_PRESSURE_COEFFICIENT = 0.85

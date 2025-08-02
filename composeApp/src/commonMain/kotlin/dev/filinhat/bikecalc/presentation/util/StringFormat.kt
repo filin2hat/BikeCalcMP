@@ -6,7 +6,7 @@ import kotlin.math.pow
 /**
  * Функция для форматирования числа с заданной точностью
  */
-fun formatValue(
+fun formatDoubleToString(
     value: Double,
     decimalPlaces: Int = 1,
 ): String {

@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ViewModel экрана [PressureCalculatorScreen]
+ * ViewModel экрана PressureCalculatorScreen
  *
  * @property repository - репозиторий для работы с данными расчета давления.
  */
@@ -33,17 +33,17 @@ class PressureCalculatorViewModel(
     BaseViewModel<PressureCalcState, PressureCalcAction> {
     private var observeSavedResultsJob: Job? = null
 
-    private val _uiState = MutableStateFlow<PressureCalcState>(PressureCalcState())
+    private val _uiState = MutableStateFlow(PressureCalcState())
     override val uiState =
         _uiState
             .onStart { observeSavedResults() }
             .stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.Companion.Lazily,
+                started = SharingStarted.Lazily,
                 initialValue = _uiState.value,
             )
 
-    override fun onAction(event: PressureCalcAction) =
+    override fun onAction(event: PressureCalcAction) {
         when (event) {
             is PressureCalcAction.OnCalcPressure ->
                 calcPressureResult(
@@ -67,8 +67,48 @@ class PressureCalculatorViewModel(
                     state.copy(selectedTubeType = event.tubeType)
                 }
 
-            is PressureCalcAction.OnDeleteAllResults -> deleteAllResults()
+            is PressureCalcAction.OnDeleteResult ->
+                _uiState.update { state ->
+                    state.copy(showDeleteConfirmationForId = event.id)
+                }
+
+            is PressureCalcAction.OnConfirmDelete -> {
+                val idToDelete = _uiState.value.showDeleteConfirmationForId
+                if (idToDelete != null) {
+                    viewModelScope.launch(Dispatchers.IO) {
+                        repository.deleteResult(idToDelete)
+                        _uiState.update { state ->
+                            state.copy(showDeleteConfirmationForId = null)
+                        }
+                    }
+                }
+            }
+
+            is PressureCalcAction.OnDismissDeleteDialog ->
+                _uiState.update { state ->
+                    state.copy(showDeleteConfirmationForId = null)
+                }
+
+            is PressureCalcAction.OnDeleteAllResults ->
+                _uiState.update { state ->
+                    state.copy(showDeleteAllConfirmation = true)
+                }
+
+            is PressureCalcAction.OnConfirmDeleteAll -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    repository.deleteAllResults()
+                    _uiState.update { state ->
+                        state.copy(showDeleteAllConfirmation = false)
+                    }
+                }
+            }
+
+            is PressureCalcAction.OnDismissDeleteAllDialog ->
+                _uiState.update { state ->
+                    state.copy(showDeleteAllConfirmation = false)
+                }
         }
+    }
 
     private fun observeSavedResults() {
         observeSavedResultsJob?.cancel()
@@ -94,9 +134,10 @@ class PressureCalculatorViewModel(
         }
     }
 
-    private fun deleteAllResults() {
-        viewModelScope.launch {
-            repository.deleteAllResults()
-        }
-    }
+    // Больше не используется напрямую из UI, удаление происходит через OnConfirmDeleteAll
+    // private fun deleteAllResults() {
+    //     viewModelScope.launch {
+    //         repository.deleteAllResults()
+    //     }
+    // }
 }

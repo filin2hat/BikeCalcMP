@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
@@ -16,6 +17,7 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -30,8 +32,14 @@ import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import bikecalcmp.composeapp.generated.resources.Res
+import bikecalcmp.composeapp.generated.resources.delete_all_confirmation_text
+import bikecalcmp.composeapp.generated.resources.delete_all_confirmation_title
+import bikecalcmp.composeapp.generated.resources.delete_confirmation_text
+import bikecalcmp.composeapp.generated.resources.delete_confirmation_title
 import bikecalcmp.composeapp.generated.resources.new_calculation
+import bikecalcmp.composeapp.generated.resources.no
 import bikecalcmp.composeapp.generated.resources.previous_results
+import bikecalcmp.composeapp.generated.resources.yes
 import dev.filinhat.bikecalc.presentation.features.pressure.components.PressureResultContent
 import dev.filinhat.bikecalc.presentation.features.pressure.components.PressureScreenContent
 import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcAction
@@ -166,11 +174,47 @@ private fun PressureCalculatorScreen(
 
                 1 -> {
                     PressureResultContent(
-                        onAction = onAction,
+                        onAction = onAction, // OnDeleteAllResults будет вызван изнутри PressureResultContent
                         savedResults = uiState.savedCalcResult,
                     )
                 }
             }
+        }
+
+        if (uiState.showDeleteConfirmationForId != null) {
+            AlertDialog(
+                onDismissRequest = { onAction(PressureCalcAction.OnDismissDeleteDialog) },
+                title = { Text(stringResource(Res.string.delete_confirmation_title)) },
+                text = { Text(stringResource(Res.string.delete_confirmation_text)) },
+                confirmButton = {
+                    TextButton(onClick = { onAction(PressureCalcAction.OnConfirmDelete) }) {
+                        Text(stringResource(Res.string.yes))
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { onAction(PressureCalcAction.OnDismissDeleteDialog) }) {
+                        Text(stringResource(Res.string.no))
+                    }
+                },
+            )
+        }
+
+        if (uiState.showDeleteAllConfirmation) {
+            AlertDialog(
+                onDismissRequest = { onAction(PressureCalcAction.OnDismissDeleteAllDialog) },
+                title = { Text(stringResource(Res.string.delete_all_confirmation_title)) },
+                text = { Text(stringResource(Res.string.delete_all_confirmation_text)) },
+                confirmButton = {
+                    TextButton(onClick = { onAction(PressureCalcAction.OnConfirmDeleteAll) }) {
+                        Text(stringResource(Res.string.yes))
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { onAction(PressureCalcAction.OnDismissDeleteAllDialog) }) {
+                        Text(stringResource(Res.string.no))
+                    }
+                },
+            )
         }
     }
 }

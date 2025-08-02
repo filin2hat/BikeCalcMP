@@ -48,7 +48,36 @@ sealed interface PressureCalcAction {
     ) : PressureCalcAction
 
     /**
-     * Удаление всех результатов.
+     * Инициирует удаление результата (показывает диалог).
+     *
+     * @property id ID результата для удаления.
+     */
+    data class OnDeleteResult(
+        val id: Long,
+    ) : PressureCalcAction
+
+    /**
+     * Подтверждает удаление результата.
+     */
+    data object OnConfirmDelete : PressureCalcAction
+
+    /**
+     * Отклоняет удаление результата (закрывает диалог).
+     */
+    data object OnDismissDeleteDialog : PressureCalcAction
+
+    /**
+     * Инициирует удаление всех результатов (показывает диалог).
      */
     data object OnDeleteAllResults : PressureCalcAction
+
+    /**
+     * Подтверждает удаление всех результатов.
+     */
+    data object OnConfirmDeleteAll : PressureCalcAction
+
+    /**
+     * Отклоняет удаление всех результатов (закрывает диалог).
+     */
+    data object OnDismissDeleteAllDialog : PressureCalcAction
 }

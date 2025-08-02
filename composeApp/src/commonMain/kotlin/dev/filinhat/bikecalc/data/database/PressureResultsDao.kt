@@ -23,6 +23,9 @@ abstract class PressureResultsDao {
     @Query("DELETE FROM PressureResultsTable")
     abstract suspend fun deleteAllResults()
 
+    @Query("DELETE FROM PressureResultsTable WHERE id = :id")
+    abstract suspend fun deleteResult(id: Long)
+
     @Query("SELECT COUNT(*) FROM PressureResultsTable")
     abstract suspend fun count(): Int
 

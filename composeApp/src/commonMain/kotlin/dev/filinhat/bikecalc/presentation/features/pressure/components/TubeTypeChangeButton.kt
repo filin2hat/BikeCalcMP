@@ -25,7 +25,9 @@ import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.tubeless
 import bikecalcmp.composeapp.generated.resources.tubes
 import dev.filinhat.bikecalc.domain.enums.tube.TubeType
+import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Селектор выбора типа монташа камеры в покрышке.
@@ -105,5 +107,18 @@ fun TubeTypeChangeButton(
                 Spacer(modifier = Modifier.width(12.dp))
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun TubeTypeChangeButtonPreview() {
+    BikeCalcTheme {
+        TubeTypeChangeButton(
+            onClick = {},
+            enabled = true,
+            selectedType = TubeType.TUBES,
+            modifier = Modifier,
+        )
     }
 }

@@ -29,12 +29,14 @@ import bikecalcmp.composeapp.generated.resources.rear_wheel_pressure
 import dev.filinhat.bikecalc.domain.enums.unit.PressureUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.Wheel
 import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
-import dev.filinhat.bikecalc.presentation.util.formatValue
+import dev.filinhat.bikecalc.presentation.util.barToKPa
+import dev.filinhat.bikecalc.presentation.util.barToPsi
+import dev.filinhat.bikecalc.presentation.util.formatDoubleToString
 import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-private const val CARD_HEIGHT = 130
+const val CARD_HEIGHT = 130
 
 /**
  * Карточка для расчета и просмотра давления велосипеда.
@@ -97,9 +99,9 @@ fun PressureCalcCard(
                         color = MaterialTheme.colorScheme.scrim,
                         text =
                             when (pressureUnit) {
-                                PressureUnit.BAR -> formatValue(value)
-                                PressureUnit.KPa -> formatValue(value.barToKPa(), 0)
-                                PressureUnit.PSI -> formatValue(value.barToPsi(), 0)
+                                PressureUnit.BAR -> formatDoubleToString(value)
+                                PressureUnit.KPa -> formatDoubleToString(value.barToKPa(), 0)
+                                PressureUnit.PSI -> formatDoubleToString(value.barToPsi(), 0)
                             },
                     )
 
@@ -139,10 +141,6 @@ fun PressureCalcCard(
         }
     }
 }
-
-private fun Double.barToKPa(): Double = this * 100
-
-private fun Double.barToPsi(): Double = this * 14.5038
 
 @Preview
 @Composable

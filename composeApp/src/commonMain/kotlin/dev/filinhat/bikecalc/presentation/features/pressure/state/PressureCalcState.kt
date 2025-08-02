@@ -20,6 +20,8 @@ data class PressureCalcState(
      * @param errorMessage Текст ошибки
      * @param savedCalcResult Список сохраненных результатов расчета
      * @param selectedTubeType Выбранный тип покрышки
+     * @param showDeleteConfirmationForId ID элемента для подтверждения удаления
+     * @param showDeleteAllConfirmation Признак показа диалога подтверждения удаления всех записей
      */
     val result: PressureCalcResult = PressureCalcResult(),
     val selectedTabIndex: Int = 0,
@@ -27,4 +29,6 @@ data class PressureCalcState(
     val errorMessage: UiText? = null,
     val savedCalcResult: ImmutableList<SavedPressureCalcResult> = persistentListOf(),
     val selectedTubeType: TubeType = TubeType.TUBES,
+    val showDeleteConfirmationForId: Long? = null,
+    val showDeleteAllConfirmation: Boolean = false,
 )

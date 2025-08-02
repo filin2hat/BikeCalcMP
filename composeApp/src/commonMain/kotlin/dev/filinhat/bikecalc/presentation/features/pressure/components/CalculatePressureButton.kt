@@ -16,7 +16,9 @@ import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.unit.dp
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.calculate_pressure
+import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Кнопка для расчета давления.
@@ -58,5 +60,13 @@ fun CalculatePressureButton(
             maxLines = 1,
             overflow = Ellipsis,
         )
+    }
+}
+
+@Preview
+@Composable
+private fun CalculatePressureButtonPreview() {
+    BikeCalcTheme {
+        CalculatePressureButton(onClick = {}, enabled = true)
     }
 }
