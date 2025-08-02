@@ -1,7 +1,6 @@
 package dev.filinhat.bikecalc.presentation.features.pressure.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,21 +33,16 @@ import dev.filinhat.bikecalc.domain.enums.tire.TireSize29Inches
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.domain.model.SavedPressureCalcResult
 import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
-import dev.filinhat.bikecalc.presentation.util.formatValue
+import dev.filinhat.bikecalc.presentation.util.formatDoubleToString
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-private const val CARD_HEIGHT = 110
-
-/**
- * Карточка с результатами расчета давления.
- */
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PressureResultCard(
     result: SavedPressureCalcResult,
-    modifier: Modifier = Modifier,
+    onClick: (SavedPressureCalcResult) -> Unit,
     onLongClick: (SavedPressureCalcResult) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Card(
         colors =
@@ -61,7 +55,7 @@ fun PressureResultCard(
                 .fillMaxWidth()
                 .height(CARD_HEIGHT.dp)
                 .combinedClickable(
-                    onClick = {},
+                    onClick = { onClick(result) },
                     onLongClick = { onLongClick(result) },
                 ),
     ) {
@@ -85,7 +79,7 @@ fun PressureResultCard(
                         overflow = Ellipsis,
                     )
                     Text(
-                        text = formatValue(result.pressureFront) + " " + stringResource(Res.string.bar),
+                        text = formatDoubleToString(result.pressureFront) + " " + stringResource(Res.string.bar),
                         style = MaterialTheme.typography.displaySmall,
                         color = MaterialTheme.colorScheme.scrim,
                         maxLines = 1,
@@ -104,7 +98,7 @@ fun PressureResultCard(
                         overflow = Ellipsis,
                     )
                     Text(
-                        text = formatValue(result.pressureRear) + " " + stringResource(Res.string.bar),
+                        text = formatDoubleToString(result.pressureRear) + " " + stringResource(Res.string.bar),
                         style = MaterialTheme.typography.displaySmall,
                         color = MaterialTheme.colorScheme.scrim,
                         maxLines = 1,
@@ -122,7 +116,7 @@ fun PressureResultCard(
                         contentDescription = null,
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = formatValue(result.riderWeight))
+                    Text(text = formatDoubleToString(result.riderWeight))
                 }
                 Row {
                     Icon(
@@ -130,7 +124,7 @@ fun PressureResultCard(
                         contentDescription = null,
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = formatValue(result.bikeWeight))
+                    Text(text = formatDoubleToString(result.bikeWeight))
                 }
                 Row {
                     Icon(
@@ -169,6 +163,7 @@ private fun PressureResultCardPreview() {
                     tireSize = TireSize29Inches.Size29x225.tireWidthInInches.toString(),
                 ),
             onLongClick = {},
+            onClick = {},
         )
     }
 }

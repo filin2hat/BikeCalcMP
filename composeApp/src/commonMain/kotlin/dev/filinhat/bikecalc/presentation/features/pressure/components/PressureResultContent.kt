@@ -18,6 +18,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -41,6 +45,8 @@ fun PressureResultContent(
     savedResults: ImmutableList<SavedPressureCalcResult>,
     modifier: Modifier = Modifier,
 ) {
+    var selectedResultForDetails by remember { mutableStateOf<SavedPressureCalcResult?>(null) }
+
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -74,6 +80,9 @@ fun PressureResultContent(
                         PressureResultCard(
                             modifier = Modifier.animateItem(),
                             result = result,
+                            onClick = {
+                                selectedResultForDetails = result
+                            },
                             onLongClick = { savedResult ->
                                 onAction(
                                     PressureCalcAction.OnDeleteResult(savedResult.id),
@@ -100,6 +109,13 @@ fun PressureResultContent(
                 )
             }
         }
+    }
+
+    selectedResultForDetails?.let { result ->
+        DetailedInfoDialog(
+            result = result,
+            onDismissRequest = { selectedResultForDetails = null }
+        )
     }
 }
 
