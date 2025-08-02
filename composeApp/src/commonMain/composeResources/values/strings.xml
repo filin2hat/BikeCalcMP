@@ -44,6 +44,18 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
+    <string name="dialog_title_calculation_details">Calculation Details</string>
+    <string name="label_front_wheel">Front Wheel:</string>
+    <string name="label_rear_wheel">Rear Wheel:</string>
+    <string name="label_rider_weight">Rider Weight:</string>
+    <string name="label_bike_weight">Bike Weight:</string>
+    <string name="label_wheel_size">Wheel Size:</string>
+    <string name="label_tire_width">Tire Width:</string>
+    <string name="button_close">Close</string>
+    <string name="pressure_info_format">%1$s BAR / %2$s Psi / %3$s kPa</string>
+    <string name="weight_info_format">%1$s kg / %2$s lbs</string>
+    <string name="dimension_info_inch_format">%1$s" (inch)</string>
+
     <!-- Error messages -->
     <string name="error_disk_full">Insufficient storage space. Please free up some space and try again.</string>
     <string name="error_no_data">No data available. Please check your internet connection and try again.</string>
