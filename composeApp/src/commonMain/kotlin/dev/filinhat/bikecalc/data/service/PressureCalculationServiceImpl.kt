@@ -17,22 +17,22 @@ class PressureCalculationServiceImpl : PressureCalculationService {
 
         val frontPressure =
             calculateWheelPressure(
-                params.riderWeight,
-                params.bikeWeight,
-                params.wheelSize.inchesSize,
-                params.tireSize.tireWidthInMillimeters,
-                params.weightUnit,
-                coefficients,
+                riderWeight = params.riderWeight,
+                bikeWeight = params.bikeWeight,
+                wheelSize = params.wheelSize.inchesSize,
+                tireSize = params.tireSize.tireWidthInMillimeters,
+                weightUnit = params.weightUnit,
+                coefficients = coefficients,
                 isFront = true,
             )
         val rearPressure =
             calculateWheelPressure(
-                params.riderWeight,
-                params.bikeWeight,
-                params.wheelSize.inchesSize,
-                params.tireSize.tireWidthInMillimeters,
-                params.weightUnit,
-                coefficients,
+                riderWeight = params.riderWeight,
+                bikeWeight = params.bikeWeight,
+                wheelSize = params.wheelSize.inchesSize,
+                tireSize = params.tireSize.tireWidthInMillimeters,
+                weightUnit = params.weightUnit,
+                coefficients = coefficients,
                 isFront = false,
             )
 
@@ -51,7 +51,9 @@ class PressureCalculationServiceImpl : PressureCalculationService {
         }
     }
 
-    private fun calculateWheelPressure(
+    // Сделаем internal для доступности в тестах, если нужно тестировать напрямую.
+    // В идеале приватные методы тестируются через публичные.
+    internal fun calculateWheelPressure(
         riderWeight: Double,
         bikeWeight: Double,
         wheelSize: Double,
@@ -60,14 +62,19 @@ class PressureCalculationServiceImpl : PressureCalculationService {
         coefficients: PressureCoefficients,
         isFront: Boolean,
     ): Double {
-        val factor = if (isFront) coefficients.frontFactor else coefficients.rearFactor
+        require(riderWeight > 0) { "Rider weight must be positive, but was $riderWeight" }
+        require(bikeWeight > 0) { "Bike weight must be positive, but was $bikeWeight" }
+        require(wheelSize > 0) { "Wheel size must be positive, but was $wheelSize" }
+        require(tireSize > 0) { "Tire size must be positive, but was $tireSize" }
 
-        val riderWeight = if (weightUnit == WeightUnit.KG) riderWeight else riderWeight.lbsToKg()
-        val bikeWeight = if (weightUnit == WeightUnit.KG) bikeWeight else bikeWeight.lbsToKg()
+        val factor = if (isFront) coefficients.frontFactor else coefficients.rearFactor
+        val riderWeightInKg =
+            if (weightUnit == WeightUnit.KG) riderWeight else riderWeight.lbsToKg()
+        val bikeWeightInKg = if (weightUnit == WeightUnit.KG) bikeWeight else bikeWeight.lbsToKg()
+
         val empiricalCoefficient =
             if (isFront) coefficients.frontEmpiricalCoefficient else coefficients.rearEmpiricalCoefficient
-
-        return ((riderWeight * factor + bikeWeight * factor) / (wheelSize * tireSize)) * empiricalCoefficient
+        return (riderWeightInKg + bikeWeightInKg) * factor / (wheelSize * tireSize) * empiricalCoefficient
     }
 
     companion object {

@@ -41,6 +41,12 @@ kotlin {
     sourceSets {
         val desktopMain by getting
 
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
