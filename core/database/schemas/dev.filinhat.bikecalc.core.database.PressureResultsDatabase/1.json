@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "7be4fcfc69cc4c7adef10124eb0fc17a",
+    "entities": [
+      {
+        "tableName": "PressureResultsTable",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `pressureFront` REAL NOT NULL, `pressureRear` REAL NOT NULL, `riderWeight` REAL NOT NULL, `bikeWeight` REAL NOT NULL, `wheelSize` TEXT NOT NULL, `tireSize` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "pressureFront",
+            "columnName": "pressureFront",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pressureRear",
+            "columnName": "pressureRear",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "riderWeight",
+            "columnName": "riderWeight",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bikeWeight",
+            "columnName": "bikeWeight",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wheelSize",
+            "columnName": "wheelSize",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tireSize",
+            "columnName": "tireSize",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7be4fcfc69cc4c7adef10124eb0fc17a')"
+    ]
+  }
+}
