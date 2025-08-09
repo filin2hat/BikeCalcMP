@@ -35,6 +35,7 @@ kotlin {
 
     sourceSets {
         val desktopMain by getting
+        val commonTest by getting
 
         androidMain.dependencies {
             implementation(compose.preview)
@@ -85,6 +86,15 @@ kotlin {
             implementation(libs.kotzilla.sdk.ktor3)
             implementation(libs.vico.multiplatform)
             implementation(libs.vico.multiplatform.m3)
+        }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+
+            // Доступ к типам и реализациям из модулей
+            implementation(project(":data:pressure"))
+            implementation(project(":core:model"))
+            implementation(project(":core:common"))
+            implementation(project(":domain:pressure"))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
