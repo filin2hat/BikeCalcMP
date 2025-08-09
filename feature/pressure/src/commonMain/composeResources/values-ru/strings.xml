@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bar">бар</string>
+    <string name="bar_btn">Бар</string>
+    <string name="bike_weight">Вес велосипеда</string>
+    <string name="calculate_pressure">Рассчитать давление</string>
+    <string name="clear_results">Очистить результаты</string>
+    <string name="front_wheel">Переднее колесо:</string>
+    <string name="front_wheel_pressure">Давление переднего колеса:</string>
+    <string name="i_understand_this">Мне это понятно</string>
+    <string name="kg">кг</string>
+    <string name="kpa">кПа</string>
+    <string name="kpa_btn">кПа</string>
+    <string name="lbs">фунт</string>
+    <string name="new_calculation">Расчёт</string>
+    <string name="no_results">Упс! Тут пока пусто...</string>
+    <string name="previous_results">Результаты</string>
+    <string name="psi">psi</string>
+    <string name="psi_btn">Psi</string>
+    <string name="rear_wheel">Заднее колесо:</string>
+    <string name="rear_wheel_pressure">Давление заднего колеса:</string>
+    <string name="rider_weight">Ваш вес</string>
+    <string name="tubeless">Без камеры</string>
+    <string name="tubes">С камерой</string>
+    <string name="tire_size">Размер покрышки</string>
+    <string name="weight_incorrect">Указан некорректный вес</string>
+    <string name="wheel_size">Размер колеса</string>
+
+    <string name="delete_confirmation_title">Подтвердите удаление</string>
+    <string name="delete_confirmation_text">Вы уверены, что хотите удалить эту запись? Это действие нельзя отменить.</string>
+    <string name="delete_all_confirmation_title">Подтвердите удаление</string>
+    <string name="delete_all_confirmation_text">Вы уверены, что хотите удалить все записи? Это действие нельзя отменить.</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
+    <string name="dialog_title_calculation_details">Детали расчёта</string>
+    <string name="label_front_wheel">Переднее колесо:</string>
+    <string name="label_rear_wheel">Заднее колесо:</string>
+    <string name="label_rider_weight">Вес велосипедиста:</string>
+    <string name="label_bike_weight">Вес велосипеда:</string>
+    <string name="label_wheel_size">Размер колеса:</string>
+    <string name="label_tire_width">Ширина покрышки:</string>
+    <string name="button_close">Закрыть</string>
+    <string name="pressure_info_format">%1$s Бар / %2$s Psi / %3$s кПа</string>
+    <string name="weight_info_format">%1$s кг / %2$s фунт</string>
+    <string name="dimension_info_inch_format">%1$s" (дюйм)</string>
+
+    <!-- Navigation -->
+    <string name="nav_pressure_calculator">Калькулятор давления</string>
+    <string name="nav_development_calculator">Калькулятор развития</string>
+</resources>

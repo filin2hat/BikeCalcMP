@@ -6,8 +6,8 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import dev.filinhat.bikecalc.presentation.features.pressure.PressureCalculatorScreenRoot
-import dev.filinhat.bikecalc.presentation.features.pressure.viewmodel.PressureCalculatorViewModel
+import dev.filinhat.bikecalc.feature.pressure.screen.PressureCalculatorScreenRoot
+import dev.filinhat.bikecalc.feature.pressure.viewmodel.PressureCalculatorViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 /**

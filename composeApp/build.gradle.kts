@@ -8,8 +8,7 @@ plugins {
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.serialization)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.room)
+
     alias(libs.plugins.kotzilla)
 }
 
@@ -34,18 +33,9 @@ kotlin {
 
     jvm("desktop")
 
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
-
     sourceSets {
         val desktopMain by getting
-
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
+        val commonTest by getting
 
         androidMain.dependencies {
             implementation(compose.preview)
@@ -56,6 +46,16 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
+            // Наши модули
+            implementation(project(":feature:pressure"))
+            implementation(project(":data:pressure"))
+            implementation(project(":domain:pressure"))
+            implementation(project(":designsystem"))
+            implementation(project(":core:database"))
+            implementation(project(":core:common"))
+            implementation(project(":core:model"))
+
+            // Compose
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -63,16 +63,19 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            // Lifecycle & ViewModel
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
 
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
+            // Navigation
             implementation(libs.jetbrains.compose.navigation)
+
+            // Serialization
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.collections.immutable)
-            implementation(libs.androidx.room.runtime)
-            implementation(libs.sqlite.bundled)
+
+            // DI
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             api(libs.koin.core)
@@ -84,6 +87,15 @@ kotlin {
             implementation(libs.vico.multiplatform)
             implementation(libs.vico.multiplatform.m3)
         }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+
+            // Доступ к типам и реализациям из модулей
+            implementation(project(":data:pressure"))
+            implementation(project(":core:model"))
+            implementation(project(":core:common"))
+            implementation(project(":domain:pressure"))
+        }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
@@ -91,10 +103,6 @@ kotlin {
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)
-        }
-
-        dependencies {
-            ksp(libs.androidx.room.compiler)
         }
     }
 }

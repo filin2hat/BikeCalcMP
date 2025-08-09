@@ -1,6 +1,6 @@
 package dev.filinhat.bikecalc.di
 
-import dev.filinhat.bikecalc.data.database.DatabaseFactory
+import dev.filinhat.bikecalc.core.database.DatabaseFactory
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
