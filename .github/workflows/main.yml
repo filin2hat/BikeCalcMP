@@ -48,6 +48,7 @@ jobs:
 
       - name: 🔍 Run Detekt Analysis
         run: ./gradlew detekt --parallel
+        shell: bash
 
       - name: 📊 Generate Test Report
         uses: dorny/test-reporter@v1

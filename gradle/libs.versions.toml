@@ -115,6 +115,7 @@ kotzilla-sdk-ktor3 = { group = "io.kotzilla", name = "kotzilla-sdk-ktor3", versi
 # Charts
 vico-multiplatform = { group = "com.patrykandpatrick.vico", name = "multiplatform", version.ref = "vico" }
 vico-multiplatform-m3 = { group = "com.patrykandpatrick.vico", name = "multiplatform-m3", version.ref = "vico" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version = "1.23.6" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -126,6 +127,7 @@ jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serializati
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 kotzilla = { id = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.6" }
 
 [bundles]
 ktor = [

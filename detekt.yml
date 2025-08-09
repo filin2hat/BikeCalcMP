@@ -1,0 +1,50 @@
+build:
+  maxIssues: 0
+  weights:
+    complexity: 2
+    LongParameterList: 1
+    style: 1
+
+config:
+  validation: true
+
+processors:
+  active: true
+
+console-reports:
+  active: true
+  exclude:
+    - 'ProjectStatisticsReport'
+    - 'ComplexityReport'
+    - 'NotificationReport'
+
+reports:
+  xml:
+    enabled: true
+    destination: build/reports/detekt/detekt.xml
+  html:
+    enabled: true
+    destination: build/reports/detekt/detekt.html
+  txt:
+    enabled: false
+
+style:
+  MagicNumber:
+    active: false
+  WildcardImport:
+    active: false
+  MagicNumber:
+    active: false
+  ForbiddenComment:
+    active: false
+  MaxLineLength:
+    active: true
+    maxLineLength: 140
+
+complexity:
+  LongMethod:
+    active: false
+  LongParameterList:
+    active: false
+
+
