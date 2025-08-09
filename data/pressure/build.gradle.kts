@@ -28,6 +28,12 @@ kotlin {
     jvm("desktop")
 
     sourceSets {
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
+
         commonMain.dependencies {
             // Модули проекта
             implementation(project(":core:model"))
