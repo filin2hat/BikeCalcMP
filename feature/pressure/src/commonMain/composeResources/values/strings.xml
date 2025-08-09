@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+
+
+    <!-- Pressure calc screen string composeResources -->
+    <string name="bar">bar</string>
+    <string name="bar_btn">Bar</string>
+    <string name="bike_weight">Bike weight</string>
+    <string name="calculate_pressure">Calculate pressure</string>
+    <string name="clear_results">Clear results</string>
+    <string name="front_wheel">Front wheel:</string>
+    <string name="front_wheel_pressure">Front wheel pressure:</string>
+    <string name="i_understand_this">I understand this</string>
+    <string name="kg">kg</string>
+    <string name="kpa">kPa</string>
+    <string name="kpa_btn">kPa</string>
+    <string name="lbs">lbs</string>
+    <string name="new_calculation">New calculation</string>
+    <string name="no_results">Oops! It's empty here for now...</string>
+    <string name="previous_results">Previous results</string>
+    <string name="psi">psi</string>
+    <string name="psi_btn">Psi</string>
+    <string name="rear_wheel">Rear wheel:</string>
+    <string name="rear_wheel_pressure">Rear wheel pressure:</string>
+    <string name="rider_weight">Your weight</string>
+    <string name="tire_size">Tire size</string>
+    <string name="tubeless">Tubeless</string>
+    <string name="tubes">Tubes</string>
+    <string name="weight_incorrect">Incorrect weight entered</string>
+    <string name="wheel_size">Wheel size</string>
+
+    <string name="delete_confirmation_title">Confirm Deletion</string>
+    <string name="delete_confirmation_text">Are you sure you want to delete this record? This action cannot be undone.</string>
+    <string name="delete_all_confirmation_title">Confirm Deletion</string>
+    <string name="delete_all_confirmation_text">Are you sure you want to delete all records? This action cannot be undone.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="dialog_title_calculation_details">Calculation Details</string>
+    <string name="label_front_wheel">Front Wheel:</string>
+    <string name="label_rear_wheel">Rear Wheel:</string>
+    <string name="label_rider_weight">Rider Weight:</string>
+    <string name="label_bike_weight">Bike Weight:</string>
+    <string name="label_wheel_size">Wheel Size:</string>
+    <string name="label_tire_width">Tire Width:</string>
+    <string name="button_close">Close</string>
+    <string name="pressure_info_format">%1$s BAR / %2$s Psi / %3$s kPa</string>
+    <string name="weight_info_format">%1$s kg / %2$s lbs</string>
+    <string name="dimension_info_inch_format">%1$s" (inch)</string>
+
+    <!-- Error messages -->
+    <string name="error_disk_full">Insufficient storage space. Please free up some space and try again.</string>
+    <string name="error_no_data">No data available. Please check your internet connection and try again.</string>
+    <string name="error_no_internet_connection">No internet connection. Please check your connection and try again.</string>
+    <string name="error_request_timeout">Request timed out. Please check your internet connection and try again.</string>
+    <string name="error_serialization">Data serialization error. Please try again later.</string>
+    <string name="error_server">Server error. Please try again later.</string>
+    <string name="error_too_many_requests">Too many requests. Please try again later.</string>
+    <string name="error_unknown_local">An unknown local error occurred. Please try again later.</string>
+    <string name="error_unknown_remote">An unknown remote error occurred. Please try again later.</string>
+
+    <!-- Navigation -->
+    <string name="nav_pressure_calculator">Pressure Calculator</string>
+    <string name="nav_development_calculator">Development Calculator</string>
+</resources>
