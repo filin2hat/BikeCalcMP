@@ -33,8 +33,7 @@ style:
     active: false
   WildcardImport:
     active: false
-  MagicNumber:
-    active: false
+
   ForbiddenComment:
     active: false
   MaxLineLength:
