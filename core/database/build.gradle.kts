@@ -44,11 +44,15 @@ kotlin {
         commonTest.dependencies {
             implementation(kotlin("test"))
         }
-
-        dependencies {
-            ksp(libs.androidx.room.compiler)
-        }
     }
+}
+
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspDesktop", libs.androidx.room.compiler)
+    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
 }
 
 android {
