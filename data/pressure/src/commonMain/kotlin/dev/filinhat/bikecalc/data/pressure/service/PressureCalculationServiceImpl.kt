@@ -51,7 +51,7 @@ class PressureCalculationServiceImpl : PressureCalculationService {
         }
     }
 
-    internal fun calculateWheelPressure(
+    fun calculateWheelPressure(
         riderWeight: Double,
         bikeWeight: Double,
         wheelSize: Double,

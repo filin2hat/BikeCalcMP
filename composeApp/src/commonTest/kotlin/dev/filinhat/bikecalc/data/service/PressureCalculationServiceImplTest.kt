@@ -1,8 +1,9 @@
 package dev.filinhat.bikecalc.data.service
 
-import dev.filinhat.bikecalc.domain.enums.unit.WeightUnit
-import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
-import dev.filinhat.bikecalc.domain.model.PressureCoefficients
+import dev.filinhat.bikecalc.core.enums.unit.WeightUnit
+import dev.filinhat.bikecalc.core.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.core.model.PressureCoefficients
+import dev.filinhat.bikecalc.data.pressure.service.PressureCalculationServiceImpl
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
