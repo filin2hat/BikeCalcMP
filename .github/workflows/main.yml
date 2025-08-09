@@ -206,6 +206,10 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@v4
 
+      - name: 🔧 Make gradlew executable
+        run: chmod +x gradlew
+        shell: bash
+
       - name: ☕ Setup JDK 17
         uses: actions/setup-java@v4
         with:
