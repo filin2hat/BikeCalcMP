@@ -1,9 +1,9 @@
-package dev.filinhat.bikecalc.presentation.features.pressure.state
+package dev.filinhat.bikecalc.feature.pressure.state
 
-import dev.filinhat.bikecalc.domain.enums.tire.TireSize
-import dev.filinhat.bikecalc.domain.enums.tube.TubeType
-import dev.filinhat.bikecalc.domain.enums.unit.WeightUnit
-import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.core.enums.tire.TireSize
+import dev.filinhat.bikecalc.core.enums.tube.TubeType
+import dev.filinhat.bikecalc.core.enums.unit.WeightUnit
+import dev.filinhat.bikecalc.core.enums.wheel.WheelSize
 
 /**
  * Определяет события UI, инициированные пользователем,
@@ -81,3 +81,4 @@ sealed interface PressureCalcAction {
      */
     data object OnDismissDeleteAllDialog : PressureCalcAction
 }
+

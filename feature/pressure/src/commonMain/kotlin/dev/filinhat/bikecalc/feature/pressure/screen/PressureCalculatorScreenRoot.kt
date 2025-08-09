@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.presentation.features.pressure
+package dev.filinhat.bikecalc.feature.pressure.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,21 +31,21 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import bikecalcmp.composeapp.generated.resources.Res
-import bikecalcmp.composeapp.generated.resources.delete_all_confirmation_text
-import bikecalcmp.composeapp.generated.resources.delete_all_confirmation_title
-import bikecalcmp.composeapp.generated.resources.delete_confirmation_text
-import bikecalcmp.composeapp.generated.resources.delete_confirmation_title
-import bikecalcmp.composeapp.generated.resources.new_calculation
-import bikecalcmp.composeapp.generated.resources.no
-import bikecalcmp.composeapp.generated.resources.previous_results
-import bikecalcmp.composeapp.generated.resources.yes
-import dev.filinhat.bikecalc.presentation.features.pressure.components.PressureResultContent
-import dev.filinhat.bikecalc.presentation.features.pressure.components.PressureScreenContent
-import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcAction
-import dev.filinhat.bikecalc.presentation.features.pressure.state.PressureCalcState
-import dev.filinhat.bikecalc.presentation.features.pressure.viewmodel.PressureCalculatorViewModel
-import dev.filinhat.bikecalc.presentation.theme.BikeCalcTheme
+import bikecalcmp.feature.pressure.generated.resources.Res
+import bikecalcmp.feature.pressure.generated.resources.delete_all_confirmation_text
+import bikecalcmp.feature.pressure.generated.resources.delete_all_confirmation_title
+import bikecalcmp.feature.pressure.generated.resources.delete_confirmation_text
+import bikecalcmp.feature.pressure.generated.resources.delete_confirmation_title
+import bikecalcmp.feature.pressure.generated.resources.new_calculation
+import bikecalcmp.feature.pressure.generated.resources.no
+import bikecalcmp.feature.pressure.generated.resources.previous_results
+import bikecalcmp.feature.pressure.generated.resources.yes
+import dev.filinhat.bikecalc.designsystem.theme.BikeCalcTheme
+import dev.filinhat.bikecalc.feature.pressure.component.PressureResultContent
+import dev.filinhat.bikecalc.feature.pressure.component.PressureScreenContent
+import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcAction
+import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcState
+import dev.filinhat.bikecalc.feature.pressure.viewmodel.PressureCalculatorViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -55,10 +55,11 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  * @param viewModel [PressureCalculatorViewModel]
  */
 @Composable
-internal fun PressureCalculatorScreenRoot(
+fun PressureCalculatorScreenRoot(
     viewModel: PressureCalculatorViewModel,
     keyboardController: SoftwareKeyboardController?,
     focusManager: FocusManager,
+    modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -174,7 +175,7 @@ private fun PressureCalculatorScreen(
 
                 1 -> {
                     PressureResultContent(
-                        onAction = onAction, // OnDeleteAllResults будет вызван изнутри PressureResultContent
+                        onAction = onAction,
                         savedResults = uiState.savedCalcResult,
                     )
                 }

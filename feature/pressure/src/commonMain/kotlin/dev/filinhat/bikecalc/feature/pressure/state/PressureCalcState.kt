@@ -1,9 +1,8 @@
-package dev.filinhat.bikecalc.presentation.features.pressure.state
+package dev.filinhat.bikecalc.feature.pressure.state
 
-import dev.filinhat.bikecalc.domain.enums.tube.TubeType
-import dev.filinhat.bikecalc.domain.model.PressureCalcResult
-import dev.filinhat.bikecalc.domain.model.SavedPressureCalcResult
-import dev.filinhat.bikecalc.presentation.util.UiText
+import dev.filinhat.bikecalc.core.enums.tube.TubeType
+import dev.filinhat.bikecalc.core.model.PressureCalcResult
+import dev.filinhat.bikecalc.core.model.SavedPressureCalcResult
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -26,9 +25,10 @@ data class PressureCalcState(
     val result: PressureCalcResult = PressureCalcResult(),
     val selectedTabIndex: Int = 0,
     val isLoading: Boolean = true,
-    val errorMessage: UiText? = null,
+    val errorMessage: String? = null,
     val savedCalcResult: ImmutableList<SavedPressureCalcResult> = persistentListOf(),
     val selectedTubeType: TubeType = TubeType.TUBES,
     val showDeleteConfirmationForId: Long? = null,
     val showDeleteAllConfirmation: Boolean = false,
 )
+
