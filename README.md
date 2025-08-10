@@ -13,6 +13,9 @@
 [![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20Desktop-green.svg)](https://kotlinlang.org/docs/multiplatform-mobile-getting-started.html)
 [![🚴‍♂️ BikeCalc Pro CI/CD](https://github.com/filin2hat/BikeCalcMP/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/filin2hat/BikeCalcMP/actions/workflows/main.yml)
 
+[![RuStore](https://img.shields.io/badge/RuStore-5.0⭐_1k+_downloads-FF6B35?logo=android)](https://www.rustore.ru/catalog/app/dev.filinhat.bikecalc)
+[![Version](https://img.shields.io/badge/Version-3.2.0-brightgreen)](https://www.rustore.ru/catalog/app/dev.filinhat.bikecalc)
+
 </div>
 
 ## 🎯 О проекте
@@ -20,6 +23,7 @@
 **BikeCalc Pro** — это pet-проект, демонстрирующий современные подходы к разработке мультиплатформенных приложений. Проект реализует полнофункциональное приложение для велосипедистов с акцентом на **чистую архитектуру**, **модульность** и **масштабируемость**.
 
 ### 🏆 Ключевые достижения:
+- ✅ **Опубликовано в RuStore** - рейтинг 5.0/5.0, 1000+ скачиваний
 - ✅ **8-модульная архитектура** с четким разделением ответственности
 - ✅ **Clean Architecture** с полным соблюдением SOLID принципов  
 - ✅ **95%+ общего кода** между платформами
@@ -59,7 +63,7 @@
 
 | Платформа | Статус | Особенности |
 |-----------|---------|-------------|
-| 🤖 **Android** | ✅ Полная поддержка | Material Design 3, Adaptive layouts |
+| 🤖 **Android** | ✅ [Опубликовано в RuStore](https://www.rustore.ru/catalog/app/dev.filinhat.bikecalc) | Material Design 3, рейтинг 5.0/5.0 |
 | 🍎 **iOS** | ✅ Полная поддержка | Native iOS navigation |  
 | 💻 **Desktop** | ✅ Полная поддержка | Windows, macOS, Linux |
 
