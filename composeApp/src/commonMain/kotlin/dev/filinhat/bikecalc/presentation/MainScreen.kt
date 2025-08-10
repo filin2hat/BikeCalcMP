@@ -34,6 +34,7 @@ import bikecalcmp.composeapp.generated.resources.dialog_text_chapter_three
 import bikecalcmp.composeapp.generated.resources.dialog_text_chapter_two
 import bikecalcmp.composeapp.generated.resources.dialog_text_end
 import bikecalcmp.composeapp.generated.resources.dialog_title
+import bikecalcmp.composeapp.generated.resources.i_understand_this
 import bikecalcmp.composeapp.generated.resources.ic_dark_mode
 import bikecalcmp.composeapp.generated.resources.ic_light_mode
 import compose.icons.LineAwesomeIcons
@@ -70,11 +71,14 @@ fun MainScreen(modifier: Modifier = Modifier) {
             dialogTitle = stringResource(Res.string.dialog_title),
             dialogText =
                 stringResource(Res.string.dialog_text_chapter_one) + "\n\n" +
-                    stringResource(Res.string.dialog_text_chapter_two) + "\n" +
-                    stringResource(Res.string.dialog_text_chapter_three) + "\n" +
-                    stringResource(Res.string.dialog_text_chapter_four) + "\n\n" +
-                    stringResource(Res.string.dialog_text_end),
+                    stringResource(
+                        Res.string.dialog_text_chapter_two,
+                    ) + "\n" + stringResource(Res.string.dialog_text_chapter_three) + "\n" +
+                    stringResource(
+                        Res.string.dialog_text_chapter_four,
+                    ) + "\n\n" + stringResource(Res.string.dialog_text_end),
             icon = LineAwesomeIcons.InfoCircleSolid,
+            buttonText = stringResource(Res.string.i_understand_this),
         )
     }
 
@@ -131,18 +135,13 @@ fun MainScreen(modifier: Modifier = Modifier) {
         content = { contentPadding ->
             Column(
                 modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .padding(
-                            top = contentPadding.calculateTopPadding(),
-                            bottom = contentPadding.calculateBottomPadding(),
-                        ),
+                    Modifier.fillMaxSize().padding(
+                        top = contentPadding.calculateTopPadding(),
+                        bottom = contentPadding.calculateBottomPadding(),
+                    ),
             ) {
                 Row(
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {

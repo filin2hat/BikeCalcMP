@@ -31,7 +31,7 @@ fun InfoDialog(
     dialogTitle: String,
     dialogText: String,
     icon: ImageVector,
-    buttonText: String = "Понятно",
+    buttonText: String,
 ) {
     AlertDialog(
         icon = {
@@ -76,9 +76,3 @@ fun InfoDialog(
         onDismissRequest = { },
     )
 }
-
-
-
-
-
-

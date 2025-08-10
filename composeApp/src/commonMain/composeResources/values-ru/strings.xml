@@ -9,4 +9,5 @@
     <string name="dialog_text_chapter_two">1. Общедоступные данные, предоставленные производителями велопокрышек.</string>
     <string name="dialog_text_end">Рекомендуется использовать результаты расчетов в качестве ориентировочных значений и всегда проверять данные перед использованием.</string>
     <string name="dialog_title">Отказ от ответственности</string>
+    <string name="i_understand_this">Мне это понятно</string>
 </resources>
