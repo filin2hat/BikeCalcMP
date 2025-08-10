@@ -2,13 +2,13 @@
 
 <div align="center">
 
-![BikeCalc Pro](BikeCalc_Pro_Wallpaper.png)
+![BikeCalc Pro](screenshots/BikeCalc_Pro_Wallpaper.png)
 
 **Современное многоплатформенное приложение для велосипедистов**
 
 *Демонстрация передовых подходов в разработке с использованием Kotlin Multiplatform и модульной архитектуры*
 
-[![Kotlin](https://img.shields.io/badge/kotlin-2.1.0-blue.svg?logo=kotlin)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.2.0-blue.svg?logo=kotlin)](https://kotlinlang.org)
 [![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.8.2-4285F4.svg?logo=jetpackcompose)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20Desktop-green.svg)](https://kotlinlang.org/docs/multiplatform-mobile-getting-started.html)
 [![🚴‍♂️ BikeCalc Pro CI/CD](https://github.com/filin2hat/BikeCalcMP/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/filin2hat/BikeCalcMP/actions/workflows/main.yml)
@@ -103,7 +103,7 @@ cd BikeCalcMP
 
 ## 👥 Контакты
 
-**Разработчик**: Илья Бирюлин  
+**Разработчик**: Дмитрий Бирюлин  
 **Email**: filin2hat@gmail.com  
 **LinkedIn**: [www.linkedin.com/in/biryulindevelop](https://www.linkedin.com/in/biryulindevelop)  
 **Telegram**: [@filin2hat](https://t.me/filin2hat)

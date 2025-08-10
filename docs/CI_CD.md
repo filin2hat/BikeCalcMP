@@ -1,6 +1,6 @@
 # 🚀 CI/CD Pipeline
 
-![Pipeline Structure](../Pipeline_structure.png)
+![Pipeline Structure](../screenshots/Pipline_structure.png)
 
 ## 🔄 Автоматизированная сборка
 
