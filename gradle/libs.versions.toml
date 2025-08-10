@@ -57,6 +57,7 @@ kotzilla = "1.1.0"
 
 # Charts
 vico = "2.1.3"
+jetbrainsKotlinJvm = "2.2.0"
 
 
 [libraries]
@@ -128,6 +129,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 kotzilla = { id = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.6" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 
 [bundles]
 ktor = [
