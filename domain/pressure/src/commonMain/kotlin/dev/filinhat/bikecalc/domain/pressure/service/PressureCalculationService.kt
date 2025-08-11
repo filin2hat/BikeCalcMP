@@ -1,7 +1,7 @@
 package dev.filinhat.bikecalc.domain.pressure.service
 
-import dev.filinhat.bikecalc.core.model.PressureCalcParams
-import dev.filinhat.bikecalc.core.model.PressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcParams
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcResult
 
 /**
  * Сервис для расчета давления в колесах велосипеда

@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.core.model
+package dev.filinhat.bikecalc.core.model.pressure
 
 import kotlinx.serialization.Serializable
 
@@ -22,4 +22,3 @@ data class SavedPressureCalcResult(
     val wheelSize: String = "",
     val tireSize: String = "",
 )
-

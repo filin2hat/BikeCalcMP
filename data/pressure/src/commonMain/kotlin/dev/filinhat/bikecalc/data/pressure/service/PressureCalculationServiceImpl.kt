@@ -4,9 +4,9 @@ import dev.filinhat.bikecalc.core.common.util.lbsToKg
 import dev.filinhat.bikecalc.core.enums.tube.TubeType
 import dev.filinhat.bikecalc.core.enums.unit.WeightUnit
 import dev.filinhat.bikecalc.core.enums.wheel.WheelSize
-import dev.filinhat.bikecalc.core.model.PressureCalcParams
-import dev.filinhat.bikecalc.core.model.PressureCalcResult
-import dev.filinhat.bikecalc.core.model.PressureCoefficients
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcParams
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.PressureCoefficients
 import dev.filinhat.bikecalc.domain.pressure.service.PressureCalculationService
 
 class PressureCalculationServiceImpl : PressureCalculationService {

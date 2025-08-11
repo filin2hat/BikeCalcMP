@@ -1,7 +1,7 @@
 package dev.filinhat.bikecalc.core.database.mapper
 
 import dev.filinhat.bikecalc.core.database.entity.PressureResultEntity
-import dev.filinhat.bikecalc.core.model.SavedPressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.SavedPressureCalcResult
 
 /**
  * Маппер преобразования [SavedPressureCalcResult] в [PressureResultEntity]

@@ -33,8 +33,8 @@ kotlin {
             // Модули проекта
             implementation(project(":core:model"))
             implementation(project(":core:common"))
-            //implementation(project(":domain:pressure"))
             implementation(project(":designsystem"))
+            implementation(project(":domain:development"))
 
             // Compose
             implementation(compose.runtime)
@@ -64,6 +64,10 @@ kotlin {
 
             // Icons
             implementation(libs.iconPack.lineAwesome)
+
+            // Charts
+            implementation(libs.vico.multiplatform)
+            implementation(libs.vico.multiplatform.m3)
         }
 
         commonTest.dependencies {

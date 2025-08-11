@@ -1,8 +1,8 @@
 package dev.filinhat.bikecalc.feature.pressure.state
 
 import dev.filinhat.bikecalc.core.enums.tube.TubeType
-import dev.filinhat.bikecalc.core.model.PressureCalcResult
-import dev.filinhat.bikecalc.core.model.SavedPressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.SavedPressureCalcResult
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 

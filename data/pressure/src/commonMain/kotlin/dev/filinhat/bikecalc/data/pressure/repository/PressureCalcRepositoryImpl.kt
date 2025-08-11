@@ -3,9 +3,9 @@ package dev.filinhat.bikecalc.data.pressure.repository
 import dev.filinhat.bikecalc.core.database.dao.PressureResultsDao
 import dev.filinhat.bikecalc.core.database.entity.PressureResultEntity
 import dev.filinhat.bikecalc.core.database.mapper.toSavedPressureCalcResult
-import dev.filinhat.bikecalc.core.model.PressureCalcParams
-import dev.filinhat.bikecalc.core.model.PressureCalcResult
-import dev.filinhat.bikecalc.core.model.SavedPressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcParams
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.SavedPressureCalcResult
 import dev.filinhat.bikecalc.domain.pressure.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.domain.pressure.service.PressureCalculationService
 import kotlinx.coroutines.Dispatchers

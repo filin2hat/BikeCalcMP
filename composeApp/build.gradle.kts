@@ -51,6 +51,7 @@ kotlin {
             implementation(project(":feature:development"))
             implementation(project(":data:pressure"))
             implementation(project(":data:development"))
+            implementation(project(":domain:development"))
             implementation(project(":domain:pressure"))
             implementation(project(":designsystem"))
             implementation(project(":core:database"))

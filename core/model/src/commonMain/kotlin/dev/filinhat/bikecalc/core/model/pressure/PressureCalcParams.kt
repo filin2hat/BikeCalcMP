@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.core.model
+package dev.filinhat.bikecalc.core.model.pressure
 
 import dev.filinhat.bikecalc.core.enums.tire.TireSize
 import dev.filinhat.bikecalc.core.enums.tube.TubeType
@@ -25,4 +25,3 @@ data class PressureCalcParams(
     val weightUnit: WeightUnit,
     val selectedTubeType: TubeType,
 )
-

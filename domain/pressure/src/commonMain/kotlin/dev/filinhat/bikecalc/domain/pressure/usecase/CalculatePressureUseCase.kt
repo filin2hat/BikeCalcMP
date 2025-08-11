@@ -2,8 +2,8 @@ package dev.filinhat.bikecalc.domain.pressure.usecase
 
 import dev.filinhat.bikecalc.core.common.DataError
 import dev.filinhat.bikecalc.core.common.Result
-import dev.filinhat.bikecalc.core.model.PressureCalcParams
-import dev.filinhat.bikecalc.core.model.PressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcParams
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcResult
 import dev.filinhat.bikecalc.domain.pressure.repository.PressureCalcRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

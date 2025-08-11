@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.core.model
+package dev.filinhat.bikecalc.core.model.pressure
 
 import kotlinx.serialization.Serializable
 
@@ -12,4 +12,3 @@ data class PressureCoefficients(
     val frontEmpiricalCoefficient: Double,
     val rearEmpiricalCoefficient: Double,
 )
-

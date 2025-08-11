@@ -12,6 +12,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +28,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import bikecalcmp.composeapp.generated.resources.Res
 import bikecalcmp.composeapp.generated.resources.app_name
@@ -37,10 +43,15 @@ import bikecalcmp.composeapp.generated.resources.dialog_title
 import bikecalcmp.composeapp.generated.resources.i_understand_this
 import bikecalcmp.composeapp.generated.resources.ic_dark_mode
 import bikecalcmp.composeapp.generated.resources.ic_light_mode
+import bikecalcmp.composeapp.generated.resources.nav_development_calculator
+import bikecalcmp.composeapp.generated.resources.nav_pressure_calculator
 import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.CalculatorSolid
+import compose.icons.lineawesomeicons.ChartLineSolid
 import compose.icons.lineawesomeicons.InfoCircleSolid
 import dev.filinhat.bikecalc.app.navigation.BikeCalcNavigation
 import dev.filinhat.bikecalc.app.navigation.BikeCalcRoute
+import dev.filinhat.bikecalc.app.navigation.NavigationItem
 import dev.filinhat.bikecalc.designsystem.component.InfoDialog
 import dev.filinhat.bikecalc.designsystem.theme.BikeCalcTheme
 import dev.filinhat.bikecalc.designsystem.theme.LocalThemeIsDark
@@ -85,53 +96,53 @@ fun MainScreen(modifier: Modifier = Modifier) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         modifier = modifier.fillMaxSize(),
-//        bottomBar = {
-//            NavigationBar(
-//                windowInsets = NavigationBarDefaults.windowInsets,
-//                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-//                contentColor = MaterialTheme.colorScheme.primary,
-//                tonalElevation = 8.dp,
-//            ) {
-//                val navBackStackEntry by navController.currentBackStackEntryAsState()
-//                val currentDestination = navBackStackEntry?.destination
-//                val screens =
-//                    listOf(
-//                        NavigationItem(
-//                            route = BikeCalcRoute.PressureCalculator,
-//                            title = stringResource(Res.string.nav_pressure_calculator),
-//                            icon = LineAwesomeIcons.CalculatorSolid,
-//                        ),
-//                        NavigationItem(
-//                            route = BikeCalcRoute.DevelopmentCalculator,
-//                            title = stringResource(Res.string.nav_development_calculator),
-//                            icon = LineAwesomeIcons.ChartLineSolid,
-//                        ),
-//                    )
-//
-//                screens.forEach { screen ->
-//                    NavigationBarItem(
-//                        icon = {
-//                            Icon(
-//                                imageVector = screen.icon,
-//                                contentDescription = screen.title,
-//                                tint = MaterialTheme.colorScheme.primary,
-//                            )
-//                        },
-//                        label = { Text(screen.title) },
-//                        selected = currentDestination?.hierarchy?.any { it.route == screen.route.toString() } == true,
-//                        onClick = {
-//                            navController.navigate(screen.route) {
-//                                popUpTo(navController.graph.findStartDestination().id) {
-//                                    saveState = true
-//                                }
-//                                launchSingleTop = true
-//                                restoreState = true
-//                            }
-//                        },
-//                    )
-//                }
-//            }
-//        },
+        bottomBar = {
+            NavigationBar(
+                windowInsets = NavigationBarDefaults.windowInsets,
+                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                contentColor = MaterialTheme.colorScheme.primary,
+                tonalElevation = 8.dp,
+            ) {
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentDestination = navBackStackEntry?.destination
+                val screens =
+                    listOf(
+                        NavigationItem(
+                            route = BikeCalcRoute.PressureCalculator,
+                            title = stringResource(Res.string.nav_pressure_calculator),
+                            icon = LineAwesomeIcons.CalculatorSolid,
+                        ),
+                        NavigationItem(
+                            route = BikeCalcRoute.DevelopmentCalculator,
+                            title = stringResource(Res.string.nav_development_calculator),
+                            icon = LineAwesomeIcons.ChartLineSolid,
+                        ),
+                    )
+
+                screens.forEach { screen ->
+                    NavigationBarItem(
+                        icon = {
+                            Icon(
+                                imageVector = screen.icon,
+                                contentDescription = screen.title,
+                                tint = MaterialTheme.colorScheme.primary,
+                            )
+                        },
+                        label = { Text(screen.title) },
+                        selected = currentDestination?.hierarchy?.any { it.route == screen.route.toString() } == true,
+                        onClick = {
+                            navController.navigate(screen.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                    )
+                }
+            }
+        },
         content = { contentPadding ->
             Column(
                 modifier =

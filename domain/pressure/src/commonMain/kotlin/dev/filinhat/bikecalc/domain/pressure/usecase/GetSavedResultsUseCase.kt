@@ -1,6 +1,6 @@
 package dev.filinhat.bikecalc.domain.pressure.usecase
 
-import dev.filinhat.bikecalc.core.model.SavedPressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.SavedPressureCalcResult
 import dev.filinhat.bikecalc.domain.pressure.repository.PressureCalcRepository
 import kotlinx.coroutines.flow.Flow
 

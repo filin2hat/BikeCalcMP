@@ -3,7 +3,7 @@ package dev.filinhat.bikecalc.feature.pressure.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.filinhat.bikecalc.core.common.Result
-import dev.filinhat.bikecalc.core.model.PressureCalcParams
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcParams
 import dev.filinhat.bikecalc.domain.pressure.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.domain.pressure.usecase.CalculatePressureUseCase
 import dev.filinhat.bikecalc.domain.pressure.usecase.DeleteAllResultsUseCase
