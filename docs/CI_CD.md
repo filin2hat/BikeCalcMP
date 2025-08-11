@@ -19,8 +19,9 @@
 - **Время выполнения**: ~2-3 минуты (параллельно)
 - **Модули**:
   - `:core:model`, `:core:common`, `:core:database`
-  - `:domain:pressure`, `:data:pressure`
-  - `:designsystem`, `:feature:pressure`
+  - `:domain:pressure`, `:domain:development`
+  - `:data:pressure`, `:data:development`
+  - `:designsystem`, `:feature:pressure`, `:feature:development`
 - **Артефакты**: Отчеты сборки модулей
 
 ### 📱 Android Build
