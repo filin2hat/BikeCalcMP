@@ -1,6 +1,7 @@
 package dev.filinhat.bikecalc.domain.development.di
 
 import dev.filinhat.bikecalc.domain.development.usecase.CalculateDevelopmentUseCase
+import dev.filinhat.bikecalc.domain.development.usecase.CalculateDevelopmentUseCaseImpl
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
@@ -9,9 +10,10 @@ import org.koin.dsl.module
  */
 val domainDevelopmentModule =
     module {
-        // Use Cases
-        singleOf(::CalculateDevelopmentUseCase)
+        // Use Cases bindings: interface -> impl
+        single<CalculateDevelopmentUseCase> { CalculateDevelopmentUseCaseImpl(get()) }
     }
+
 
 
 

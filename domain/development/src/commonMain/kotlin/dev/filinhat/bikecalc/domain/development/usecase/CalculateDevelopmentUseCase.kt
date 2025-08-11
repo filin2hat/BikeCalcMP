@@ -6,12 +6,17 @@ import dev.filinhat.bikecalc.domain.development.repository.DevelopmentCalcReposi
 import kotlinx.coroutines.flow.Flow
 
 /**
- * UseCase для расчёта развития метража.
+ * Контракт use case для расчёта развития метража.
  */
-class CalculateDevelopmentUseCase(
-    private val repository: DevelopmentCalcRepository,
-) {
-    operator fun invoke(params: DevelopmentCalcParams): Flow<List<DevelopmentCalcResult>> = repository.calculateDevelopment(params)
+interface CalculateDevelopmentUseCase {
+    operator fun invoke(params: DevelopmentCalcParams): Flow<List<DevelopmentCalcResult>>
 }
 
-
+/**
+ * Реализация [CalculateDevelopmentUseCase].
+ */
+class CalculateDevelopmentUseCaseImpl(
+    private val repository: DevelopmentCalcRepository,
+) : CalculateDevelopmentUseCase {
+    override fun invoke(params: DevelopmentCalcParams): Flow<List<DevelopmentCalcResult>> = repository.calculateDevelopment(params)
+}

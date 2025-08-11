@@ -10,23 +10,24 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 
 /**
- * Use Case для расчета давления в колесах велосипеда
+ * Контракт use case для расчета давления в колесах велосипеда.
  */
-class CalculatePressureUseCase(
+interface CalculatePressureUseCase {
+    operator fun invoke(params: PressureCalcParams): Flow<Result<PressureCalcResult, DataError.Local>>
+}
+
+/**
+ * Реализация [CalculatePressureUseCase].
+ */
+class CalculatePressureUseCaseImpl(
     private val repository: PressureCalcRepository,
-) {
-    /**
-     * Выполняет расчет давления на основе переданных параметров
-     *
-     * @param params параметры для расчета
-     * @return Flow с результатом расчета, обернутым в Result
-     */
-    operator fun invoke(params: PressureCalcParams): Flow<Result<PressureCalcResult, DataError.Local>> =
+) : CalculatePressureUseCase {
+    override fun invoke(params: PressureCalcParams): Flow<Result<PressureCalcResult, DataError.Local>> =
         repository
             .calcPressure(params)
             .map<PressureCalcResult, Result<PressureCalcResult, DataError.Local>> {
                 Result.Success(it)
-            }.catch { exception ->
+            }.catch {
                 emit(Result.Error(DataError.Local.UNKNOWN_ERROR))
             }
 }

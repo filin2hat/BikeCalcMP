@@ -3,18 +3,19 @@ package dev.filinhat.bikecalc.domain.pressure.usecase
 import dev.filinhat.bikecalc.domain.pressure.repository.PressureCalcRepository
 
 /**
- * Use Case для удаления результата расчета давления
+ * Контракт use case для удаления результата расчета.
  */
-class DeleteResultUseCase(
+interface DeleteResultUseCase {
+    suspend operator fun invoke(id: Long)
+}
+
+/**
+ * Реализация [DeleteResultUseCase].
+ */
+class DeleteResultUseCaseImpl(
     private val repository: PressureCalcRepository,
-) {
-    /**
-     * Удаляет результат расчета по идентификатору
-     *
-     * @param id идентификатор результата для удаления
-     */
-    suspend operator fun invoke(id: Long) {
+) : DeleteResultUseCase {
+    override suspend operator fun invoke(id: Long) {
         repository.deleteResult(id)
     }
 }
-
