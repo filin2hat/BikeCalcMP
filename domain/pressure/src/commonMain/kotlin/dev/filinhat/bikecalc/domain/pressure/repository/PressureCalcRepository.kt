@@ -1,8 +1,8 @@
 package dev.filinhat.bikecalc.domain.pressure.repository
 
-import dev.filinhat.bikecalc.core.model.PressureCalcParams
-import dev.filinhat.bikecalc.core.model.PressureCalcResult
-import dev.filinhat.bikecalc.core.model.SavedPressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcParams
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.SavedPressureCalcResult
 import kotlinx.coroutines.flow.Flow
 
 /**

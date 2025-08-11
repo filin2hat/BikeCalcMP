@@ -3,7 +3,8 @@ package dev.filinhat.bikecalc.feature.pressure.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.filinhat.bikecalc.core.common.Result
-import dev.filinhat.bikecalc.core.model.PressureCalcParams
+import dev.filinhat.bikecalc.core.presentation.BaseViewModel
+import dev.filinhat.bikecalc.core.model.pressure.PressureCalcParams
 import dev.filinhat.bikecalc.domain.pressure.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.domain.pressure.usecase.CalculatePressureUseCase
 import dev.filinhat.bikecalc.domain.pressure.usecase.DeleteAllResultsUseCase
@@ -17,6 +18,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
@@ -35,11 +37,11 @@ class PressureCalculatorViewModel(
     private val getSavedResultsUseCase: GetSavedResultsUseCase,
     private val deleteResultUseCase: DeleteResultUseCase,
     private val deleteAllResultsUseCase: DeleteAllResultsUseCase,
-) : ViewModel() {
+) : ViewModel(), BaseViewModel<PressureCalcState, PressureCalcAction> {
     private var observeSavedResultsJob: Job? = null
 
     private val _uiState = MutableStateFlow(PressureCalcState())
-    val uiState =
+    override val uiState: StateFlow<PressureCalcState> =
         _uiState
             .onStart { observeSavedResults() }
             .stateIn(
@@ -48,7 +50,7 @@ class PressureCalculatorViewModel(
                 initialValue = _uiState.value,
             )
 
-    fun onAction(event: PressureCalcAction) {
+    override fun onAction(event: PressureCalcAction) {
         when (event) {
             is PressureCalcAction.OnCalcPressure ->
                 calcPressureResult(

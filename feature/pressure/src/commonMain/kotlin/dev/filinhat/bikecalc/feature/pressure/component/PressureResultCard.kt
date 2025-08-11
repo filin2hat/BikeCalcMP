@@ -32,7 +32,7 @@ import compose.icons.lineawesomeicons.UserSolid
 import dev.filinhat.bikecalc.core.common.util.formatDoubleToString
 import dev.filinhat.bikecalc.core.enums.tire.TireSize29Inches
 import dev.filinhat.bikecalc.core.enums.wheel.WheelSize
-import dev.filinhat.bikecalc.core.model.SavedPressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.SavedPressureCalcResult
 import dev.filinhat.bikecalc.designsystem.theme.BikeCalcTheme
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

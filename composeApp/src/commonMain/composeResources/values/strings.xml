@@ -10,4 +10,8 @@
     <string name="dialog_text_end">It is recommended to use the calculation results as approximate values and always verify the data before use.</string>
     <string name="dialog_title">Disclaimer</string>
     <string name="i_understand_this">I understand this</string>
+
+    <!-- Navigation -->
+    <string name="nav_pressure_calculator">Pressure Calculator</string>
+    <string name="nav_development_calculator">Development Calculator</string>
 </resources>

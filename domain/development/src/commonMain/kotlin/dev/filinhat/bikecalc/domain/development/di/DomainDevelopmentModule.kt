@@ -1,0 +1,22 @@
+package dev.filinhat.bikecalc.domain.development.di
+
+import dev.filinhat.bikecalc.domain.development.usecase.CalculateDevelopmentUseCase
+import dev.filinhat.bikecalc.domain.development.usecase.CalculateDevelopmentUseCaseImpl
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.module
+
+/**
+ * Koin модуль для доменного слоя расчёта развития метража
+ */
+val domainDevelopmentModule =
+    module {
+        // Use Cases bindings: interface -> impl
+        single<CalculateDevelopmentUseCase> { CalculateDevelopmentUseCaseImpl(get()) }
+    }
+
+
+
+
+
+
+

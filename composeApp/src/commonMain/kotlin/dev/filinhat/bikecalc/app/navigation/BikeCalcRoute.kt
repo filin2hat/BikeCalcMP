@@ -11,4 +11,10 @@ sealed interface BikeCalcRoute {
      */
     @Serializable
     data object PressureCalculator : BikeCalcRoute
+
+    /**
+     * Маршрут экрана расчета развития метража.
+     */
+    @Serializable
+    data object DevelopmentCalculator : BikeCalcRoute
 }

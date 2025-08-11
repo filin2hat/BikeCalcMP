@@ -10,4 +10,8 @@
     <string name="dialog_text_end">Рекомендуется использовать результаты расчетов в качестве ориентировочных значений и всегда проверять данные перед использованием.</string>
     <string name="dialog_title">Отказ от ответственности</string>
     <string name="i_understand_this">Мне это понятно</string>
+
+    <!-- Navigation -->
+    <string name="nav_pressure_calculator">Калькулятор давления</string>
+    <string name="nav_development_calculator">Калькулятор развития</string>
 </resources>

@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.core.model
+package dev.filinhat.bikecalc.core.model.pressure
 
 import kotlinx.serialization.Serializable
 
@@ -13,4 +13,3 @@ data class PressureCalcResult(
     val frontPressure: Double = 0.0,
     val rearPressure: Double = 0.0,
 )
-

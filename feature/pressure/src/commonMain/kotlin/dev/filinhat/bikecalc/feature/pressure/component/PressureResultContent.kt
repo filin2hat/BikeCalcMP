@@ -27,7 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import bikecalcmp.feature.pressure.generated.resources.Res
 import bikecalcmp.feature.pressure.generated.resources.no_results
-import dev.filinhat.bikecalc.core.model.SavedPressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.SavedPressureCalcResult
 import dev.filinhat.bikecalc.designsystem.theme.BikeCalcTheme
 import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcAction
 import kotlinx.collections.immutable.ImmutableList

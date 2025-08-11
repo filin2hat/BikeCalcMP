@@ -31,7 +31,7 @@ import dev.filinhat.bikecalc.core.common.util.barToPsi
 import dev.filinhat.bikecalc.core.common.util.formatDoubleToString
 import dev.filinhat.bikecalc.core.common.util.kgToLbs
 import dev.filinhat.bikecalc.core.common.util.toBikeDouble
-import dev.filinhat.bikecalc.core.model.SavedPressureCalcResult
+import dev.filinhat.bikecalc.core.model.pressure.SavedPressureCalcResult
 import dev.filinhat.bikecalc.designsystem.theme.BikeCalcTheme
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
