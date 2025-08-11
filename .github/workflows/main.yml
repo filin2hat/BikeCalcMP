@@ -79,9 +79,12 @@ jobs:
           - ":core:common" 
           - ":core:database"
           - ":domain:pressure"
+          - ":domain:development"
           - ":data:pressure"
+          - ":data:development"
           - ":designsystem"
           - ":feature:pressure"
+          - ":feature:development"
 
     steps:
       - name: 📥 Checkout
@@ -320,7 +323,7 @@ jobs:
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "### 📦 Artifacts" >> "$GITHUB_STEP_SUMMARY"
           echo "- Test/Lint reports: test-and-lint-reports" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Module reports: reports-:core:model, reports-:core:common, reports-:core:database, reports-:domain:pressure, reports-:data:pressure, reports-:designsystem, reports-:feature:pressure" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Module reports: reports-:core:model, reports-:core:common, reports-:core:database, reports-:domain:pressure, reports-:domain:development, reports-:data:pressure, reports-:data:development, reports-:designsystem, reports-:feature:pressure, reports-:feature:development" >> "$GITHUB_STEP_SUMMARY"
 
       - name: 📝 Save CI Summary file
         shell: bash
@@ -337,7 +340,7 @@ jobs:
 
           ## 📦 Artifacts
           - Test/Lint reports: test-and-lint-reports
-          - Module reports: reports-:core:model, reports-:core:common, reports-:core:database, reports-:domain:pressure, reports-:data:pressure, reports-:designsystem, reports-:feature:pressure
+          - Module reports: reports-:core:model, reports-:core:common, reports-:core:database, reports-:domain:pressure, reports-:domain:development, reports-:data:pressure, reports-:data:development, reports-:designsystem, reports-:feature:pressure, reports-:feature:development
           EOF
 
       - name: 📤 Upload CI Summary
