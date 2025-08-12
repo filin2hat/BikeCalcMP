@@ -1,11 +1,16 @@
 package dev.filinhat.bikecalc.feature.development.screen
 
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,9 +30,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import bikecalcmp.feature.development.generated.resources.Res
+import bikecalcmp.feature.development.generated.resources.add_chainring
+import bikecalcmp.feature.development.generated.resources.axis_x_rear_teeth
+import bikecalcmp.feature.development.generated.resources.axis_y_development_m
 import bikecalcmp.feature.development.generated.resources.cassette_hint
-import bikecalcmp.feature.development.generated.resources.front_chainring_hint
+import bikecalcmp.feature.development.generated.resources.front_chainring_n_hint
+import bikecalcmp.feature.development.generated.resources.front_chainrings_title
+import bikecalcmp.feature.development.generated.resources.legend_chainring_format
+import bikecalcmp.feature.development.generated.resources.legend_title
 import bikecalcmp.feature.development.generated.resources.new_calculation
+import bikecalcmp.feature.development.generated.resources.remove_chainring
 import bikecalcmp.feature.development.generated.resources.results_title
 import bikecalcmp.feature.development.generated.resources.rim_diameter_mm
 import bikecalcmp.feature.development.generated.resources.tire_width_mm
@@ -41,12 +53,15 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
 import dev.filinhat.bikecalc.core.common.util.formatDoubleToString
 import dev.filinhat.bikecalc.core.common.util.toBikeDouble
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcParams
+import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcResult
 import dev.filinhat.bikecalc.feature.development.component.InputCard
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcAction
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcState
 import dev.filinhat.bikecalc.feature.development.viewmodel.DevelopmentCalculatorViewModel
+import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.layout.Arrangement as RowArrangement
 
 /**
  * Экран для расчёта развития метража (метры на оборот педалей).
@@ -78,12 +93,16 @@ private fun DevelopmentCalculatorScreen(
     focusManager: FocusManager? = LocalFocusManager.current,
 ) {
     var rimDiameter by remember { mutableStateOf("622") }
-    var tireWidth by remember { mutableStateOf("25") }
-    var frontTeeth by remember { mutableStateOf("50") }
-    var rearTeeth by remember { mutableStateOf("12,13,15,17,19,21,23,25,28") }
+    var tireWidth by remember { mutableStateOf("57") }
+    var frontTeethInputs by remember { mutableStateOf(listOf("32")) }
+    var rearTeeth by remember { mutableStateOf("10,12,14,16,18,21,24,28,33,39,45,51") }
 
     Column(
-        modifier = modifier.padding(16.dp),
+        modifier =
+            modifier
+                .verticalScroll(rememberScrollState())
+                .widthIn(max = 700.dp)
+                .padding(16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -103,12 +122,46 @@ private fun DevelopmentCalculatorScreen(
             modifier = Modifier.fillMaxWidth(),
         )
         Spacer(modifier = Modifier.padding(8.dp))
-        InputCard(
-            value = frontTeeth,
-            onValueChange = { frontTeeth = it },
-            label = stringResource(Res.string.front_chainring_hint),
+
+        Text(
+            text = stringResource(Res.string.front_chainrings_title),
+            style = MaterialTheme.typography.titleSmall,
             modifier = Modifier.fillMaxWidth(),
         )
+        Spacer(modifier = Modifier.padding(4.dp))
+
+        frontTeethInputs.forEachIndexed { index, value ->
+            InputCard(
+                value = value,
+                onValueChange = { newValue ->
+                    frontTeethInputs =
+                        frontTeethInputs.mapIndexed { i, v -> if (i == index) newValue else v }
+                },
+                label = stringResource(Res.string.front_chainring_n_hint, index + 1),
+                keyboardType = KeyboardType.Number,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(modifier = Modifier.padding(6.dp))
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = RowArrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Button(
+                onClick = {
+                    if (frontTeethInputs.size < 3) frontTeethInputs = frontTeethInputs + ""
+                },
+                enabled = frontTeethInputs.size < 3,
+            ) { Text(stringResource(Res.string.add_chainring)) }
+
+            Button(
+                onClick = {
+                    if (frontTeethInputs.size > 1) frontTeethInputs = frontTeethInputs.dropLast(1)
+                },
+                enabled = frontTeethInputs.size > 1,
+            ) { Text(stringResource(Res.string.remove_chainring)) }
+        }
         Spacer(modifier = Modifier.padding(8.dp))
         InputCard(
             value = rearTeeth,
@@ -118,7 +171,9 @@ private fun DevelopmentCalculatorScreen(
         )
         Spacer(modifier = Modifier.padding(8.dp))
         Button(onClick = {
-            val frontList = frontTeeth.split(",").mapNotNull { it.trim().toIntOrNull() }
+            keyboardController?.hide()
+            focusManager?.clearFocus()
+            val frontList = frontTeethInputs.mapNotNull { it.trim().toIntOrNull() }.take(3)
             val rearList = rearTeeth.split(",").mapNotNull { it.trim().toIntOrNull() }
             onAction(
                 DevelopmentCalcAction.OnCalculateDevelopment(
@@ -136,7 +191,10 @@ private fun DevelopmentCalculatorScreen(
         Spacer(modifier = Modifier.padding(8.dp))
 
         if (uiState.result.isNotEmpty()) {
-            Text(stringResource(Res.string.results_title), style = MaterialTheme.typography.titleMedium)
+            Text(
+                stringResource(Res.string.results_title),
+                style = MaterialTheme.typography.titleMedium,
+            )
             Spacer(modifier = Modifier.height(8.dp))
 
             val modelProducer = remember { CartesianChartModelProducer() }
@@ -147,26 +205,66 @@ private fun DevelopmentCalculatorScreen(
                         .distinct()
                         .sorted()
                 }
+            val frontTeethList =
+                remember(uiState.result) {
+                    uiState.result
+                        .map { it.frontTeeth }
+                        .distinct()
+                        .sorted()
+                }
 
             LaunchedEffect(uiState.result) {
-                val series =
-                    rearTeethList.map { rearTeeth ->
-                        uiState.result
-                            .find { it.rearTeeth == rearTeeth }
-                            ?.developmentMeters
-                            ?.toFloat()
-                            ?: 0f
+                val seriesList: List<List<Float>> =
+                    frontTeethList.map { front ->
+                        rearTeethList.map { rear ->
+                            uiState.result
+                                .find { it.frontTeeth == front && it.rearTeeth == rear }
+                                ?.developmentMeters
+                                ?.toFloat()
+                                ?: 0f
+                        }
                     }
                 modelProducer.runTransaction {
-                    lineSeries { series(*series.toTypedArray()) }
+                    lineSeries {
+                        seriesList.forEach { values ->
+                            series(*values.toTypedArray())
+                        }
+                    }
                 }
+            }
+
+            if (frontTeethList.isNotEmpty()) {
+                Text(
+                    text = stringResource(Res.string.legend_title),
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                    horizontalAlignment = Alignment.Start,
+                ) {
+                    frontTeethList.forEach { front ->
+                        Text(
+                            text = stringResource(Res.string.legend_chainring_format, front),
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(8.dp))
             }
 
             CartesianChartHost(
                 chart =
                     rememberCartesianChart(
                         rememberLineCartesianLayer(),
-                        startAxis = VerticalAxis.rememberStart(),
+                        startAxis =
+                            VerticalAxis.rememberStart(
+                                valueFormatter = { _, value, _ ->
+                                    "${formatDoubleToString(value, 1)} м"
+                                },
+                            ),
                         bottomAxis =
                             HorizontalAxis.rememberBottom(
                                 valueFormatter = { _, value, _ ->
@@ -175,34 +273,52 @@ private fun DevelopmentCalculatorScreen(
                             ),
                     ),
                 modelProducer = modelProducer,
+                animationSpec = tween<Float>(durationMillis = 450),
+                animateIn = true,
+                placeholder = {},
                 modifier =
                     Modifier
                         .fillMaxWidth()
-                        .height(300.dp),
+                        .height(320.dp)
+                        .padding(horizontal = 16.dp),
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Text results
-            uiState.result.forEach {
-                Text(
-                    "${it.frontTeeth}/${it.rearTeeth}: ${
-                        formatDoubleToString(
-                            it.developmentMeters,
-                            2,
-                        )
-                    } м",
-                )
-            }
+            // Подписи осей для ясности
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = stringResource(Res.string.axis_x_rear_teeth),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Text(
+                text = stringResource(Res.string.axis_y_development_m),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
     }
 }
 
 @Preview
 @Composable
-private fun PreviewDevelopmentCalculatorScreen() {
+private fun DevelopmentCalculatorScreenPreview() {
     DevelopmentCalculatorScreen(
-        uiState = DevelopmentCalcState(),
+        uiState =
+            DevelopmentCalcState(
+                result =
+                    persistentListOf(
+                        DevelopmentCalcResult(frontTeeth = 32, rearTeeth = 10, developmentMeters = 7.91),
+                        DevelopmentCalcResult(frontTeeth = 32, rearTeeth = 12, developmentMeters = 6.59),
+                        DevelopmentCalcResult(frontTeeth = 32, rearTeeth = 14, developmentMeters = 5.65),
+                        DevelopmentCalcResult(frontTeeth = 32, rearTeeth = 16, developmentMeters = 4.94),
+                        DevelopmentCalcResult(frontTeeth = 42, rearTeeth = 10, developmentMeters = 10.38),
+                        DevelopmentCalcResult(frontTeeth = 42, rearTeeth = 12, developmentMeters = 8.65),
+                        DevelopmentCalcResult(frontTeeth = 42, rearTeeth = 14, developmentMeters = 7.41),
+                        DevelopmentCalcResult(frontTeeth = 42, rearTeeth = 16, developmentMeters = 6.49),
+                    ),
+            ),
         onAction = {},
     )
 }
