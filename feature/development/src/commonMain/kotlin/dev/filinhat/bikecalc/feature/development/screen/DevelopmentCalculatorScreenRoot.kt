@@ -24,7 +24,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -49,7 +48,7 @@ import compose.icons.lineawesomeicons.MinusSolid
 import compose.icons.lineawesomeicons.PlusSolid
 import dev.filinhat.bikecalc.core.common.util.toBikeDouble
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcParams
-import dev.filinhat.bikecalc.feature.development.component.CompactInputField
+import dev.filinhat.bikecalc.designsystem.component.CompactNumericInputField
 import dev.filinhat.bikecalc.feature.development.component.DevelopmentCharts
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcAction
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcState
@@ -86,10 +85,10 @@ private fun DevelopmentCalculatorScreen(
     keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
     focusManager: FocusManager? = LocalFocusManager.current,
 ) {
-    var rimDiameter by rememberSaveable() { mutableStateOf("622") }
+    var rimDiameter by rememberSaveable { mutableStateOf("622") }
     var tireWidth by rememberSaveable { mutableStateOf("57") }
     var frontTeethInputs by rememberSaveable { mutableStateOf(listOf("32")) }
-    var rearTeeth by rememberSaveable { mutableStateOf("") }
+    var rearTeeth by rememberSaveable { mutableStateOf("10,12,14,16,18,21,24,28,33,39,45,51") }
 
     Column(
         modifier =
@@ -105,7 +104,7 @@ private fun DevelopmentCalculatorScreen(
             horizontalArrangement = RowArrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            CompactInputField(
+            CompactNumericInputField(
                 value = rimDiameter,
                 onValueChange = { rimDiameter = it },
                 label = stringResource(Res.string.rim_diameter_mm),
@@ -115,7 +114,7 @@ private fun DevelopmentCalculatorScreen(
                         .weight(1f)
                         .fillMaxWidth(),
             )
-            CompactInputField(
+            CompactNumericInputField(
                 value = tireWidth,
                 onValueChange = { tireWidth = it },
                 label = stringResource(Res.string.tire_width_mm),
@@ -201,7 +200,7 @@ private fun DevelopmentCalculatorScreen(
         }
 
         frontTeethInputs.forEachIndexed { index, value ->
-            CompactInputField(
+            CompactNumericInputField(
                 value = value,
                 onValueChange = { newValue ->
                     frontTeethInputs =
@@ -225,7 +224,7 @@ private fun DevelopmentCalculatorScreen(
 
         Spacer(modifier = Modifier.padding(6.dp))
 
-        CompactInputField(
+        CompactNumericInputField(
             value = rearTeeth,
             onValueChange = { rearTeeth = it },
             label = stringResource(Res.string.cassette_hint),

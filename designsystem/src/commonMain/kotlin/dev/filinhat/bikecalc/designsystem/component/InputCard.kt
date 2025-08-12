@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.feature.development.component
+package dev.filinhat.bikecalc.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

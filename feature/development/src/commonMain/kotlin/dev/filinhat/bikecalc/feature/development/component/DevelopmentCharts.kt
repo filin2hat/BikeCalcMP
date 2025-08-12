@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,16 +41,6 @@ fun DevelopmentCharts(
     if (results.isEmpty()) return
 
     Column(modifier = modifier) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            Text(
-                stringResource(Res.string.distance_graph),
-                style = MaterialTheme.typography.titleMedium,
-            )
-        }
-
         val modelProducer = remember { CartesianChartModelProducer() }
         val ratioModelProducer = remember { CartesianChartModelProducer() }
         val rearTeethList =
@@ -103,12 +92,17 @@ fun DevelopmentCharts(
             }
         }
 
-        if (frontTeethList.isNotEmpty()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+        ) {
             Text(
-                text = stringResource(Res.string.legend_title),
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.fillMaxWidth(),
+                stringResource(Res.string.distance_graph),
+                style = MaterialTheme.typography.titleMedium,
             )
+        }
+
+        if (frontTeethList.isNotEmpty()) {
             Spacer(modifier = Modifier.height(4.dp))
             Column(modifier = Modifier.fillMaxWidth()) {
                 frontTeethList.forEach { front ->
@@ -118,7 +112,7 @@ fun DevelopmentCharts(
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
         }
 
         CartesianChartHost(
@@ -140,17 +134,16 @@ fun DevelopmentCharts(
                         ),
                 ),
             modelProducer = modelProducer,
-            animationSpec = tween<Float>(durationMillis = 450),
+            animationSpec = tween(durationMillis = 450),
             animateIn = true,
             placeholder = {},
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .height(320.dp)
-                    .padding(horizontal = 16.dp),
+                    .height(320.dp),
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = stringResource(Res.string.axis_x_rear_teeth),
             style = MaterialTheme.typography.bodySmall,
@@ -175,7 +168,7 @@ fun DevelopmentCharts(
                 style = MaterialTheme.typography.titleMedium,
             )
         }
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         CartesianChartHost(
             chart =
@@ -202,8 +195,7 @@ fun DevelopmentCharts(
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .height(320.dp)
-                    .padding(horizontal = 16.dp),
+                    .height(320.dp),
         )
 
         Spacer(modifier = Modifier.height(8.dp))

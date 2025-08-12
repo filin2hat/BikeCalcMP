@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.feature.development.component
+package dev.filinhat.bikecalc.designsystem.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
@@ -22,7 +22,7 @@ import dev.filinhat.bikecalc.core.common.util.validateSinglePositiveInt
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun CompactInputField(
+fun CompactNumericInputField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
@@ -106,7 +106,7 @@ fun CompactInputField(
 @Composable
 private fun CompactInputFieldPreview() {
     val (text, setText) = remember { mutableStateOf("") }
-    CompactInputField(
+    CompactNumericInputField(
         value = text,
         onValueChange = setText,
         label = "Sample Label",
