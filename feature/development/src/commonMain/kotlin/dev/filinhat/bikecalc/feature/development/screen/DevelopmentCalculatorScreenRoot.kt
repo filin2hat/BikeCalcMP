@@ -47,6 +47,7 @@ import bikecalcmp.feature.development.generated.resources.tire_width_mm
 import dev.filinhat.bikecalc.core.common.util.toBikeDouble
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcParams
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcResult
+import dev.filinhat.bikecalc.feature.development.component.CompactInputField
 import dev.filinhat.bikecalc.feature.development.component.DevelopmentCharts
 import dev.filinhat.bikecalc.feature.development.component.InputCard
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcAction
@@ -100,7 +101,7 @@ private fun DevelopmentCalculatorScreen(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        InputCard(
+        CompactInputField(
             value = rimDiameter,
             onValueChange = { rimDiameter = it },
             label = stringResource(Res.string.rim_diameter_mm),
@@ -108,7 +109,7 @@ private fun DevelopmentCalculatorScreen(
             modifier = Modifier.fillMaxWidth(),
         )
         Spacer(modifier = Modifier.padding(8.dp))
-        InputCard(
+        CompactInputField(
             value = tireWidth,
             onValueChange = { tireWidth = it },
             label = stringResource(Res.string.tire_width_mm),
@@ -125,7 +126,7 @@ private fun DevelopmentCalculatorScreen(
         Spacer(modifier = Modifier.padding(4.dp))
 
         frontTeethInputs.forEachIndexed { index, value ->
-            InputCard(
+            CompactInputField(
                 value = value,
                 onValueChange = { newValue ->
                     frontTeethInputs =
@@ -157,7 +158,7 @@ private fun DevelopmentCalculatorScreen(
             ) { Text(stringResource(Res.string.remove_chainring)) }
         }
         Spacer(modifier = Modifier.padding(8.dp))
-        InputCard(
+        CompactInputField(
             value = rearTeeth,
             onValueChange = { rearTeeth = it },
             label = stringResource(Res.string.cassette_hint),
