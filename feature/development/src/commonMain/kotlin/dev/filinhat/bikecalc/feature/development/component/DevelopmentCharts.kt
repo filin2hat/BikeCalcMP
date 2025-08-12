@@ -1,7 +1,9 @@
 package dev.filinhat.bikecalc.feature.development.component
 
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,10 +19,10 @@ import bikecalcmp.feature.development.generated.resources.Res
 import bikecalcmp.feature.development.generated.resources.axis_x_rear_teeth
 import bikecalcmp.feature.development.generated.resources.axis_y_development_m
 import bikecalcmp.feature.development.generated.resources.axis_y_ratio
+import bikecalcmp.feature.development.generated.resources.distance_graph
 import bikecalcmp.feature.development.generated.resources.legend_chainring_format
 import bikecalcmp.feature.development.generated.resources.legend_title
 import bikecalcmp.feature.development.generated.resources.ratio_title
-import bikecalcmp.feature.development.generated.resources.results_title
 import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.VerticalAxis
@@ -40,10 +42,15 @@ fun DevelopmentCharts(
     if (results.isEmpty()) return
 
     Column(modifier = modifier) {
-        Text(
-            stringResource(Res.string.results_title),
-            style = MaterialTheme.typography.titleMedium,
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Text(
+                stringResource(Res.string.distance_graph),
+                style = MaterialTheme.typography.titleMedium,
+            )
+        }
 
         val modelProducer = remember { CartesianChartModelProducer() }
         val ratioModelProducer = remember { CartesianChartModelProducer() }
@@ -157,10 +164,16 @@ fun DevelopmentCharts(
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = stringResource(Res.string.ratio_title),
-            style = MaterialTheme.typography.titleMedium,
-        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Text(
+                text = stringResource(Res.string.ratio_title),
+                style = MaterialTheme.typography.titleMedium,
+            )
+        }
         Spacer(modifier = Modifier.height(8.dp))
 
         CartesianChartHost(
@@ -206,5 +219,3 @@ fun DevelopmentCharts(
         )
     }
 }
-
-

@@ -1,5 +1,12 @@
 package dev.filinhat.bikecalc.feature.development.screen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,17 +14,21 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,27 +40,21 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import bikecalcmp.feature.development.generated.resources.Res
-import bikecalcmp.feature.development.generated.resources.add_chainring
-import bikecalcmp.feature.development.generated.resources.axis_x_rear_teeth
-import bikecalcmp.feature.development.generated.resources.axis_y_development_m
-import bikecalcmp.feature.development.generated.resources.axis_y_ratio
+import bikecalcmp.feature.development.generated.resources.cassette
 import bikecalcmp.feature.development.generated.resources.cassette_hint
 import bikecalcmp.feature.development.generated.resources.front_chainring_n_hint
 import bikecalcmp.feature.development.generated.resources.front_chainrings_title
-import bikecalcmp.feature.development.generated.resources.legend_chainring_format
-import bikecalcmp.feature.development.generated.resources.legend_title
 import bikecalcmp.feature.development.generated.resources.new_calculation
-import bikecalcmp.feature.development.generated.resources.ratio_title
-import bikecalcmp.feature.development.generated.resources.remove_chainring
-import bikecalcmp.feature.development.generated.resources.results_title
 import bikecalcmp.feature.development.generated.resources.rim_diameter_mm
 import bikecalcmp.feature.development.generated.resources.tire_width_mm
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.MinusSolid
+import compose.icons.lineawesomeicons.PlusSolid
 import dev.filinhat.bikecalc.core.common.util.toBikeDouble
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcParams
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcResult
 import dev.filinhat.bikecalc.feature.development.component.CompactInputField
 import dev.filinhat.bikecalc.feature.development.component.DevelopmentCharts
-import dev.filinhat.bikecalc.feature.development.component.InputCard
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcAction
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcState
 import dev.filinhat.bikecalc.feature.development.viewmodel.DevelopmentCalculatorViewModel
@@ -92,6 +97,8 @@ private fun DevelopmentCalculatorScreen(
     var frontTeethInputs by remember { mutableStateOf(listOf("32")) }
     var rearTeeth by remember { mutableStateOf("10,12,14,16,18,21,24,28,33,39,45,51") }
 
+    var expandedGraphResult by rememberSaveable { mutableStateOf(false) }
+
     Column(
         modifier =
             modifier
@@ -101,29 +108,105 @@ private fun DevelopmentCalculatorScreen(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        CompactInputField(
-            value = rimDiameter,
-            onValueChange = { rimDiameter = it },
-            label = stringResource(Res.string.rim_diameter_mm),
-            keyboardType = KeyboardType.Number,
+        Row(
             modifier = Modifier.fillMaxWidth(),
-        )
-        Spacer(modifier = Modifier.padding(8.dp))
-        CompactInputField(
-            value = tireWidth,
-            onValueChange = { tireWidth = it },
-            label = stringResource(Res.string.tire_width_mm),
-            keyboardType = KeyboardType.Number,
-            modifier = Modifier.fillMaxWidth(),
-        )
+            horizontalArrangement = RowArrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            CompactInputField(
+                value = rimDiameter,
+                onValueChange = { rimDiameter = it },
+                label = stringResource(Res.string.rim_diameter_mm),
+                keyboardType = KeyboardType.Number,
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+            )
+            CompactInputField(
+                value = tireWidth,
+                onValueChange = { tireWidth = it },
+                label = stringResource(Res.string.tire_width_mm),
+                keyboardType = KeyboardType.Number,
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+            )
+        }
+
         Spacer(modifier = Modifier.padding(8.dp))
 
-        Text(
-            text = stringResource(Res.string.front_chainrings_title),
-            style = MaterialTheme.typography.titleSmall,
+        Row(
             modifier = Modifier.fillMaxWidth(),
-        )
-        Spacer(modifier = Modifier.padding(4.dp))
+            horizontalArrangement = RowArrangement.Start,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = stringResource(Res.string.front_chainrings_title),
+                style = MaterialTheme.typography.titleMedium,
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+            )
+            Row(
+                modifier =
+                    Modifier
+                        .weight(0.3f)
+                        .padding(bottom = 6.dp)
+                        .fillMaxWidth(),
+                horizontalArrangement = RowArrangement.spacedBy(20.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                IconButton(
+                    onClick = {
+                        if (frontTeethInputs.size < 3) frontTeethInputs = frontTeethInputs + ""
+                    },
+                    enabled = frontTeethInputs.size < 3,
+                    modifier =
+                        Modifier
+                            .height(32.dp)
+                            .weight(1f),
+                    colors =
+                        IconButtonDefaults.iconButtonColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        ),
+                ) {
+                    Icon(
+                        imageVector = LineAwesomeIcons.PlusSolid,
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
+                    )
+                }
+
+                IconButton(
+                    onClick = {
+                        if (frontTeethInputs.size > 1) {
+                            frontTeethInputs =
+                                frontTeethInputs.dropLast(1)
+                        }
+                    },
+                    enabled = frontTeethInputs.size > 1,
+                    modifier =
+                        Modifier
+                            .height(32.dp)
+                            .weight(1f),
+                    colors =
+                        IconButtonDefaults.iconButtonColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        ),
+                ) {
+                    Icon(
+                        imageVector = LineAwesomeIcons.MinusSolid,
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
+                    )
+                }
+            }
+        }
 
         frontTeethInputs.forEachIndexed { index, value ->
             CompactInputField(
@@ -136,35 +219,29 @@ private fun DevelopmentCalculatorScreen(
                 keyboardType = KeyboardType.Number,
                 modifier = Modifier.fillMaxWidth(),
             )
-            Spacer(modifier = Modifier.padding(6.dp))
         }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = RowArrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Button(
-                onClick = {
-                    if (frontTeethInputs.size < 3) frontTeethInputs = frontTeethInputs + ""
-                },
-                enabled = frontTeethInputs.size < 3,
-            ) { Text(stringResource(Res.string.add_chainring)) }
 
-            Button(
-                onClick = {
-                    if (frontTeethInputs.size > 1) frontTeethInputs = frontTeethInputs.dropLast(1)
-                },
-                enabled = frontTeethInputs.size > 1,
-            ) { Text(stringResource(Res.string.remove_chainring)) }
-        }
         Spacer(modifier = Modifier.padding(8.dp))
+
+        Text(
+            text = stringResource(Res.string.cassette),
+            style = MaterialTheme.typography.titleMedium,
+            modifier =
+                Modifier
+                    .fillMaxWidth(),
+        )
+
+        Spacer(modifier = Modifier.padding(6.dp))
+
         CompactInputField(
             value = rearTeeth,
             onValueChange = { rearTeeth = it },
             label = stringResource(Res.string.cassette_hint),
             modifier = Modifier.fillMaxWidth(),
         )
+
         Spacer(modifier = Modifier.padding(8.dp))
+
         Button(onClick = {
             keyboardController?.hide()
             focusManager?.clearFocus()
@@ -185,7 +262,12 @@ private fun DevelopmentCalculatorScreen(
         }
         Spacer(modifier = Modifier.padding(8.dp))
 
-        if (uiState.result.isNotEmpty()) {
+        AnimatedVisibility(
+            visible = uiState.result.isNotEmpty(),
+            enter =
+                fadeIn(animationSpec = tween(durationMillis = 450)) +
+                    slideInHorizontally(animationSpec = tween(durationMillis = 450)),
+        ) {
             DevelopmentCharts(
                 results = uiState.result,
                 modifier = Modifier.fillMaxWidth(),
@@ -202,14 +284,46 @@ private fun DevelopmentCalculatorScreenPreview() {
             DevelopmentCalcState(
                 result =
                     persistentListOf(
-                        DevelopmentCalcResult(frontTeeth = 32, rearTeeth = 10, developmentMeters = 7.91),
-                        DevelopmentCalcResult(frontTeeth = 32, rearTeeth = 12, developmentMeters = 6.59),
-                        DevelopmentCalcResult(frontTeeth = 32, rearTeeth = 14, developmentMeters = 5.65),
-                        DevelopmentCalcResult(frontTeeth = 32, rearTeeth = 16, developmentMeters = 4.94),
-                        DevelopmentCalcResult(frontTeeth = 42, rearTeeth = 10, developmentMeters = 10.38),
-                        DevelopmentCalcResult(frontTeeth = 42, rearTeeth = 12, developmentMeters = 8.65),
-                        DevelopmentCalcResult(frontTeeth = 42, rearTeeth = 14, developmentMeters = 7.41),
-                        DevelopmentCalcResult(frontTeeth = 42, rearTeeth = 16, developmentMeters = 6.49),
+                        DevelopmentCalcResult(
+                            frontTeeth = 32,
+                            rearTeeth = 10,
+                            developmentMeters = 7.91,
+                        ),
+                        DevelopmentCalcResult(
+                            frontTeeth = 32,
+                            rearTeeth = 12,
+                            developmentMeters = 6.59,
+                        ),
+                        DevelopmentCalcResult(
+                            frontTeeth = 32,
+                            rearTeeth = 14,
+                            developmentMeters = 5.65,
+                        ),
+                        DevelopmentCalcResult(
+                            frontTeeth = 32,
+                            rearTeeth = 16,
+                            developmentMeters = 4.94,
+                        ),
+                        DevelopmentCalcResult(
+                            frontTeeth = 42,
+                            rearTeeth = 10,
+                            developmentMeters = 10.38,
+                        ),
+                        DevelopmentCalcResult(
+                            frontTeeth = 42,
+                            rearTeeth = 12,
+                            developmentMeters = 8.65,
+                        ),
+                        DevelopmentCalcResult(
+                            frontTeeth = 42,
+                            rearTeeth = 14,
+                            developmentMeters = 7.41,
+                        ),
+                        DevelopmentCalcResult(
+                            frontTeeth = 42,
+                            rearTeeth = 16,
+                            developmentMeters = 6.49,
+                        ),
                     ),
             ),
         onAction = {},
