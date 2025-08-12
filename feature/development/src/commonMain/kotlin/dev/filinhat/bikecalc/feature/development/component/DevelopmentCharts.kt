@@ -1,0 +1,210 @@
+package dev.filinhat.bikecalc.feature.development.component
+
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import bikecalcmp.feature.development.generated.resources.Res
+import bikecalcmp.feature.development.generated.resources.axis_x_rear_teeth
+import bikecalcmp.feature.development.generated.resources.axis_y_development_m
+import bikecalcmp.feature.development.generated.resources.axis_y_ratio
+import bikecalcmp.feature.development.generated.resources.legend_chainring_format
+import bikecalcmp.feature.development.generated.resources.legend_title
+import bikecalcmp.feature.development.generated.resources.ratio_title
+import bikecalcmp.feature.development.generated.resources.results_title
+import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
+import com.patrykandpatrick.vico.multiplatform.cartesian.axis.HorizontalAxis
+import com.patrykandpatrick.vico.multiplatform.cartesian.axis.VerticalAxis
+import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
+import com.patrykandpatrick.vico.multiplatform.cartesian.data.lineSeries
+import com.patrykandpatrick.vico.multiplatform.cartesian.layer.rememberLineCartesianLayer
+import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
+import dev.filinhat.bikecalc.core.common.util.formatDoubleToString
+import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcResult
+import org.jetbrains.compose.resources.stringResource
+
+@Composable
+fun DevelopmentCharts(
+    results: List<DevelopmentCalcResult>,
+    modifier: Modifier = Modifier,
+) {
+    if (results.isEmpty()) return
+
+    Column(modifier = modifier) {
+        Text(
+            stringResource(Res.string.results_title),
+            style = MaterialTheme.typography.titleMedium,
+        )
+
+        val modelProducer = remember { CartesianChartModelProducer() }
+        val ratioModelProducer = remember { CartesianChartModelProducer() }
+        val rearTeethList =
+            remember(results) {
+                results
+                    .map { it.rearTeeth }
+                    .distinct()
+                    .sorted()
+            }
+        val frontTeethList =
+            remember(results) {
+                results
+                    .map { it.frontTeeth }
+                    .distinct()
+                    .sorted()
+            }
+
+        LaunchedEffect(results) {
+            val seriesList: List<List<Float>> =
+                frontTeethList.map { front ->
+                    rearTeethList.map { rear ->
+                        results
+                            .find { it.frontTeeth == front && it.rearTeeth == rear }
+                            ?.developmentMeters
+                            ?.toFloat()
+                            ?: 0f
+                    }
+                }
+            modelProducer.runTransaction {
+                lineSeries {
+                    seriesList.forEach { values ->
+                        series(*values.toTypedArray())
+                    }
+                }
+            }
+
+            val ratioSeriesList: List<List<Float>> =
+                frontTeethList.map { front ->
+                    rearTeethList.map { rear ->
+                        if (rear == 0) 0f else front.toFloat() / rear.toFloat()
+                    }
+                }
+            ratioModelProducer.runTransaction {
+                lineSeries {
+                    ratioSeriesList.forEach { values ->
+                        series(*values.toTypedArray())
+                    }
+                }
+            }
+        }
+
+        if (frontTeethList.isNotEmpty()) {
+            Text(
+                text = stringResource(Res.string.legend_title),
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Column(modifier = Modifier.fillMaxWidth()) {
+                frontTeethList.forEach { front ->
+                    Text(
+                        text = stringResource(Res.string.legend_chainring_format, front),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+
+        CartesianChartHost(
+            chart =
+                rememberCartesianChart(
+                    rememberLineCartesianLayer(),
+                    startAxis =
+                        VerticalAxis.rememberStart(
+                            valueFormatter = { _, value, _ ->
+                                "${formatDoubleToString(value, 1)} м"
+                            },
+                        ),
+                    bottomAxis =
+                        HorizontalAxis.rememberBottom(
+                            valueFormatter = { _, value, _ ->
+                                rearTeethList.getOrNull(value.toInt())?.toString() ?: ""
+                            },
+                        ),
+                ),
+            modelProducer = modelProducer,
+            animationSpec = tween<Float>(durationMillis = 450),
+            animateIn = true,
+            placeholder = {},
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(320.dp)
+                    .padding(horizontal = 16.dp),
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = stringResource(Res.string.axis_x_rear_teeth),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Text(
+            text = stringResource(Res.string.axis_y_development_m),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.fillMaxWidth(),
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = stringResource(Res.string.ratio_title),
+            style = MaterialTheme.typography.titleMedium,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        CartesianChartHost(
+            chart =
+                rememberCartesianChart(
+                    rememberLineCartesianLayer(),
+                    startAxis =
+                        VerticalAxis.rememberStart(
+                            valueFormatter = { _, value, _ ->
+                                "${formatDoubleToString(value, 2)}×"
+                            },
+                        ),
+                    bottomAxis =
+                        HorizontalAxis.rememberBottom(
+                            valueFormatter = { _, value, _ ->
+                                rearTeethList.getOrNull(value.toInt())?.toString() ?: ""
+                            },
+                        ),
+                ),
+            modelProducer = ratioModelProducer,
+            animationSpec = tween<Float>(durationMillis = 450),
+            animateIn = true,
+            placeholder = {},
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(320.dp)
+                    .padding(horizontal = 16.dp),
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = stringResource(Res.string.axis_x_rear_teeth),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Text(
+            text = stringResource(Res.string.axis_y_ratio),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.fillMaxWidth(),
+        )
+    }
+}
+
+

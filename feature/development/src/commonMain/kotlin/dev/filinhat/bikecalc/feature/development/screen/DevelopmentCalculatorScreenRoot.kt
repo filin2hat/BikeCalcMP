@@ -1,6 +1,5 @@
 package dev.filinhat.bikecalc.feature.development.screen
 
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,17 +44,10 @@ import bikecalcmp.feature.development.generated.resources.remove_chainring
 import bikecalcmp.feature.development.generated.resources.results_title
 import bikecalcmp.feature.development.generated.resources.rim_diameter_mm
 import bikecalcmp.feature.development.generated.resources.tire_width_mm
-import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
-import com.patrykandpatrick.vico.multiplatform.cartesian.axis.HorizontalAxis
-import com.patrykandpatrick.vico.multiplatform.cartesian.axis.VerticalAxis
-import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
-import com.patrykandpatrick.vico.multiplatform.cartesian.data.lineSeries
-import com.patrykandpatrick.vico.multiplatform.cartesian.layer.rememberLineCartesianLayer
-import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
-import dev.filinhat.bikecalc.core.common.util.formatDoubleToString
 import dev.filinhat.bikecalc.core.common.util.toBikeDouble
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcParams
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcResult
+import dev.filinhat.bikecalc.feature.development.component.DevelopmentCharts
 import dev.filinhat.bikecalc.feature.development.component.InputCard
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcAction
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcState
@@ -193,173 +185,8 @@ private fun DevelopmentCalculatorScreen(
         Spacer(modifier = Modifier.padding(8.dp))
 
         if (uiState.result.isNotEmpty()) {
-            Text(
-                stringResource(Res.string.results_title),
-                style = MaterialTheme.typography.titleMedium,
-            )
-
-            val modelProducer = remember { CartesianChartModelProducer() }
-            val ratioModelProducer = remember { CartesianChartModelProducer() }
-            val rearTeethList =
-                remember(uiState.result) {
-                    uiState.result
-                        .map { it.rearTeeth }
-                        .distinct()
-                        .sorted()
-                }
-            val frontTeethList =
-                remember(uiState.result) {
-                    uiState.result
-                        .map { it.frontTeeth }
-                        .distinct()
-                        .sorted()
-                }
-
-            LaunchedEffect(uiState.result) {
-                val seriesList: List<List<Float>> =
-                    frontTeethList.map { front ->
-                        rearTeethList.map { rear ->
-                            uiState.result
-                                .find { it.frontTeeth == front && it.rearTeeth == rear }
-                                ?.developmentMeters
-                                ?.toFloat()
-                                ?: 0f
-                        }
-                    }
-                modelProducer.runTransaction {
-                    lineSeries {
-                        seriesList.forEach { values ->
-                            series(*values.toTypedArray())
-                        }
-                    }
-                }
-
-                val ratioSeriesList: List<List<Float>> =
-                    frontTeethList.map { front ->
-                        rearTeethList.map { rear ->
-                            if (rear == 0) 0f else front.toFloat() / rear.toFloat()
-                        }
-                    }
-                ratioModelProducer.runTransaction {
-                    lineSeries {
-                        ratioSeriesList.forEach { values ->
-                            series(*values.toTypedArray())
-                        }
-                    }
-                }
-            }
-
-            if (frontTeethList.isNotEmpty()) {
-                Text(
-                    text = stringResource(Res.string.legend_title),
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(6.dp),
-                    horizontalAlignment = Alignment.Start,
-                ) {
-                    frontTeethList.forEach { front ->
-                        Text(
-                            text = stringResource(Res.string.legend_chainring_format, front),
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-
-            CartesianChartHost(
-                chart =
-                    rememberCartesianChart(
-                        rememberLineCartesianLayer(),
-                        startAxis =
-                            VerticalAxis.rememberStart(
-                                valueFormatter = { _, value, _ ->
-                                    "${formatDoubleToString(value, 1)} м"
-                                },
-                            ),
-                        bottomAxis =
-                            HorizontalAxis.rememberBottom(
-                                valueFormatter = { _, value, _ ->
-                                    rearTeethList.getOrNull(value.toInt())?.toString() ?: ""
-                                },
-                            ),
-                    ),
-                modelProducer = modelProducer,
-                animationSpec = tween<Float>(durationMillis = 450),
-                animateIn = true,
-                placeholder = {},
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(320.dp)
-                        .padding(horizontal = 16.dp),
-            )
-
-            // Подписи осей для ясности
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = stringResource(Res.string.axis_x_rear_teeth),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.fillMaxWidth(),
-            )
-            Text(
-                text = stringResource(Res.string.axis_y_development_m),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.fillMaxWidth(),
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = stringResource(Res.string.ratio_title),
-                style = MaterialTheme.typography.titleMedium,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-
-            CartesianChartHost(
-                chart =
-                    rememberCartesianChart(
-                        rememberLineCartesianLayer(),
-                        startAxis =
-                            VerticalAxis.rememberStart(
-                                valueFormatter = { _, value, _ ->
-                                    "${formatDoubleToString(value, 2)}×"
-                                },
-                            ),
-                        bottomAxis =
-                            HorizontalAxis.rememberBottom(
-                                valueFormatter = { _, value, _ ->
-                                    rearTeethList.getOrNull(value.toInt())?.toString() ?: ""
-                                },
-                            ),
-                    ),
-                modelProducer = ratioModelProducer,
-                animationSpec = tween<Float>(durationMillis = 450),
-                animateIn = true,
-                placeholder = {},
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(320.dp)
-                        .padding(horizontal = 16.dp),
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = stringResource(Res.string.axis_x_rear_teeth),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.fillMaxWidth(),
-            )
-            Text(
-                text = stringResource(Res.string.axis_y_ratio),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface,
+            DevelopmentCharts(
+                results = uiState.result,
                 modifier = Modifier.fillMaxWidth(),
             )
         }
