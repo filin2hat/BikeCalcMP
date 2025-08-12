@@ -33,12 +33,14 @@ import bikecalcmp.feature.development.generated.resources.Res
 import bikecalcmp.feature.development.generated.resources.add_chainring
 import bikecalcmp.feature.development.generated.resources.axis_x_rear_teeth
 import bikecalcmp.feature.development.generated.resources.axis_y_development_m
+import bikecalcmp.feature.development.generated.resources.axis_y_ratio
 import bikecalcmp.feature.development.generated.resources.cassette_hint
 import bikecalcmp.feature.development.generated.resources.front_chainring_n_hint
 import bikecalcmp.feature.development.generated.resources.front_chainrings_title
 import bikecalcmp.feature.development.generated.resources.legend_chainring_format
 import bikecalcmp.feature.development.generated.resources.legend_title
 import bikecalcmp.feature.development.generated.resources.new_calculation
+import bikecalcmp.feature.development.generated.resources.ratio_title
 import bikecalcmp.feature.development.generated.resources.remove_chainring
 import bikecalcmp.feature.development.generated.resources.results_title
 import bikecalcmp.feature.development.generated.resources.rim_diameter_mm
@@ -195,9 +197,9 @@ private fun DevelopmentCalculatorScreen(
                 stringResource(Res.string.results_title),
                 style = MaterialTheme.typography.titleMedium,
             )
-            Spacer(modifier = Modifier.height(8.dp))
 
             val modelProducer = remember { CartesianChartModelProducer() }
+            val ratioModelProducer = remember { CartesianChartModelProducer() }
             val rearTeethList =
                 remember(uiState.result) {
                     uiState.result
@@ -227,6 +229,20 @@ private fun DevelopmentCalculatorScreen(
                 modelProducer.runTransaction {
                     lineSeries {
                         seriesList.forEach { values ->
+                            series(*values.toTypedArray())
+                        }
+                    }
+                }
+
+                val ratioSeriesList: List<List<Float>> =
+                    frontTeethList.map { front ->
+                        rearTeethList.map { rear ->
+                            if (rear == 0) 0f else front.toFloat() / rear.toFloat()
+                        }
+                    }
+                ratioModelProducer.runTransaction {
+                    lineSeries {
+                        ratioSeriesList.forEach { values ->
                             series(*values.toTypedArray())
                         }
                     }
@@ -293,6 +309,55 @@ private fun DevelopmentCalculatorScreen(
             )
             Text(
                 text = stringResource(Res.string.axis_y_development_m),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = stringResource(Res.string.ratio_title),
+                style = MaterialTheme.typography.titleMedium,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            CartesianChartHost(
+                chart =
+                    rememberCartesianChart(
+                        rememberLineCartesianLayer(),
+                        startAxis =
+                            VerticalAxis.rememberStart(
+                                valueFormatter = { _, value, _ ->
+                                    "${formatDoubleToString(value, 2)}×"
+                                },
+                            ),
+                        bottomAxis =
+                            HorizontalAxis.rememberBottom(
+                                valueFormatter = { _, value, _ ->
+                                    rearTeethList.getOrNull(value.toInt())?.toString() ?: ""
+                                },
+                            ),
+                    ),
+                modelProducer = ratioModelProducer,
+                animationSpec = tween<Float>(durationMillis = 450),
+                animateIn = true,
+                placeholder = {},
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(320.dp)
+                        .padding(horizontal = 16.dp),
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = stringResource(Res.string.axis_x_rear_teeth),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Text(
+                text = stringResource(Res.string.axis_y_ratio),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.fillMaxWidth(),
