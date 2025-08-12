@@ -134,7 +134,8 @@ fun DevelopmentCharts(
                     bottomAxis =
                         HorizontalAxis.rememberBottom(
                             valueFormatter = { _, value, _ ->
-                                rearTeethList.getOrNull(value.toInt())?.toString() ?: ""
+                                val index = value.toInt()
+                                rearTeethList.getOrNull(index)?.toString() ?: index.toString()
                             },
                         ),
                 ),
@@ -189,7 +190,8 @@ fun DevelopmentCharts(
                     bottomAxis =
                         HorizontalAxis.rememberBottom(
                             valueFormatter = { _, value, _ ->
-                                rearTeethList.getOrNull(value.toInt())?.toString() ?: ""
+                                val index = value.toInt()
+                                rearTeethList.getOrNull(index)?.toString() ?: index.toString()
                             },
                         ),
                 ),

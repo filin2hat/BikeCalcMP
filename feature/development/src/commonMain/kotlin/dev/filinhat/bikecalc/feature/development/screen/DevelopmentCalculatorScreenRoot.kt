@@ -3,10 +3,7 @@ package dev.filinhat.bikecalc.feature.development.screen
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -52,15 +49,12 @@ import compose.icons.lineawesomeicons.MinusSolid
 import compose.icons.lineawesomeicons.PlusSolid
 import dev.filinhat.bikecalc.core.common.util.toBikeDouble
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcParams
-import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcResult
 import dev.filinhat.bikecalc.feature.development.component.CompactInputField
 import dev.filinhat.bikecalc.feature.development.component.DevelopmentCharts
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcAction
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcState
 import dev.filinhat.bikecalc.feature.development.viewmodel.DevelopmentCalculatorViewModel
-import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement as RowArrangement
 
 /**
@@ -92,12 +86,10 @@ private fun DevelopmentCalculatorScreen(
     keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
     focusManager: FocusManager? = LocalFocusManager.current,
 ) {
-    var rimDiameter by remember { mutableStateOf("622") }
-    var tireWidth by remember { mutableStateOf("57") }
-    var frontTeethInputs by remember { mutableStateOf(listOf("32")) }
-    var rearTeeth by remember { mutableStateOf("10,12,14,16,18,21,24,28,33,39,45,51") }
-
-    var expandedGraphResult by rememberSaveable { mutableStateOf(false) }
+    var rimDiameter by rememberSaveable() { mutableStateOf("622") }
+    var tireWidth by rememberSaveable { mutableStateOf("57") }
+    var frontTeethInputs by rememberSaveable { mutableStateOf(listOf("32")) }
+    var rearTeeth by rememberSaveable { mutableStateOf("") }
 
     Column(
         modifier =
@@ -237,6 +229,7 @@ private fun DevelopmentCalculatorScreen(
             value = rearTeeth,
             onValueChange = { rearTeeth = it },
             label = stringResource(Res.string.cassette_hint),
+            allowMultipleValues = true,
             modifier = Modifier.fillMaxWidth(),
         )
 
@@ -274,58 +267,4 @@ private fun DevelopmentCalculatorScreen(
             )
         }
     }
-}
-
-@Preview
-@Composable
-private fun DevelopmentCalculatorScreenPreview() {
-    DevelopmentCalculatorScreen(
-        uiState =
-            DevelopmentCalcState(
-                result =
-                    persistentListOf(
-                        DevelopmentCalcResult(
-                            frontTeeth = 32,
-                            rearTeeth = 10,
-                            developmentMeters = 7.91,
-                        ),
-                        DevelopmentCalcResult(
-                            frontTeeth = 32,
-                            rearTeeth = 12,
-                            developmentMeters = 6.59,
-                        ),
-                        DevelopmentCalcResult(
-                            frontTeeth = 32,
-                            rearTeeth = 14,
-                            developmentMeters = 5.65,
-                        ),
-                        DevelopmentCalcResult(
-                            frontTeeth = 32,
-                            rearTeeth = 16,
-                            developmentMeters = 4.94,
-                        ),
-                        DevelopmentCalcResult(
-                            frontTeeth = 42,
-                            rearTeeth = 10,
-                            developmentMeters = 10.38,
-                        ),
-                        DevelopmentCalcResult(
-                            frontTeeth = 42,
-                            rearTeeth = 12,
-                            developmentMeters = 8.65,
-                        ),
-                        DevelopmentCalcResult(
-                            frontTeeth = 42,
-                            rearTeeth = 14,
-                            developmentMeters = 7.41,
-                        ),
-                        DevelopmentCalcResult(
-                            frontTeeth = 42,
-                            rearTeeth = 16,
-                            developmentMeters = 6.49,
-                        ),
-                    ),
-            ),
-        onAction = {},
-    )
 }
