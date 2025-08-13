@@ -26,7 +26,12 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import bikecalcmp.feature.pressure.generated.resources.Res
+import bikecalcmp.feature.pressure.generated.resources.bar
+import bikecalcmp.feature.pressure.generated.resources.kpa
+import bikecalcmp.feature.pressure.generated.resources.psi
 import dev.filinhat.bikecalc.core.enums.unit.PressureUnit
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Радио кнопки для выбора единиц отображения давления
@@ -83,9 +88,9 @@ fun ChangePressureRadioGroup(
                 Text(
                     text =
                         when (item) {
-                            PressureUnit.KPa -> "кПа"
-                            PressureUnit.BAR -> "бар"
-                            PressureUnit.PSI -> "psi"
+                            PressureUnit.KPa -> stringResource(Res.string.kpa)
+                            PressureUnit.BAR -> stringResource(Res.string.bar)
+                            PressureUnit.PSI -> stringResource(Res.string.psi)
                         },
                     style = MaterialTheme.typography.bodyLarge,
                     color = if (item == selectedOption) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground,

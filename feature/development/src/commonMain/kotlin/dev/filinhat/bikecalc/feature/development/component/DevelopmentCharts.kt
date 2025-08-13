@@ -189,7 +189,7 @@ fun DevelopmentCharts(
                         ),
                 ),
             modelProducer = ratioModelProducer,
-            animationSpec = tween<Float>(durationMillis = 450),
+            animationSpec = tween(durationMillis = 450),
             animateIn = true,
             placeholder = {},
             modifier =

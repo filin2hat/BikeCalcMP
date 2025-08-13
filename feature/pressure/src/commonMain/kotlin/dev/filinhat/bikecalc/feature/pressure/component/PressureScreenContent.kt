@@ -40,7 +40,6 @@ import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import bikecalcmp.feature.pressure.generated.resources.Res
 import bikecalcmp.feature.pressure.generated.resources.kg
 import bikecalcmp.feature.pressure.generated.resources.label_bike_weight
@@ -62,6 +61,7 @@ import dev.filinhat.bikecalc.core.enums.tire.TireSize29Inches
 import dev.filinhat.bikecalc.core.enums.unit.WeightUnit
 import dev.filinhat.bikecalc.core.enums.wheel.Wheel
 import dev.filinhat.bikecalc.core.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.designsystem.component.CalculatePressureButton
 import dev.filinhat.bikecalc.designsystem.component.DropdownMenu
 import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcAction
 import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcState
@@ -251,7 +251,7 @@ fun PressureScreenContent(
                         } else {
                             stringResource(Res.string.lbs)
                         },
-                    style = MaterialTheme.typography.titleMedium.copy(fontSize = 20.sp),
+                    style = MaterialTheme.typography.titleMedium,
                 )
             }
         }

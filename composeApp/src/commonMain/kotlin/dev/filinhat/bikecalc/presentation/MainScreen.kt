@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -102,6 +104,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                 contentColor = MaterialTheme.colorScheme.primary,
                 tonalElevation = 8.dp,
+                modifier = Modifier.height(86.dp)
             ) {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
@@ -126,6 +129,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                                 imageVector = screen.icon,
                                 contentDescription = screen.title,
                                 tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(24.dp)
                             )
                         },
                         label = { Text(screen.title) },
@@ -173,10 +177,12 @@ fun MainScreen(modifier: Modifier = Modifier) {
                             IconButtonDefaults.iconButtonColors(
                                 contentColor = MaterialTheme.colorScheme.primary,
                             ),
-                        modifier = Modifier.size(48.dp),
+                        modifier = Modifier.size(28.dp),
                     ) {
                         Icon(vectorResource(iconTheme), contentDescription = null)
                     }
+
+                    Spacer(modifier = Modifier.width(16.dp))
 
                     IconButton(
                         onClick = {
@@ -188,7 +194,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                             IconButtonDefaults.iconButtonColors(
                                 contentColor = MaterialTheme.colorScheme.primary,
                             ),
-                        modifier = Modifier.size(48.dp),
+                        modifier = Modifier.size(28.dp),
                     ) {
                         Icon(
                             imageVector = LineAwesomeIcons.InfoCircleSolid,

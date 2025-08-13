@@ -54,7 +54,7 @@ fun DeleteResultsButton(
     ) {
         Text(
             text = stringResource(Res.string.clear_results),
-            style = MaterialTheme.typography.titleLarge,
+            style = MaterialTheme.typography.titleMedium,
             maxLines = 1,
             overflow = Ellipsis,
         )

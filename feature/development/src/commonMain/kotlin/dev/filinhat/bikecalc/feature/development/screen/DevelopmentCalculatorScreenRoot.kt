@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -40,7 +39,6 @@ import bikecalcmp.feature.development.generated.resources.cassette
 import bikecalcmp.feature.development.generated.resources.cassette_hint
 import bikecalcmp.feature.development.generated.resources.front_chainring_n_hint
 import bikecalcmp.feature.development.generated.resources.front_chainrings_title
-import bikecalcmp.feature.development.generated.resources.new_calculation
 import bikecalcmp.feature.development.generated.resources.tire_width_mm
 import bikecalcmp.feature.development.generated.resources.wheel_size
 import compose.icons.LineAwesomeIcons
@@ -49,6 +47,7 @@ import compose.icons.lineawesomeicons.PlusSolid
 import dev.filinhat.bikecalc.core.common.util.toBikeDouble
 import dev.filinhat.bikecalc.core.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcParams
+import dev.filinhat.bikecalc.designsystem.component.CalculatePressureButton
 import dev.filinhat.bikecalc.designsystem.component.CompactNumericInputField
 import dev.filinhat.bikecalc.feature.development.component.DevelopmentCharts
 import dev.filinhat.bikecalc.feature.development.component.WheelSizeDropdown
@@ -225,7 +224,7 @@ private fun DevelopmentCalculatorScreen(
                     .fillMaxWidth(),
         )
 
-        Spacer(modifier = Modifier.padding(6.dp))
+        Spacer(modifier = Modifier.padding(2.dp))
 
         CompactNumericInputField(
             value = rearTeeth,
@@ -237,24 +236,25 @@ private fun DevelopmentCalculatorScreen(
 
         Spacer(modifier = Modifier.padding(8.dp))
 
-        Button(onClick = {
-            keyboardController?.hide()
-            focusManager?.clearFocus()
-            val frontList = frontTeethInputs.mapNotNull { it.trim().toIntOrNull() }.take(3)
-            val rearList = rearTeeth.split(",").mapNotNull { it.trim().toIntOrNull() }
-            onAction(
-                DevelopmentCalcAction.OnCalculateDevelopment(
-                    DevelopmentCalcParams(
-                        rimDiameterMm = selectedWheelSize.etrtoMm.toDouble(),
-                        tireWidthMm = tireWidth.toBikeDouble(),
-                        frontTeethList = frontList,
-                        rearTeethList = rearList,
+        CalculatePressureButton(
+            onClick = {
+                keyboardController?.hide()
+                focusManager?.clearFocus()
+                val frontList = frontTeethInputs.mapNotNull { it.trim().toIntOrNull() }.take(3)
+                val rearList = rearTeeth.split(",").mapNotNull { it.trim().toIntOrNull() }
+                onAction(
+                    DevelopmentCalcAction.OnCalculateDevelopment(
+                        DevelopmentCalcParams(
+                            rimDiameterMm = selectedWheelSize.etrtoMm.toDouble(),
+                            tireWidthMm = tireWidth.toBikeDouble(),
+                            frontTeethList = frontList,
+                            rearTeethList = rearList,
+                        ),
                     ),
-                ),
-            )
-        }) {
-            Text(stringResource(Res.string.new_calculation))
-        }
+                )
+            },
+            enabled = true,
+        )
         Spacer(modifier = Modifier.padding(8.dp))
 
         AnimatedVisibility(
