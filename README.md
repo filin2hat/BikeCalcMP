@@ -8,12 +8,17 @@
 
 *Демонстрация передовых подходов KMP и модульной архитектуры — и при этом реальный инструмент для райдеров*
 
-Кому: райдерам любого уровня (MTB, шоссе, грэвел, город) и веломеханикам.
+</div>
+
+Кому: 
+- райдерам любого уровня (MTB, шоссе, грэвел, город) и веломеханикам.
 
 Что даёт:
 - Точный подбор давления в шинах с учётом веса, ETRTO/размера колеса, ширины и типа камеры
 - Расчёт развития передач (м за оборот) по выбранным звёздам и размерам колёс, графики и сравнение
 - История расчётов и мгновенная конвертация единиц (bar/psi/kPa)
+
+<div align="center">
 
 [![Kotlin](https://img.shields.io/badge/kotlin-2.2.0-blue.svg?logo=kotlin)](https://kotlinlang.org)
 [![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.8.2-4285F4.svg?logo=jetpackcompose)](https://www.jetbrains.com/lp/compose-multiplatform/)
