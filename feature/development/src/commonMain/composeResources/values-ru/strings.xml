@@ -2,9 +2,9 @@
 <resources>
     <string name="new_calculation">Произвести расчет</string>
     <string name="rim_diameter_mm">Диаметр обода (мм)</string>
-    <string name="tire_width_mm">Ширина шины (мм)</string>
+    <string name="tire_width_mm">Высота покрышки (мм)</string>
     <string name="front_chainrings_title">Передние звёзды:</string>
-    <string name="front_chainring_n_hint">Звезда %1$d (зубья)</string>
+    <string name="front_chainring_n_hint">Звезда %1$d (Количество зубьев)</string>
     <string name="add_chainring">+</string>
     <string name="remove_chainring">-</string>
     <string name="cassette_hint">(например: 10,12,14,16,18,21,24,28,33,39,45,51)</string>
@@ -16,5 +16,6 @@
     <string name="axis_y_development_m">Ось Y: развитие, м за оборот</string>
     <string name="ratio_title">График передаточного соотношения</string>
     <string name="axis_y_ratio">Ось Y: передаточное число</string>
+    <string name="wheel_size">Тип колеса</string>
 
 </resources>

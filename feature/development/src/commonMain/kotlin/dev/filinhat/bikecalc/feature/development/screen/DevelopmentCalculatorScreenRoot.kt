@@ -41,15 +41,17 @@ import bikecalcmp.feature.development.generated.resources.cassette_hint
 import bikecalcmp.feature.development.generated.resources.front_chainring_n_hint
 import bikecalcmp.feature.development.generated.resources.front_chainrings_title
 import bikecalcmp.feature.development.generated.resources.new_calculation
-import bikecalcmp.feature.development.generated.resources.rim_diameter_mm
 import bikecalcmp.feature.development.generated.resources.tire_width_mm
+import bikecalcmp.feature.development.generated.resources.wheel_size
 import compose.icons.LineAwesomeIcons
 import compose.icons.lineawesomeicons.MinusSolid
 import compose.icons.lineawesomeicons.PlusSolid
 import dev.filinhat.bikecalc.core.common.util.toBikeDouble
+import dev.filinhat.bikecalc.core.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcParams
 import dev.filinhat.bikecalc.designsystem.component.CompactNumericInputField
 import dev.filinhat.bikecalc.feature.development.component.DevelopmentCharts
+import dev.filinhat.bikecalc.feature.development.component.WheelSizeDropdown
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcAction
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcState
 import dev.filinhat.bikecalc.feature.development.viewmodel.DevelopmentCalculatorViewModel
@@ -85,7 +87,9 @@ private fun DevelopmentCalculatorScreen(
     keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
     focusManager: FocusManager? = LocalFocusManager.current,
 ) {
-    var rimDiameter by rememberSaveable { mutableStateOf("622") }
+    var wheelSize by rememberSaveable { mutableStateOf(WheelSize.Inches29.name) }
+    val selectedWheelSize =
+        WheelSize.entries.firstOrNull { it.name == wheelSize } ?: WheelSize.Inches29
     var tireWidth by rememberSaveable { mutableStateOf("57") }
     var frontTeethInputs by rememberSaveable { mutableStateOf(listOf("32")) }
     var rearTeeth by rememberSaveable { mutableStateOf("10,12,14,16,18,21,24,28,33,39,45,51") }
@@ -104,11 +108,10 @@ private fun DevelopmentCalculatorScreen(
             horizontalArrangement = RowArrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            CompactNumericInputField(
-                value = rimDiameter,
-                onValueChange = { rimDiameter = it },
-                label = stringResource(Res.string.rim_diameter_mm),
-                keyboardType = KeyboardType.Number,
+            WheelSizeDropdown(
+                value = selectedWheelSize,
+                onValueChange = { wheelSize = it.name },
+                label = stringResource(Res.string.wheel_size),
                 modifier =
                     Modifier
                         .weight(1f)
@@ -242,7 +245,7 @@ private fun DevelopmentCalculatorScreen(
             onAction(
                 DevelopmentCalcAction.OnCalculateDevelopment(
                     DevelopmentCalcParams(
-                        rimDiameterMm = rimDiameter.toBikeDouble(),
+                        rimDiameterMm = selectedWheelSize.etrtoMm.toDouble(),
                         tireWidthMm = tireWidth.toBikeDouble(),
                         frontTeethList = frontList,
                         rearTeethList = rearList,

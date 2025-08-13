@@ -15,6 +15,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextOverflow
 import dev.filinhat.bikecalc.core.common.util.isAllowedPositiveIntCsvInput
 import dev.filinhat.bikecalc.core.common.util.isAllowedSinglePositiveIntInput
 import dev.filinhat.bikecalc.core.common.util.validatePositiveIntCsv
@@ -36,7 +37,6 @@ fun CompactNumericInputField(
     val minValue = 1
     val maxValue = 1000
 
-    // Синхронизация и восстановление значения между внешним `value` и локальным сохранённым `internalValue`.
     LaunchedEffect(value) {
         if (value != internalValue) {
             if (value.isNotEmpty()) {
@@ -65,7 +65,6 @@ fun CompactNumericInputField(
     OutlinedTextField(
         value = internalValue,
         onValueChange = { newValue ->
-            // Фильтрация допустимых символов согласно режиму (промежуточный ввод)
             if (newValue.isEmpty()) {
                 internalValue = ""
                 onValueChange("")
@@ -83,8 +82,16 @@ fun CompactNumericInputField(
             internalValue = newValue
             onValueChange(newValue)
         },
-        label = { Text(text = label, style = MaterialTheme.typography.labelSmall) },
+        label = {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelSmall,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+            )
+        },
         textStyle = MaterialTheme.typography.bodyMedium,
+        shape = MaterialTheme.shapes.medium,
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
         modifier = modifier,

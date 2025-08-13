@@ -2,9 +2,9 @@
 <resources>
     <string name="new_calculation">Make a calculation</string>
     <string name="rim_diameter_mm">Rim diameter (mm)</string>
-    <string name="tire_width_mm">Tire width (mm)</string>
+    <string name="tire_width_mm">Tire height (mm)</string>
     <string name="front_chainrings_title">Front chainrings:</string>
-    <string name="front_chainring_n_hint">Chainring %1$d (teeth)</string>
+    <string name="front_chainring_n_hint">Chainring %1$d (Number of teeth)</string>
     <string name="add_chainring">+</string>
     <string name="remove_chainring">-</string>
     <string name="cassette_hint">(e.g., 10,12,14,16,18,21,24,28,33,39,45,51)</string>
@@ -16,4 +16,5 @@
     <string name="axis_y_development_m">Y axis: development, m per pedal rev</string>
     <string name="ratio_title">Gear ratio graph</string>
     <string name="axis_y_ratio">Y axis: gear ratio</string>
+    <string name="wheel_size">Wheel type</string>
 </resources>

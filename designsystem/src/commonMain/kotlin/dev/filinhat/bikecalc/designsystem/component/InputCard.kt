@@ -76,6 +76,7 @@ fun InputCard(
                         unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
                     ),
                 singleLine = true,
+                textStyle = MaterialTheme.typography.bodyMedium,
             )
         }
     }
