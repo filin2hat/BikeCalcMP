@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="new_calculation">Расчёт</string>
+    <string name="new_calculation">Произвести расчет</string>
     <string name="rim_diameter_mm">Диаметр обода (мм)</string>
-    <string name="tire_width_mm">Ширина шины (мм)</string>
-    <string name="front_chainring_hint">Передняя звезда (например: 50,34)</string>
-    <string name="cassette_hint">Кассета (например: 12,13,15,17,19,21,23)</string>
-    <string name="results_title">Результаты:</string>
+    <string name="tire_width_mm">Высота покрышки (мм)</string>
+    <string name="front_chainrings_title">Передние звёзды:</string>
+    <string name="front_chainring_n_hint">Звезда %1$d (Количество зубьев)</string>
+    <string name="add_chainring">+</string>
+    <string name="remove_chainring">-</string>
+    <string name="cassette_hint">(например: 10,12,14,16,18,21,24,28,33,39,45,51)</string>
+    <string name="cassette">Кассета:</string>
+    <string name="distance_graph">График развития расстояния</string>
+    <string name="legend_title">Легенда:</string>
+    <string name="legend_chainring_format">Передняя звезда: %1$d зуб.</string>
+    <string name="axis_x_rear_teeth">Ось X: зубья задней звезды</string>
+    <string name="axis_y_development_m">Ось Y: развитие, м за оборот</string>
+    <string name="ratio_title">График передаточного соотношения</string>
+    <string name="axis_y_ratio">Ось Y: передаточное число</string>
+    <string name="wheel_size">Тип колеса</string>
 
 </resources>

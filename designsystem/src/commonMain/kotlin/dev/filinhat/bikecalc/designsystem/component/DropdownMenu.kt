@@ -19,7 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.style.TextOverflow
 
 /**
  * Базовое поле с выбором для всего приложения
@@ -57,14 +57,16 @@ fun <T> DropdownMenu(
                 label = {
                     Text(
                         text = label,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall,
                     )
                 },
                 readOnly = true,
+                singleLine = true,
+                maxLines = 1,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = isMenuExpanded)
                 },
-                textStyle = MaterialTheme.typography.bodyLarge,
+                textStyle = MaterialTheme.typography.bodyMedium,
                 colors =
                     ExposedDropdownMenuDefaults.outlinedTextFieldColors(
                         focusedContainerColor = MaterialTheme.colorScheme.background,
@@ -85,7 +87,10 @@ fun <T> DropdownMenu(
             ExposedDropdownMenu(
                 expanded = isMenuExpanded,
                 onDismissRequest = { isMenuExpanded = false },
-                modifier = Modifier.background(MaterialTheme.colorScheme.primaryContainer),
+                modifier =
+                    Modifier
+                        .exposedDropdownSize()
+                        .background(MaterialTheme.colorScheme.primaryContainer),
             ) {
                 items?.forEach { item ->
                     DropdownMenuItem(
@@ -98,7 +103,9 @@ fun <T> DropdownMenu(
                             itemLabel(item)?.let {
                                 Text(
                                     text = it,
-                                    style = MaterialTheme.typography.bodyLarge,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
                                 )
                             }
                         },
@@ -118,9 +125,3 @@ fun <T> DropdownMenu(
         }
     }
 }
-
-
-
-
-
-

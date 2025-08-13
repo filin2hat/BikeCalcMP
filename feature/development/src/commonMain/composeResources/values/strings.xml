@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <string name="new_calculation">New calculation</string>
+    <string name="new_calculation">Make a calculation</string>
     <string name="rim_diameter_mm">Rim diameter (mm)</string>
-    <string name="tire_width_mm">Tire width (mm)</string>
-    <string name="front_chainring_hint">Front chainring (e.g., 50,34)</string>
-    <string name="cassette_hint">Cassette (e.g., 12,13,15,17,19,21,23)</string>
-    <string name="results_title">Results:</string>
+    <string name="tire_width_mm">Tire height (mm)</string>
+    <string name="front_chainrings_title">Front chainrings:</string>
+    <string name="front_chainring_n_hint">Chainring %1$d (Number of teeth)</string>
+    <string name="add_chainring">+</string>
+    <string name="remove_chainring">-</string>
+    <string name="cassette_hint">(e.g., 10,12,14,16,18,21,24,28,33,39,45,51)</string>
+    <string name="cassette">Cassette:</string>
+    <string name="distance_graph">Distance evolution graph</string>
+    <string name="legend_title">Legend:</string>
+    <string name="legend_chainring_format">Front chainring: %1$d teeth</string>
+    <string name="axis_x_rear_teeth">X axis: rear cog teeth</string>
+    <string name="axis_y_development_m">Y axis: development, m per pedal rev</string>
+    <string name="ratio_title">Gear ratio graph</string>
+    <string name="axis_y_ratio">Y axis: gear ratio</string>
+    <string name="wheel_size">Wheel type</string>
 </resources>

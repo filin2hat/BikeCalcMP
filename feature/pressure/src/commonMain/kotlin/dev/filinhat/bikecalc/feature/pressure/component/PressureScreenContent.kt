@@ -149,7 +149,7 @@ fun PressureScreenContent(
                 label = {
                     Text(
                         text = stringResource(Res.string.label_rider_weight),
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -190,7 +190,7 @@ fun PressureScreenContent(
                 label = {
                     Text(
                         text = stringResource(Res.string.label_bike_weight),
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
