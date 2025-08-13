@@ -33,7 +33,7 @@
 
 ## ⬇️ Скачать
 
-- APK: [composeApp-release.apk](https://github.com/filin2hat/BikeCalcMP/releases/download/release/composeApp-release.apk)
+- APK: [BikeCalc_Pro_4.0.0.apk](https://github.com/filin2hat/BikeCalcMP/releases/download/release/composeApp-release.apk)
 - Страница релиза: [release](https://github.com/filin2hat/BikeCalcMP/releases/tag/release)
 
 ## 🎯 О проекте
