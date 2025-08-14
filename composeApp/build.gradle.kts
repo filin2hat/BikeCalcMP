@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.hot.reload)
     alias(libs.plugins.jetbrains.kotlin.serialization)
 
     alias(libs.plugins.kotzilla)
@@ -184,3 +185,6 @@ compose.desktop {
         }
     }
 }
+
+// Compose Hot Reload настроен автоматически
+// mainClass уже настроен в compose.desktop.application
