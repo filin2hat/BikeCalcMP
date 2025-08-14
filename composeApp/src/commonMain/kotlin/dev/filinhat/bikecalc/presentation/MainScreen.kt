@@ -104,7 +104,6 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                 contentColor = MaterialTheme.colorScheme.primary,
                 tonalElevation = 8.dp,
-                modifier = Modifier.height(86.dp)
             ) {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
@@ -202,7 +201,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                         )
                     }
                 }
-                BikeCalcNavigation(navController, startDestination)
+                 BikeCalcNavigation(navController, startDestination)
             }
         },
     )
