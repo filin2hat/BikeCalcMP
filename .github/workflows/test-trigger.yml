@@ -1,0 +1,35 @@
+name: 🧪 Test Trigger
+
+on:
+  push:
+    branches: ['master', 'develop', 'feature/**', 'task/**']
+  pull_request:
+    branches: ['master', 'develop']
+  workflow_dispatch:
+
+jobs:
+  test-trigger:
+    name: 🧪 Test Trigger
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔍 Debug Info
+        run: |
+          echo "🔍 Test Trigger Debug Information:"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Event: ${{ github.event_name }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Workflow: ${{ github.workflow }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Commit Message: ${{ github.event.head_commit.message }}"
+          echo "✅ Test trigger workflow is working!"
+
+      - name: 📝 Success Message
+        run: |
+          echo "🎉 CI/CD trigger test successful!"
+          echo "If you see this message, the workflow is properly configured."
