@@ -13,8 +13,12 @@ fun initKoin(config: KoinAppDeclaration? = null) {
         modules(sharedModule, platformModule)
         try {
             analytics()
+            println("✅ Kotzilla analytics успешно инициализирован")
         } catch (e: NotImplementedError) {
-            println("Analytics not supported on this platform: ${e.message}")
+            println("⚠️ Analytics not supported on this platform: ${e.message}")
+        } catch (e: Exception) {
+            println("❌ Ошибка инициализации Kotzilla analytics: ${e.message}")
+            e.printStackTrace()
         }
     }
 }
