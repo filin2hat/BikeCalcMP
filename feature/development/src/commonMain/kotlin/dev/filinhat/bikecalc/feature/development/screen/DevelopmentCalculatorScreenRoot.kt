@@ -21,9 +21,10 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,6 +52,7 @@ import dev.filinhat.bikecalc.designsystem.component.CalculatePressureButton
 import dev.filinhat.bikecalc.designsystem.component.CompactNumericInputField
 import dev.filinhat.bikecalc.feature.development.component.DevelopmentCharts
 import dev.filinhat.bikecalc.feature.development.component.WheelSizeDropdown
+import dev.filinhat.bikecalc.feature.development.data.DevelopmentSettings
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcAction
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcState
 import dev.filinhat.bikecalc.feature.development.viewmodel.DevelopmentCalculatorViewModel
@@ -86,12 +88,32 @@ private fun DevelopmentCalculatorScreen(
     keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
     focusManager: FocusManager? = LocalFocusManager.current,
 ) {
-    var wheelSize by rememberSaveable { mutableStateOf(WheelSize.Inches29.name) }
-    val selectedWheelSize =
-        WheelSize.entries.firstOrNull { it.name == wheelSize } ?: WheelSize.Inches29
-    var tireWidth by rememberSaveable { mutableStateOf("57") }
-    var frontTeethInputs by rememberSaveable { mutableStateOf(listOf("32")) }
-    var rearTeeth by rememberSaveable { mutableStateOf("10,12,14,16,18,21,24,28,33,39,45,51") }
+    // Локальное состояние для формы
+    var wheelSize by remember { mutableStateOf(uiState.settings.wheelSize.name) }
+    var tireWidth by remember { mutableStateOf(uiState.settings.tireWidth) }
+    var frontTeethInputs by remember { mutableStateOf(uiState.settings.frontTeethInputs) }
+    var rearTeeth by remember { mutableStateOf(uiState.settings.rearTeeth) }
+    
+    val selectedWheelSize = WheelSize.entries.firstOrNull { it.name == wheelSize } ?: WheelSize.Inches29
+
+    // Обновляем локальное состояние при загрузке настроек
+    LaunchedEffect(uiState.settings) {
+        wheelSize = uiState.settings.wheelSize.name
+        tireWidth = uiState.settings.tireWidth
+        frontTeethInputs = uiState.settings.frontTeethInputs
+        rearTeeth = uiState.settings.rearTeeth
+    }
+
+    // Функция для сохранения настроек
+    val saveSettings = {
+        val settings = DevelopmentSettings(
+            wheelSize = selectedWheelSize,
+            tireWidth = tireWidth,
+            frontTeethInputs = frontTeethInputs,
+            rearTeeth = rearTeeth
+        )
+        onAction(DevelopmentCalcAction.OnSaveSettings(settings))
+    }
 
     Column(
         modifier =
@@ -109,7 +131,10 @@ private fun DevelopmentCalculatorScreen(
         ) {
             WheelSizeDropdown(
                 value = selectedWheelSize,
-                onValueChange = { wheelSize = it.name },
+                onValueChange = { 
+                    wheelSize = it.name
+                    saveSettings()
+                },
                 label = stringResource(Res.string.wheel_size),
                 modifier =
                     Modifier
@@ -118,7 +143,10 @@ private fun DevelopmentCalculatorScreen(
             )
             CompactNumericInputField(
                 value = tireWidth,
-                onValueChange = { tireWidth = it },
+                onValueChange = { 
+                    tireWidth = it
+                    saveSettings()
+                },
                 label = stringResource(Res.string.tire_width_mm),
                 keyboardType = KeyboardType.Number,
                 modifier =
@@ -154,7 +182,10 @@ private fun DevelopmentCalculatorScreen(
             ) {
                 IconButton(
                     onClick = {
-                        if (frontTeethInputs.size < 3) frontTeethInputs = frontTeethInputs + ""
+                        if (frontTeethInputs.size < 3) {
+                            frontTeethInputs = frontTeethInputs + ""
+                            saveSettings()
+                        }
                     },
                     enabled = frontTeethInputs.size < 3,
                     modifier =
@@ -177,8 +208,8 @@ private fun DevelopmentCalculatorScreen(
                 IconButton(
                     onClick = {
                         if (frontTeethInputs.size > 1) {
-                            frontTeethInputs =
-                                frontTeethInputs.dropLast(1)
+                            frontTeethInputs = frontTeethInputs.dropLast(1)
+                            saveSettings()
                         }
                     },
                     enabled = frontTeethInputs.size > 1,
@@ -205,8 +236,10 @@ private fun DevelopmentCalculatorScreen(
             CompactNumericInputField(
                 value = value,
                 onValueChange = { newValue ->
-                    frontTeethInputs =
-                        frontTeethInputs.mapIndexed { i, v -> if (i == index) newValue else v }
+                    frontTeethInputs = frontTeethInputs.mapIndexed { i, v -> 
+                        if (i == index) newValue else v 
+                    }
+                    saveSettings()
                 },
                 label = stringResource(Res.string.front_chainring_n_hint, index + 1),
                 keyboardType = KeyboardType.Number,
@@ -219,16 +252,17 @@ private fun DevelopmentCalculatorScreen(
         Text(
             text = stringResource(Res.string.cassette),
             style = MaterialTheme.typography.titleMedium,
-            modifier =
-                Modifier
-                    .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
         )
 
         Spacer(modifier = Modifier.padding(2.dp))
 
         CompactNumericInputField(
             value = rearTeeth,
-            onValueChange = { rearTeeth = it },
+            onValueChange = { 
+                rearTeeth = it
+                saveSettings()
+            },
             label = stringResource(Res.string.cassette_hint),
             allowMultipleValues = true,
             modifier = Modifier.fillMaxWidth(),
@@ -255,6 +289,7 @@ private fun DevelopmentCalculatorScreen(
             },
             enabled = true,
         )
+        
         Spacer(modifier = Modifier.padding(8.dp))
 
         AnimatedVisibility(

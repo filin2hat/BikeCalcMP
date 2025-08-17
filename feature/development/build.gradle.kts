@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 kotlin {
     androidTarget {
@@ -68,6 +69,14 @@ kotlin {
             // Charts
             implementation(libs.vico.multiplatform)
             implementation(libs.vico.multiplatform.m3)
+
+            // Serialization
+            implementation(libs.kotlinx.serialization.json)
+
+            // DataStore
+            implementation(libs.androidx.datastore.core.okio)
+            implementation(libs.androidx.datastore.preferences.core)
+            implementation(libs.androidx.datastore.preferences)
         }
 
         commonTest.dependencies {

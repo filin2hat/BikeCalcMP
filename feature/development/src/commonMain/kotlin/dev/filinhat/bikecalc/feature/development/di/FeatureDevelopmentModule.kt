@@ -1,5 +1,7 @@
 package dev.filinhat.bikecalc.feature.development.di
 
+import dev.filinhat.bikecalc.feature.development.data.DevelopmentSettingsStore
+import dev.filinhat.bikecalc.feature.development.data.createPlatformDevelopmentSettingsStore
 import dev.filinhat.bikecalc.feature.development.viewmodel.DevelopmentCalculatorViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -9,13 +11,9 @@ import org.koin.dsl.module
  */
 val featureDevelopmentModule =
     module {
+        // DataStore для сохранения настроек (платформо-специфичная реализация)
+        single<DevelopmentSettingsStore> { createPlatformDevelopmentSettingsStore() }
+
         // ViewModels
-        viewModel { DevelopmentCalculatorViewModel(get()) }
+        viewModel { DevelopmentCalculatorViewModel(get(), get()) }
     }
-
-
-
-
-
-
-

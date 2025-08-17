@@ -63,6 +63,9 @@ jetbrainsKotlinJvm = "2.2.0"
 # Detect
 detect = "1.23.8"
 
+# DataStore
+dataStore = "1.1.7"
+
 
 [libraries]
 # AndroidX
@@ -110,6 +113,11 @@ coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil3" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+
+# DataStore (without an Android dependency)
+androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStore" }
+androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "dataStore" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 
 # Icons
 iconPack-lineAwesome = { module = "br.com.devsrsouza.compose.icons:line-awesome", version.ref = "composeIcons" }
