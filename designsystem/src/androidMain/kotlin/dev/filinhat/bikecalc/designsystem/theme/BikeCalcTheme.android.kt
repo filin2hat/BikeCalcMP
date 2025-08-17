@@ -17,9 +17,3 @@ internal actual fun SystemAppearance(isDark: Boolean) {
         }
     }
 }
-
-
-
-
-
-

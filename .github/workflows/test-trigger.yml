@@ -2,9 +2,9 @@ name: 🧪 Test Trigger
 
 on:
   push:
-    branches: ['master', 'develop', 'feature/**', 'task/**']
+    branches: [ 'master', 'develop', 'feature/**', 'task/**' ]
   pull_request:
-    branches: ['master', 'develop']
+    branches: [ 'master', 'develop' ]
   workflow_dispatch:
 
 jobs:

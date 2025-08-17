@@ -14,4 +14,3 @@ actual class DatabaseFactory {
         )
     }
 }
-

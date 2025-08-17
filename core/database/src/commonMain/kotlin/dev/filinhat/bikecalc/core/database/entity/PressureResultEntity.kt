@@ -16,4 +16,3 @@ data class PressureResultEntity(
     val wheelSize: String,
     val tireSize: String,
 )
-

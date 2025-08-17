@@ -30,4 +30,3 @@ actual class DatabaseFactory {
         return requireNotNull(documentDirectory).path!!
     }
 }
-

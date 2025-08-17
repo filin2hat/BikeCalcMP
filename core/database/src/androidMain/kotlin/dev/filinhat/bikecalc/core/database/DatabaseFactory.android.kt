@@ -18,4 +18,3 @@ actual class DatabaseFactory(
         )
     }
 }
-

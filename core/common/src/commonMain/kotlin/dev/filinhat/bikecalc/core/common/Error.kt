@@ -8,4 +8,3 @@ package dev.filinhat.bikecalc.core.common
  * - [DataError.Local]: Ошибки, связанные с локальным хранилищем данных (например, база данных).
  */
 interface Error
-

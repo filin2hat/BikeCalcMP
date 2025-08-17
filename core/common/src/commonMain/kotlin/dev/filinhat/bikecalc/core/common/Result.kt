@@ -84,4 +84,3 @@ inline fun <T, E : Error> Result<T, E>.onError(action: (E) -> Unit): Result<T, E
  * @param E Тип ошибки.
  */
 typealias EmptyResult<E> = Result<Unit, E>
-

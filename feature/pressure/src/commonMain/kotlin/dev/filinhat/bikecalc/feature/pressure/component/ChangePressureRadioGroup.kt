@@ -103,9 +103,3 @@ fun ChangePressureRadioGroup(
         }
     }
 }
-
-
-
-
-
-

@@ -9,4 +9,3 @@ import androidx.room.RoomDatabase
 expect class DatabaseFactory {
     fun createDatabase(): RoomDatabase.Builder<PressureResultsDatabase>
 }
-

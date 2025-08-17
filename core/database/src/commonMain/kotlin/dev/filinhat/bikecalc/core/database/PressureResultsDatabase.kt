@@ -21,4 +21,3 @@ abstract class PressureResultsDatabase : RoomDatabase() {
         const val DATABASE_NAME = "pressure_results.db"
     }
 }
-

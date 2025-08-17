@@ -23,4 +23,3 @@ fun Double.lbsToKg(): Double = this / 2.20462
  * @return Значение массы в фунтах.
  */
 fun Double.kgToLbs(): Double = this * 2.20462
-

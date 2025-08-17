@@ -6,9 +6,3 @@ import androidx.compose.runtime.Composable
 internal actual fun SystemAppearance(isDark: Boolean) {
     // На десктопе нет системного API для управления внешним видом
 }
-
-
-
-
-
-

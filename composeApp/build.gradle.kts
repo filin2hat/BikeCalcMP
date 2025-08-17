@@ -47,7 +47,7 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
-            // Наши модули
+            // Ммодули
             implementation(project(":feature:pressure"))
             implementation(project(":feature:development"))
             implementation(project(":data:pressure"))
@@ -185,6 +185,3 @@ compose.desktop {
         }
     }
 }
-
-// Compose Hot Reload настроен автоматически
-// mainClass уже настроен в compose.desktop.application

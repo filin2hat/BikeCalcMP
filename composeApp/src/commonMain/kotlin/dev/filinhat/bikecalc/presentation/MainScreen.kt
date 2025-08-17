@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -128,7 +127,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                                 imageVector = screen.icon,
                                 contentDescription = screen.title,
                                 tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(24.dp)
+                                modifier = Modifier.size(24.dp),
                             )
                         },
                         label = { Text(screen.title) },
@@ -201,7 +200,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                         )
                     }
                 }
-                 BikeCalcNavigation(navController, startDestination)
+                BikeCalcNavigation(navController, startDestination)
             }
         },
     )
