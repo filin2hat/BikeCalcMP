@@ -20,7 +20,6 @@ import bikecalcmp.feature.development.generated.resources.axis_y_development_m
 import bikecalcmp.feature.development.generated.resources.axis_y_ratio
 import bikecalcmp.feature.development.generated.resources.distance_graph
 import bikecalcmp.feature.development.generated.resources.legend_chainring_format
-import bikecalcmp.feature.development.generated.resources.legend_title
 import bikecalcmp.feature.development.generated.resources.ratio_title
 import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.HorizontalAxis

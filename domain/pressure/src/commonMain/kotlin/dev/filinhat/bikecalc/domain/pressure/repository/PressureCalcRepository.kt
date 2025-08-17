@@ -40,4 +40,3 @@ interface PressureCalcRepository {
      */
     fun getAllResults(): Flow<List<SavedPressureCalcResult>>
 }
-

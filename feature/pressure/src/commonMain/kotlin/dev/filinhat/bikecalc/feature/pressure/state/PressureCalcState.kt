@@ -3,6 +3,7 @@ package dev.filinhat.bikecalc.feature.pressure.state
 import dev.filinhat.bikecalc.core.enums.tube.TubeType
 import dev.filinhat.bikecalc.core.model.pressure.PressureCalcResult
 import dev.filinhat.bikecalc.core.model.pressure.SavedPressureCalcResult
+import dev.filinhat.bikecalc.feature.pressure.data.PressureSettings
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -21,6 +22,7 @@ data class PressureCalcState(
      * @param selectedTubeType Выбранный тип покрышки
      * @param showDeleteConfirmationForId ID элемента для подтверждения удаления
      * @param showDeleteAllConfirmation Признак показа диалога подтверждения удаления всех записей
+     * @param settings Текущие настройки формы
      */
     val result: PressureCalcResult = PressureCalcResult(),
     val selectedTabIndex: Int = 0,
@@ -30,10 +32,5 @@ data class PressureCalcState(
     val selectedTubeType: TubeType = TubeType.TUBES,
     val showDeleteConfirmationForId: Long? = null,
     val showDeleteAllConfirmation: Boolean = false,
+    val settings: PressureSettings = PressureSettings(),
 )
-
-
-
-
-
-

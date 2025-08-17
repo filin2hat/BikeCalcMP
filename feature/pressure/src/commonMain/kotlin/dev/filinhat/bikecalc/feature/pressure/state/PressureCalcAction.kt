@@ -4,6 +4,7 @@ import dev.filinhat.bikecalc.core.enums.tire.TireSize
 import dev.filinhat.bikecalc.core.enums.tube.TubeType
 import dev.filinhat.bikecalc.core.enums.unit.WeightUnit
 import dev.filinhat.bikecalc.core.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.feature.pressure.data.PressureSettings
 
 /**
  * Определяет события UI, инициированные пользователем,
@@ -48,6 +49,20 @@ sealed interface PressureCalcAction {
     ) : PressureCalcAction
 
     /**
+     * Обновление настроек формы
+     */
+    data class OnUpdateSettings(
+        val settings: PressureSettings,
+    ) : PressureCalcAction
+
+    /**
+     * Сохранение настроек формы
+     */
+    data class OnSaveSettings(
+        val settings: PressureSettings,
+    ) : PressureCalcAction
+
+    /**
      * Инициирует удаление результата (показывает диалог).
      *
      * @property id ID результата для удаления.
@@ -81,9 +96,3 @@ sealed interface PressureCalcAction {
      */
     data object OnDismissDeleteAllDialog : PressureCalcAction
 }
-
-
-
-
-
-

@@ -3,13 +3,14 @@ package dev.filinhat.bikecalc.feature.pressure.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.filinhat.bikecalc.core.common.Result
-import dev.filinhat.bikecalc.core.presentation.BaseViewModel
 import dev.filinhat.bikecalc.core.model.pressure.PressureCalcParams
+import dev.filinhat.bikecalc.core.presentation.BaseViewModel
 import dev.filinhat.bikecalc.domain.pressure.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.domain.pressure.usecase.CalculatePressureUseCase
 import dev.filinhat.bikecalc.domain.pressure.usecase.DeleteAllResultsUseCase
 import dev.filinhat.bikecalc.domain.pressure.usecase.DeleteResultUseCase
 import dev.filinhat.bikecalc.domain.pressure.usecase.GetSavedResultsUseCase
+import dev.filinhat.bikecalc.feature.pressure.data.PressureSettingsStore
 import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcAction
 import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcState
 import kotlinx.collections.immutable.toImmutableList
@@ -37,14 +38,18 @@ class PressureCalculatorViewModel(
     private val getSavedResultsUseCase: GetSavedResultsUseCase,
     private val deleteResultUseCase: DeleteResultUseCase,
     private val deleteAllResultsUseCase: DeleteAllResultsUseCase,
-) : ViewModel(), BaseViewModel<PressureCalcState, PressureCalcAction> {
+    private val settingsStore: PressureSettingsStore,
+) : ViewModel(),
+    BaseViewModel<PressureCalcState, PressureCalcAction> {
     private var observeSavedResultsJob: Job? = null
 
     private val _uiState = MutableStateFlow(PressureCalcState())
     override val uiState: StateFlow<PressureCalcState> =
         _uiState
-            .onStart { observeSavedResults() }
-            .stateIn(
+            .onStart {
+                observeSavedResults()
+                loadSettings()
+            }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.Lazily,
                 initialValue = _uiState.value,
@@ -70,6 +75,14 @@ class PressureCalculatorViewModel(
 
             is PressureCalcAction.OnTubeTypeChanged -> {
                 _uiState.update { it.copy(selectedTubeType = event.tubeType) }
+            }
+
+            is PressureCalcAction.OnUpdateSettings -> {
+                _uiState.update { it.copy(settings = event.settings) }
+            }
+
+            is PressureCalcAction.OnSaveSettings -> {
+                saveSettings(event.settings)
             }
 
             is PressureCalcAction.OnDeleteResult -> {
@@ -115,6 +128,31 @@ class PressureCalculatorViewModel(
                 _uiState.update {
                     it.copy(showDeleteAllConfirmation = false)
                 }
+            }
+        }
+    }
+
+    private fun loadSettings() {
+        settingsStore
+            .getSettings()
+            .onEach { settings ->
+                _uiState.update {
+                    it.copy(
+                        settings = settings,
+                        selectedTubeType = settings.selectedTubeType,
+                    )
+                }
+            }.catch { error ->
+                // В случае ошибки используем дефолтные значения
+            }.launchIn(viewModelScope)
+    }
+
+    private fun saveSettings(settings: dev.filinhat.bikecalc.feature.pressure.data.PressureSettings) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                settingsStore.saveSettings(settings)
+            } catch (error: Exception) {
+                // Обработка ошибки сохранения
             }
         }
     }

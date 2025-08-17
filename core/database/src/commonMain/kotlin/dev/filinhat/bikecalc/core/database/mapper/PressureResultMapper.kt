@@ -30,4 +30,3 @@ fun PressureResultEntity.toSavedPressureCalcResult(): SavedPressureCalcResult =
         wheelSize = wheelSize,
         tireSize = tireSize,
     )
-

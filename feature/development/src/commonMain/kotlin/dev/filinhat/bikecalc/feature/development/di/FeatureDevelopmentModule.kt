@@ -11,7 +11,6 @@ import org.koin.dsl.module
  */
 val featureDevelopmentModule =
     module {
-        // DataStore для сохранения настроек (платформо-специфичная реализация)
         single<DevelopmentSettingsStore> { createPlatformDevelopmentSettingsStore() }
 
         // ViewModels

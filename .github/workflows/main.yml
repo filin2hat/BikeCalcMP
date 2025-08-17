@@ -2,9 +2,9 @@ name: 🚴‍♂️ BikeCalc Pro CI/CD
 
 on:
   push:
-    branches: ['master', 'develop', 'feature/**', 'task/**']
+    branches: [ 'master', 'develop', 'feature/**', 'task/**' ]
   pull_request:
-    branches: ['master', 'develop']
+    branches: [ 'master', 'develop' ]
   workflow_dispatch:
 
 env:
@@ -85,9 +85,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        module: 
+        module:
           - ":core:model"
-          - ":core:common" 
+          - ":core:common"
           - ":core:database"
           - ":domain:pressure"
           - ":domain:development"
@@ -142,7 +142,7 @@ jobs:
     name: 📱 Android Build
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    needs: [test, build-modules]
+    needs: [ test, build-modules ]
 
     steps:
       - name: 📥 Checkout
@@ -188,12 +188,12 @@ jobs:
     name: 🖥️ Desktop Build
     runs-on: ${{ matrix.os }}
     timeout-minutes: 25
-    needs: [test, build-modules]
+    needs: [ test, build-modules ]
 
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
 
     steps:
       - name: 📥 Checkout
@@ -230,7 +230,7 @@ jobs:
     name: 🍎 iOS Build
     runs-on: macos-latest
     timeout-minutes: 35
-    needs: [test, build-modules]
+    needs: [ test, build-modules ]
 
     steps:
       - name: 📥 Checkout
@@ -316,7 +316,7 @@ jobs:
   final-check:
     name: ✅ Final Validation
     runs-on: ubuntu-latest
-    needs: [build-android, build-desktop, build-ios, architecture-analysis]
+    needs: [ build-android, build-desktop, build-ios, architecture-analysis ]
     if: always()
 
     steps:

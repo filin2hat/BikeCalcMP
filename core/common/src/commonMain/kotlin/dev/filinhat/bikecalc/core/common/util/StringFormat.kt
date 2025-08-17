@@ -28,4 +28,3 @@ fun formatDoubleToString(
  * Функция для безопасного преобразования строки в Double
  */
 fun String.toBikeDouble(): Double = this.trim().replace(',', '.').toDoubleOrNull() ?: 0.0
-

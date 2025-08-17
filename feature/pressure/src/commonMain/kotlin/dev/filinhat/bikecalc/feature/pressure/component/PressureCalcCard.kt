@@ -133,9 +133,3 @@ fun PressureCalcCard(
         }
     }
 }
-
-
-
-
-
-

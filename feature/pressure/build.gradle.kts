@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 kotlin {
@@ -65,6 +66,14 @@ kotlin {
 
             // Icons
             implementation(libs.iconPack.lineAwesome)
+
+            // Serialization
+            implementation(libs.kotlinx.serialization.json)
+
+            // DataStore
+            implementation(libs.androidx.datastore.core.okio)
+            implementation(libs.androidx.datastore.preferences.core)
+            implementation(libs.androidx.datastore.preferences)
         }
 
         commonTest.dependencies {

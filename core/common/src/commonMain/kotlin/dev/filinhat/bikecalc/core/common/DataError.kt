@@ -45,4 +45,3 @@ sealed interface DataError : Error {
         UNKNOWN_ERROR,
     }
 }
-

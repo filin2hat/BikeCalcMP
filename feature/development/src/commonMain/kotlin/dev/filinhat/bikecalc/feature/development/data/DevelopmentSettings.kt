@@ -11,6 +11,5 @@ data class DevelopmentSettings(
     val wheelSize: WheelSize = WheelSize.Inches29,
     val tireWidth: String = "57",
     val frontTeethInputs: List<String> = listOf("32"),
-    val rearTeeth: String = "10,12,14,16,18,21,24,28,33,39,45,51"
+    val rearTeeth: String = "10,12,14,16,18,21,24,28,33,39,45,51",
 )
-

@@ -2,6 +2,7 @@ package dev.filinhat.bikecalc.feature.development.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.serialization.json.Json
@@ -41,7 +42,7 @@ class AndroidDevelopmentSettingsStore(
     private fun saveToSharedPreferences(settings: DevelopmentSettings) {
         try {
             val jsonString = Json.encodeToString(DevelopmentSettings.serializer(), settings)
-            sharedPreferences.edit().putString(settingsKey, jsonString).apply()
+            sharedPreferences.edit { putString(settingsKey, jsonString) }
         } catch (e: Exception) {
             // Обработка ошибки сохранения
         }

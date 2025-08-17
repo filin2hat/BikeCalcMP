@@ -9,9 +9,9 @@ import org.koin.dsl.module
 /**
  * Android-специфичный Koin модуль для feature development
  */
-val featureDevelopmentAndroidModule: Module = module {
-    // Переопределяем DevelopmentSettingsStore для Android с Context
-    single<DevelopmentSettingsStore> { 
-        createAndroidDevelopmentSettingsStore(get<Context>())
+val featureDevelopmentAndroidModule: Module =
+    module {
+        single<DevelopmentSettingsStore> {
+            createAndroidDevelopmentSettingsStore(get<Context>())
+        }
     }
-}

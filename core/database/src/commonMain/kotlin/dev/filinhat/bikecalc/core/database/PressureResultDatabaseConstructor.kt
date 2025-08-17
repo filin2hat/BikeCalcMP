@@ -6,5 +6,3 @@ import androidx.room.RoomDatabaseConstructor
 expect object PressureResultDatabaseConstructor : RoomDatabaseConstructor<PressureResultsDatabase> {
     override fun initialize(): PressureResultsDatabase
 }
-
-

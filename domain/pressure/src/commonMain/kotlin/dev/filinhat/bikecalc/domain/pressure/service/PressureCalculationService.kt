@@ -15,4 +15,3 @@ interface PressureCalculationService {
      */
     fun calculatePressure(params: PressureCalcParams): PressureCalcResult
 }
-

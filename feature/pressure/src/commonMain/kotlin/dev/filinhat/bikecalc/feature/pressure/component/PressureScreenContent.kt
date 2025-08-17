@@ -27,8 +27,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -63,6 +65,7 @@ import dev.filinhat.bikecalc.core.enums.wheel.Wheel
 import dev.filinhat.bikecalc.core.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.designsystem.component.CalculatePressureButton
 import dev.filinhat.bikecalc.designsystem.component.DropdownMenu
+import dev.filinhat.bikecalc.feature.pressure.data.PressureSettings
 import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcAction
 import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcState
 import org.jetbrains.compose.resources.stringResource
@@ -78,11 +81,11 @@ fun PressureScreenContent(
     keyboardController: SoftwareKeyboardController? = null,
     focusManager: FocusManager? = null,
 ) {
-    var selectedUnitWeight by rememberSaveable { mutableStateOf(WeightUnit.KG) }
-    var riderWeight: String by rememberSaveable { mutableStateOf("") }
-    var bikeWeight: String by rememberSaveable { mutableStateOf("") }
-    var wheelSize: WheelSize? by rememberSaveable { mutableStateOf(null) }
-    var tireSize: TireSize? by rememberSaveable { mutableStateOf(null) }
+    var selectedUnitWeight by remember { mutableStateOf(uiState.settings.weightUnit) }
+    var riderWeight by remember { mutableStateOf(uiState.settings.riderWeight) }
+    var bikeWeight by remember { mutableStateOf(uiState.settings.bikeWeight) }
+    var wheelSize by remember { mutableStateOf(uiState.settings.wheelSize) }
+    var tireSize by remember { mutableStateOf(uiState.settings.tireSize) }
 
     var wrongRiderWeight by rememberSaveable { mutableStateOf(false) }
     var wrongBikeWeight by rememberSaveable { mutableStateOf(false) }
@@ -91,6 +94,33 @@ fun PressureScreenContent(
     var expandedCalcResult by rememberSaveable { mutableStateOf(false) }
 
     val haptic = LocalHapticFeedback.current
+
+    // Обновляем локальное состояние при загрузке настроек
+    LaunchedEffect(uiState.settings) {
+        selectedUnitWeight = uiState.settings.weightUnit
+        riderWeight = uiState.settings.riderWeight
+        bikeWeight = uiState.settings.bikeWeight
+        wheelSize = uiState.settings.wheelSize
+        tireSize = uiState.settings.tireSize
+
+        // Если есть сохраненный размер колеса, показываем выпадающий список ширин покрышек
+        if (uiState.settings.wheelSize != null) {
+            expandedTireSize = true
+        }
+    }
+
+    val saveSettings = {
+        val settings =
+            PressureSettings(
+                riderWeight = riderWeight,
+                bikeWeight = bikeWeight,
+                wheelSize = wheelSize,
+                tireSize = tireSize,
+                weightUnit = selectedUnitWeight,
+                selectedTubeType = uiState.selectedTubeType,
+            )
+        onAction(PressureCalcAction.OnSaveSettings(settings))
+    }
 
     Column(
         modifier =
@@ -145,6 +175,7 @@ fun PressureScreenContent(
                         }
                     wrongRiderWeight = !validateUserWeight(riderWeight)
                     expandedCalcResult = false
+                    saveSettings()
                 },
                 label = {
                     Text(
@@ -186,6 +217,7 @@ fun PressureScreenContent(
                         }
                     wrongBikeWeight = !validateBikeWeight(bikeWeight)
                     expandedCalcResult = false
+                    saveSettings()
                 },
                 label = {
                     Text(
@@ -241,6 +273,7 @@ fun PressureScreenContent(
                                 WeightUnit.KG
                             }
                         }
+                    saveSettings()
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 },
             ) {
@@ -259,12 +292,12 @@ fun PressureScreenContent(
         DropdownMenu(
             onItemSelect = {
                 if (it != wheelSize) {
-                    tireSize = null
                     expandedTireSize = false
                     expandedCalcResult = false
                 }
                 wheelSize = it
                 expandedTireSize = true
+                saveSettings()
             },
             label = stringResource(Res.string.label_wheel_size),
             items = WheelSize.entries,
@@ -284,6 +317,7 @@ fun PressureScreenContent(
             DropdownMenu(
                 onItemSelect = {
                     tireSize = it
+                    saveSettings()
                     expandedCalcResult = false
                 },
                 label = stringResource(Res.string.label_tire_width),

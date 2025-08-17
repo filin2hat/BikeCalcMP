@@ -36,20 +36,21 @@ fun validateUserWeight(input: String): Boolean = validateNumberInput(input, minV
  */
 fun validateBikeWeight(input: String): Boolean = validateNumberInput(input, minValue = 1.0, maxValue = 100.0)
 
-
 /**
  * Проверка допустимости промежуточного ввода для одного положительного целого числа.
  * Разрешены только цифры 0-9 (включая пустую строку как промежуточное состояние).
  */
-fun isAllowedSinglePositiveIntInput(input: String): Boolean {
-    return input.matches(Regex("^[0-9]*$"))
-}
+fun isAllowedSinglePositiveIntInput(input: String): Boolean = input.matches(Regex("^[0-9]*$"))
 
 /**
  * Проверка валидности значения одного положительного целого числа в диапазоне [minValue, maxValue].
  * Пустая строка невалидна как итоговое значение.
  */
-fun validateSinglePositiveInt(input: String, minValue: Int = 1, maxValue: Int = 1000): Boolean {
+fun validateSinglePositiveInt(
+    input: String,
+    minValue: Int = 1,
+    maxValue: Int = 1000,
+): Boolean {
     if (input.isEmpty()) return false
     if (!isAllowedSinglePositiveIntInput(input)) return false
     val value = input.toIntOrNull() ?: return false
@@ -60,9 +61,7 @@ fun validateSinglePositiveInt(input: String, minValue: Int = 1, maxValue: Int = 
  * Проверка допустимости промежуточного ввода для списка положительных целых чисел через запятую.
  * Разрешены только цифры и запятые (включая пустую строку как промежуточное состояние).
  */
-fun isAllowedPositiveIntCsvInput(input: String): Boolean {
-    return input.matches(Regex("^[0-9,]*$"))
-}
+fun isAllowedPositiveIntCsvInput(input: String): Boolean = input.matches(Regex("^[0-9,]*$"))
 
 /**
  * Проверка валидности списка положительных целых чисел через запятую в диапазоне [minValue, maxValue].
@@ -71,7 +70,11 @@ fun isAllowedPositiveIntCsvInput(input: String): Boolean {
  * - нет последовательностей ",,"
  * - каждый элемент парсится в Int и попадает в диапазон
  */
-fun validatePositiveIntCsv(input: String, minValue: Int = 1, maxValue: Int = 1000): Boolean {
+fun validatePositiveIntCsv(
+    input: String,
+    minValue: Int = 1,
+    maxValue: Int = 1000,
+): Boolean {
     if (input.isEmpty()) return false
     if (!isAllowedPositiveIntCsvInput(input)) return false
     if (input.first() == ',' || input.last() == ',') return false
