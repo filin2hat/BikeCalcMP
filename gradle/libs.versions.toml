@@ -35,7 +35,7 @@ kotlinSerialization = "1.9.0"
 kotlinxCollectionsImmutable = "0.4.0"
 
 # Navigation
-navigationCompose = "2.8.0-alpha13"
+navigationCompose = "2.9.0-beta05"
 
 # Dependency injection
 koin = "4.0.2"
