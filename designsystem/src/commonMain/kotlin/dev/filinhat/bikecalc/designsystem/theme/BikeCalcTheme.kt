@@ -7,11 +7,12 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import dev.filinhat.bikecalc.designsystem.viewmodel.ThemeViewModel
 
 private val LightColorScheme =
     lightColorScheme(
@@ -84,15 +85,24 @@ val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
 @Composable
 fun BikeCalcTheme(
     modifier: Modifier = Modifier,
+    themeViewModel: ThemeViewModel? = null,
     content: @Composable () -> Unit,
 ) {
     val systemIsDark = isSystemInDarkTheme()
-    val isDarkState = remember(systemIsDark) { mutableStateOf(systemIsDark) }
+
+    // Используем ViewModel если он передан, иначе используем системную тему
+    val isDark =
+        if (themeViewModel != null) {
+            themeViewModel.isDarkMode.collectAsState().value
+        } else {
+            systemIsDark
+        }
+
+    val isDarkState = remember(isDark) { mutableStateOf(isDark) }
 
     CompositionLocalProvider(
         LocalThemeIsDark provides isDarkState,
     ) {
-        val isDark by isDarkState
         SystemAppearance(!isDark)
         MaterialTheme(
             colorScheme = if (isDark) DarkColorScheme else LightColorScheme,
