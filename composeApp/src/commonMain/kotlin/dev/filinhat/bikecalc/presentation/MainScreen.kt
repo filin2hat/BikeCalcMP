@@ -19,6 +19,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,20 +55,28 @@ import dev.filinhat.bikecalc.app.navigation.BikeCalcNavigation
 import dev.filinhat.bikecalc.app.navigation.BikeCalcRoute
 import dev.filinhat.bikecalc.app.navigation.NavigationItem
 import dev.filinhat.bikecalc.designsystem.component.InfoDialog
+import dev.filinhat.bikecalc.designsystem.data.ThemeSettings
+import dev.filinhat.bikecalc.designsystem.data.ThemeSettingsStore
 import dev.filinhat.bikecalc.designsystem.theme.BikeCalcTheme
-import dev.filinhat.bikecalc.designsystem.theme.LocalThemeIsDark
+import dev.filinhat.bikecalc.designsystem.viewmodel.ThemeViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+fun MainScreen(
+    modifier: Modifier = Modifier,
+    themeViewModel: ThemeViewModel,
+) {
     val navController = rememberNavController()
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
     val startDestination = BikeCalcRoute.PressureCalculator
     var openInfoDialog by remember { mutableStateOf(false) }
-    var isDark by LocalThemeIsDark.current
+
+    val isDark by themeViewModel.isDarkMode.collectAsState()
     val iconTheme =
         remember(isDark) {
             if (isDark) {
@@ -169,7 +178,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
                     IconButton(
                         onClick = {
-                            isDark = !isDark
+                            themeViewModel.toggleTheme()
                         },
                         colors =
                             IconButtonDefaults.iconButtonColors(
@@ -210,6 +219,16 @@ fun MainScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun MainScreenPreview() {
     BikeCalcTheme {
-        MainScreen()
+        val themeViewModel =
+            remember {
+                ThemeViewModel(
+                    object : ThemeSettingsStore {
+                        override fun getSettings() = MutableStateFlow(ThemeSettings()).asStateFlow()
+
+                        override suspend fun saveSettings(settings: ThemeSettings) {}
+                    },
+                )
+            }
+        MainScreen(themeViewModel = themeViewModel)
     }
 }

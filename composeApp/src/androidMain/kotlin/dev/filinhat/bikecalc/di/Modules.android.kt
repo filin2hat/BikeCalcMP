@@ -1,6 +1,7 @@
 package dev.filinhat.bikecalc.di
 
 import dev.filinhat.bikecalc.core.database.DatabaseFactory
+import dev.filinhat.bikecalc.designsystem.di.designSystemAndroidModule
 import dev.filinhat.bikecalc.feature.development.di.featureDevelopmentAndroidModule
 import dev.filinhat.bikecalc.feature.pressure.di.featurePressureAndroidModule
 import org.koin.android.ext.koin.androidApplication
@@ -13,5 +14,9 @@ actual val platformModule: Module
             single { DatabaseFactory(androidApplication()) }
 
             // Подключаем Android-специфичные модули
-            includes(featureDevelopmentAndroidModule, featurePressureAndroidModule)
+            includes(
+                featureDevelopmentAndroidModule,
+                featurePressureAndroidModule,
+                designSystemAndroidModule,
+            )
         }
