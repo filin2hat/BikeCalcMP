@@ -87,8 +87,10 @@
 
 -
     *
+
 *[Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 ** - Слоистая архитектура
+
 - **[MVVM](https://developer.android.com/topic/architecture)** - Презентационный слой
 - **[Koin](https://insert-koin.io/)** - Dependency Injection
 
