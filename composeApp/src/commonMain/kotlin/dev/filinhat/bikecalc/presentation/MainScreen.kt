@@ -55,8 +55,8 @@ import dev.filinhat.bikecalc.app.navigation.BikeCalcNavigation
 import dev.filinhat.bikecalc.app.navigation.BikeCalcRoute
 import dev.filinhat.bikecalc.app.navigation.NavigationItem
 import dev.filinhat.bikecalc.designsystem.component.InfoDialog
+import dev.filinhat.bikecalc.core.settings.SettingsStore
 import dev.filinhat.bikecalc.designsystem.data.ThemeSettings
-import dev.filinhat.bikecalc.designsystem.data.ThemeSettingsStore
 import dev.filinhat.bikecalc.designsystem.theme.BikeCalcTheme
 import dev.filinhat.bikecalc.designsystem.viewmodel.ThemeViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -222,7 +222,7 @@ private fun MainScreenPreview() {
         val themeViewModel =
             remember {
                 ThemeViewModel(
-                    object : ThemeSettingsStore {
+                    object : SettingsStore<ThemeSettings> {
                         override fun getSettings() = MutableStateFlow(ThemeSettings()).asStateFlow()
 
                         override suspend fun saveSettings(settings: ThemeSettings) {}

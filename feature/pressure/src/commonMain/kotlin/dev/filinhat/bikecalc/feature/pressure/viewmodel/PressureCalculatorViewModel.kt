@@ -10,7 +10,8 @@ import dev.filinhat.bikecalc.domain.pressure.usecase.CalculatePressureUseCase
 import dev.filinhat.bikecalc.domain.pressure.usecase.DeleteAllResultsUseCase
 import dev.filinhat.bikecalc.domain.pressure.usecase.DeleteResultUseCase
 import dev.filinhat.bikecalc.domain.pressure.usecase.GetSavedResultsUseCase
-import dev.filinhat.bikecalc.feature.pressure.data.PressureSettingsStore
+import dev.filinhat.bikecalc.core.settings.SettingsStore
+import dev.filinhat.bikecalc.feature.pressure.data.PressureSettings
 import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcAction
 import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcState
 import kotlinx.collections.immutable.toImmutableList
@@ -38,7 +39,7 @@ class PressureCalculatorViewModel(
     private val getSavedResultsUseCase: GetSavedResultsUseCase,
     private val deleteResultUseCase: DeleteResultUseCase,
     private val deleteAllResultsUseCase: DeleteAllResultsUseCase,
-    private val settingsStore: PressureSettingsStore,
+    private val settingsStore: SettingsStore<PressureSettings>,
 ) : ViewModel(),
     BaseViewModel<PressureCalcState, PressureCalcAction> {
     private var observeSavedResultsJob: Job? = null

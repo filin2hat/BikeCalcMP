@@ -6,7 +6,8 @@ import dev.filinhat.bikecalc.core.settings.createSettingsStore
 /**
  * Фабрика для создания DevelopmentSettingsStore используя универсальный механизм
  */
-fun createDevelopmentSettingsStore(): SettingsStore<DevelopmentSettings> = createSettingsStore(
+fun createDevelopmentSettingsStoreV2(): SettingsStore<DevelopmentSettings> = createSettingsStore(
     qualifier = "development_settings", // Тот же ключ что и раньше для совместимости!
     defaultValue = DevelopmentSettings()
 )
+

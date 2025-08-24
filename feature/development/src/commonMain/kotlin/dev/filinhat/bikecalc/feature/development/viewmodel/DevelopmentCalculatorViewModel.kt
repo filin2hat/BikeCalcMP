@@ -5,7 +5,8 @@ import androidx.lifecycle.viewModelScope
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcParams
 import dev.filinhat.bikecalc.core.presentation.BaseViewModel
 import dev.filinhat.bikecalc.domain.development.usecase.CalculateDevelopmentUseCase
-import dev.filinhat.bikecalc.feature.development.data.DevelopmentSettingsStore
+import dev.filinhat.bikecalc.core.settings.SettingsStore
+import dev.filinhat.bikecalc.feature.development.data.DevelopmentSettings
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcAction
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcState
 import kotlinx.collections.immutable.persistentListOf
@@ -30,7 +31,7 @@ import kotlinx.coroutines.launch
  */
 class DevelopmentCalculatorViewModel(
     private val calculateDevelopmentUseCase: CalculateDevelopmentUseCase,
-    private val settingsStore: DevelopmentSettingsStore,
+    private val settingsStore: SettingsStore<DevelopmentSettings>,
 ) : ViewModel(),
     BaseViewModel<DevelopmentCalcState, DevelopmentCalcAction> {
     private val _uiState = MutableStateFlow(DevelopmentCalcState())

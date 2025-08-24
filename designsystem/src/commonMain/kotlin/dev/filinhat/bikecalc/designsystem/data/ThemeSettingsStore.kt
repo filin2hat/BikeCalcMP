@@ -1,23 +1,12 @@
 package dev.filinhat.bikecalc.designsystem.data
 
-import kotlinx.coroutines.flow.Flow
+import dev.filinhat.bikecalc.core.settings.SettingsStore
+import dev.filinhat.bikecalc.core.settings.createSettingsStore
 
 /**
- * Интерфейс для сохранения и восстановления настроек темы
+ * Фабрика для создания ThemeSettingsStore используя универсальный механизм
  */
-interface ThemeSettingsStore {
-    /**
-     * Получить сохраненные настройки темы
-     */
-    fun getSettings(): Flow<ThemeSettings>
-
-    /**
-     * Сохранить настройки темы
-     */
-    suspend fun saveSettings(settings: ThemeSettings)
-}
-
-/**
- * Expect функция для создания платформо-специфичного хранилища
- */
-expect fun createPlatformThemeSettingsStore(): ThemeSettingsStore
+fun createThemeSettingsStore(): SettingsStore<ThemeSettings> = createSettingsStore(
+    qualifier = "theme_settings", // Тот же ключ что и раньше для совместимости!
+    defaultValue = ThemeSettings()
+)

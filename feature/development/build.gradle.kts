@@ -34,6 +34,7 @@ kotlin {
             // Модули проекта
             implementation(project(":core:model"))
             implementation(project(":core:common"))
+            implementation(project(":core:settings"))
             implementation(project(":designsystem"))
             implementation(project(":domain:development"))
 
