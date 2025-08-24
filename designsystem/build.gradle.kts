@@ -34,6 +34,7 @@ kotlin {
         commonMain.dependencies {
             implementation(project(":core:model"))
             implementation(project(":core:common"))
+            implementation(project(":core:settings"))
 
             implementation(compose.runtime)
             implementation(compose.foundation)

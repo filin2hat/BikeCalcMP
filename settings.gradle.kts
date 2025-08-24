@@ -39,6 +39,7 @@ include(":composeApp")
 include(":core:model")
 include(":core:common")
 include(":core:database")
+include(":core:settings")
 
 // Domain modules
 include(":domain:pressure")

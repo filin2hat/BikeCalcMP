@@ -58,6 +58,7 @@ kotlin {
             implementation(project(":core:database"))
             implementation(project(":core:common"))
             implementation(project(":core:model"))
+            implementation(project(":core:settings"))
 
             // Compose
             implementation(compose.runtime)
