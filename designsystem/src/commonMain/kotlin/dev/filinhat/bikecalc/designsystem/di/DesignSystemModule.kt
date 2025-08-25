@@ -11,12 +11,11 @@ import org.koin.dsl.module
 /**
  * Koin модуль для designsystem с универсальным механизмом настроек
  */
-val designSystemModule = module {
-    // Новая реализация с универсальным механизмом
-    single<SettingsStore<ThemeSettings>>(qualifier = named("theme")) { 
-        createThemeSettingsStore() 
-    }
+val designSystemModule =
+    module {
+        single<SettingsStore<ThemeSettings>>(qualifier = named("theme")) {
+            createThemeSettingsStore()
+        }
 
-    // ViewModels - обновим позже для использования нового store
-    viewModel { ThemeViewModel(get(qualifier = named("theme"))) }
-}
+        viewModel { ThemeViewModel(get(qualifier = named("theme"))) }
+    }

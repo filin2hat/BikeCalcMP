@@ -18,17 +18,16 @@ class AndroidSettingsStore<T>(
     private val sharedPreferences: SharedPreferences,
     private val qualifier: String,
     private val defaultValue: T,
-    private val serializer: KSerializer<T>
+    private val serializer: KSerializer<T>,
 ) : SettingsStore<T> {
-    
     private val _settings = MutableStateFlow(defaultValue)
-    
+
     init {
         loadFromSharedPreferences()
     }
-    
+
     override fun getSettings(): Flow<T> = _settings.asStateFlow()
-    
+
     override suspend fun saveSettings(settings: T) {
         try {
             _settings.value = settings
@@ -36,11 +35,11 @@ class AndroidSettingsStore<T>(
         } catch (e: Exception) {
             throw SettingsError.SerializationError(
                 message = "Ошибка сохранения настроек: ${e.message}",
-                cause = e
+                cause = e,
             )
         }
     }
-    
+
     private fun loadFromSharedPreferences() {
         try {
             val jsonString = sharedPreferences.getString(qualifier, null)
@@ -53,17 +52,17 @@ class AndroidSettingsStore<T>(
             _settings.value = defaultValue
         }
     }
-    
+
     private fun saveToSharedPreferences(settings: T) {
         try {
             val jsonString = Json.encodeToString(serializer, settings)
-            sharedPreferences.edit { 
-                putString(qualifier, jsonString) 
+            sharedPreferences.edit {
+                putString(qualifier, jsonString)
             }
         } catch (e: Exception) {
             throw SettingsError.StorageError(
                 message = "Ошибка записи в SharedPreferences: ${e.message}",
-                cause = e
+                cause = e,
             )
         }
     }
@@ -76,14 +75,14 @@ fun <T> createAndroidSettingsStore(
     context: Context,
     qualifier: String,
     defaultValue: T,
-    serializer: KSerializer<T>
+    serializer: KSerializer<T>,
 ): SettingsStore<T> {
     val sharedPreferences = context.getSharedPreferences(qualifier, Context.MODE_PRIVATE)
     return AndroidSettingsStore(
         sharedPreferences = sharedPreferences,
         qualifier = qualifier,
         defaultValue = defaultValue,
-        serializer = serializer
+        serializer = serializer,
     )
 }
 
@@ -93,16 +92,15 @@ fun <T> createAndroidSettingsStore(
 actual fun <T> createPlatformSettingsStore(
     qualifier: String,
     defaultValue: T,
-    serializer: KSerializer<T>
-): SettingsStore<T> {
-    return object : KoinComponent {
+    serializer: KSerializer<T>,
+): SettingsStore<T> =
+    object : KoinComponent {
         val context: Context = get()
     }.let { koinComponent ->
         createAndroidSettingsStore(
             context = koinComponent.context,
             qualifier = qualifier,
             defaultValue = defaultValue,
-            serializer = serializer
+            serializer = serializer,
         )
     }
-}

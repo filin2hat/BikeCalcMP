@@ -15,17 +15,16 @@ class IOSSettingsStore<T>(
     private val userDefaults: NSUserDefaults,
     private val qualifier: String,
     private val defaultValue: T,
-    private val serializer: KSerializer<T>
+    private val serializer: KSerializer<T>,
 ) : SettingsStore<T> {
-    
     private val _settings = MutableStateFlow(defaultValue)
-    
+
     init {
         loadFromUserDefaults()
     }
-    
+
     override fun getSettings(): Flow<T> = _settings.asStateFlow()
-    
+
     override suspend fun saveSettings(settings: T) {
         try {
             _settings.value = settings
@@ -33,11 +32,11 @@ class IOSSettingsStore<T>(
         } catch (e: Exception) {
             throw SettingsError.SerializationError(
                 message = "Ошибка сохранения настроек: ${e.message}",
-                cause = e
+                cause = e,
             )
         }
     }
-    
+
     private fun loadFromUserDefaults() {
         try {
             val jsonString = userDefaults.stringForKey(qualifier)
@@ -50,7 +49,7 @@ class IOSSettingsStore<T>(
             _settings.value = defaultValue
         }
     }
-    
+
     private fun saveToUserDefaults(settings: T) {
         try {
             val jsonString = Json.encodeToString(serializer, settings)
@@ -59,7 +58,7 @@ class IOSSettingsStore<T>(
         } catch (e: Exception) {
             throw SettingsError.StorageError(
                 message = "Ошибка записи в NSUserDefaults: ${e.message}",
-                cause = e
+                cause = e,
             )
         }
     }
@@ -71,13 +70,13 @@ class IOSSettingsStore<T>(
 actual fun <T> createPlatformSettingsStore(
     qualifier: String,
     defaultValue: T,
-    serializer: KSerializer<T>
+    serializer: KSerializer<T>,
 ): SettingsStore<T> {
     val userDefaults = NSUserDefaults.standardUserDefaults
     return IOSSettingsStore(
         userDefaults = userDefaults,
         qualifier = qualifier,
         defaultValue = defaultValue,
-        serializer = serializer
+        serializer = serializer,
     )
 }

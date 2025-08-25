@@ -5,12 +5,12 @@ import androidx.lifecycle.viewModelScope
 import dev.filinhat.bikecalc.core.common.Result
 import dev.filinhat.bikecalc.core.model.pressure.PressureCalcParams
 import dev.filinhat.bikecalc.core.presentation.BaseViewModel
+import dev.filinhat.bikecalc.core.settings.SettingsStore
 import dev.filinhat.bikecalc.domain.pressure.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.domain.pressure.usecase.CalculatePressureUseCase
 import dev.filinhat.bikecalc.domain.pressure.usecase.DeleteAllResultsUseCase
 import dev.filinhat.bikecalc.domain.pressure.usecase.DeleteResultUseCase
 import dev.filinhat.bikecalc.domain.pressure.usecase.GetSavedResultsUseCase
-import dev.filinhat.bikecalc.core.settings.SettingsStore
 import dev.filinhat.bikecalc.feature.pressure.data.PressureSettings
 import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcAction
 import dev.filinhat.bikecalc.feature.pressure.state.PressureCalcState
@@ -148,7 +148,7 @@ class PressureCalculatorViewModel(
             }.launchIn(viewModelScope)
     }
 
-    private fun saveSettings(settings: dev.filinhat.bikecalc.feature.pressure.data.PressureSettings) {
+    private fun saveSettings(settings: PressureSettings) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 settingsStore.saveSettings(settings)

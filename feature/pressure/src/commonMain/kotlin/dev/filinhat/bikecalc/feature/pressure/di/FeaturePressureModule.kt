@@ -11,21 +11,21 @@ import org.koin.dsl.module
 /**
  * Koin модуль для feature pressure с универсальным механизмом настроек
  */
-val featurePressureModule = module {
-    // Новая реализация с универсальным механизмом
-    single<SettingsStore<PressureSettings>>(qualifier = named("pressure")) { 
-        createPressureSettingsStore() 
-    }
+val featurePressureModule =
+    module {
+        single<SettingsStore<PressureSettings>>(qualifier = named("pressure")) {
+            createPressureSettingsStore()
+        }
 
-    // ViewModels
-    viewModel {
-        PressureCalculatorViewModel(
-            repository = get(),
-            calculatePressureUseCase = get(),
-            getSavedResultsUseCase = get(),
-            deleteResultUseCase = get(),
-            deleteAllResultsUseCase = get(),
-            settingsStore = get(qualifier = named("pressure")),
-        )
+        // ViewModels
+        viewModel {
+            PressureCalculatorViewModel(
+                repository = get(),
+                calculatePressureUseCase = get(),
+                getSavedResultsUseCase = get(),
+                deleteResultUseCase = get(),
+                deleteAllResultsUseCase = get(),
+                settingsStore = get(qualifier = named("pressure")),
+            )
+        }
     }
-}
