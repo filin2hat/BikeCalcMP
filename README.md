@@ -40,9 +40,9 @@
 
 -
 
-APK: [BikeCalc_Pro_4.0.0.apk](https://github.com/filin2hat/BikeCalcMP/releases/download/release/composeApp-release.apk)
+APK: [BikeCalc_Pro_4.1.0.apk](https://github.com/filin2hat/BikeCalcMP/releases/download/release4_1_0/composeApp-release.apk)
 
-- Страница релиза: [release](https://github.com/filin2hat/BikeCalcMP/releases/tag/release)
+- Страница релиза: [release](https://github.com/filin2hat/BikeCalcMP/releases/tag/release4_1_0)
 
 ## 🎯 О проекте
 

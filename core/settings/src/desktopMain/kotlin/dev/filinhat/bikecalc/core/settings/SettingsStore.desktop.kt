@@ -13,21 +13,21 @@ import java.io.File
 class DesktopSettingsStore<T>(
     private val qualifier: String,
     private val defaultValue: T,
-    private val serializer: KSerializer<T>
+    private val serializer: KSerializer<T>,
 ) : SettingsStore<T> {
-    
     private val _settings = MutableStateFlow(defaultValue)
-    private val settingsFile = File(
-        System.getProperty("user.home"), 
-        ".bikecalc_${qualifier}.json"
-    )
-    
+    private val settingsFile =
+        File(
+            System.getProperty("user.home"),
+            ".bikecalc_$qualifier.json",
+        )
+
     init {
         loadFromFile()
     }
-    
+
     override fun getSettings(): Flow<T> = _settings.asStateFlow()
-    
+
     override suspend fun saveSettings(settings: T) {
         try {
             _settings.value = settings
@@ -35,11 +35,11 @@ class DesktopSettingsStore<T>(
         } catch (e: Exception) {
             throw SettingsError.SerializationError(
                 message = "Ошибка сохранения настроек: ${e.message}",
-                cause = e
+                cause = e,
             )
         }
     }
-    
+
     private fun loadFromFile() {
         try {
             if (settingsFile.exists() && settingsFile.canRead()) {
@@ -54,18 +54,18 @@ class DesktopSettingsStore<T>(
             _settings.value = defaultValue
         }
     }
-    
+
     private fun saveToFile(settings: T) {
         try {
             // Создаем родительскую директорию если не существует
             settingsFile.parentFile?.mkdirs()
-            
+
             val jsonString = Json.encodeToString(serializer, settings)
             settingsFile.writeText(jsonString)
         } catch (e: Exception) {
             throw SettingsError.StorageError(
                 message = "Ошибка записи в файл ${settingsFile.absolutePath}: ${e.message}",
-                cause = e
+                cause = e,
             )
         }
     }
@@ -77,9 +77,10 @@ class DesktopSettingsStore<T>(
 actual fun <T> createPlatformSettingsStore(
     qualifier: String,
     defaultValue: T,
-    serializer: KSerializer<T>
-): SettingsStore<T> = DesktopSettingsStore(
-    qualifier = qualifier,
-    defaultValue = defaultValue,
-    serializer = serializer
-)
+    serializer: KSerializer<T>,
+): SettingsStore<T> =
+    DesktopSettingsStore(
+        qualifier = qualifier,
+        defaultValue = defaultValue,
+        serializer = serializer,
+    )

@@ -8,14 +8,13 @@ import kotlin.test.assertEquals
 @Serializable
 data class TestSettings(
     val value: String = "default",
-    val number: Int = 0
+    val number: Int = 0,
 )
 
 /**
  * Базовые тесты для SettingsStore
  */
 class SettingsStoreTest {
-    
     @Test
     fun `test_settings_store_interface_exists`() {
         // Простая проверка что интерфейс существует и компилируется
@@ -28,17 +27,17 @@ class SettingsStoreTest {
 /**
  * Упрощенная mock реализация для тестирования
  */
-private fun createMockSettingsStore(defaultValue: TestSettings): MockSettingsStore {
-    return MockSettingsStore(defaultValue)
-}
+private fun createMockSettingsStore(defaultValue: TestSettings): MockSettingsStore = MockSettingsStore(defaultValue)
 
-private class MockSettingsStore(private val defaultValue: TestSettings) : SettingsStore<TestSettings> {
+private class MockSettingsStore(
+    private val defaultValue: TestSettings,
+) : SettingsStore<TestSettings> {
     private var currentSettings = defaultValue
-    
+
     fun getCurrentSettings() = currentSettings
-    
+
     override fun getSettings() = flowOf(currentSettings)
-    
+
     override suspend fun saveSettings(settings: TestSettings) {
         currentSettings = settings
     }

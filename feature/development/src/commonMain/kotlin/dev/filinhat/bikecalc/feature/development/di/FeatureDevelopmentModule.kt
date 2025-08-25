@@ -11,12 +11,12 @@ import org.koin.dsl.module
 /**
  * Koin модуль для feature development с универсальным механизмом настроек
  */
-val featureDevelopmentModule = module {
-    // Новая реализация с универсальным механизмом
-    single<SettingsStore<DevelopmentSettings>>(qualifier = named("development")) { 
-        createDevelopmentSettingsStore() 
-    }
+val featureDevelopmentModule =
+    module {
+        single<SettingsStore<DevelopmentSettings>>(qualifier = named("development")) {
+            createDevelopmentSettingsStore()
+        }
 
-    // ViewModels
-    viewModel { DevelopmentCalculatorViewModel(get(), get(qualifier = named("development"))) }
-}
+        // ViewModels
+        viewModel { DevelopmentCalculatorViewModel(get(), get(qualifier = named("development"))) }
+    }

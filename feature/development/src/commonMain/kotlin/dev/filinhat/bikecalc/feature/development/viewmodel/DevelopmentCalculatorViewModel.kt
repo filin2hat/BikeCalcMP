@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcParams
 import dev.filinhat.bikecalc.core.presentation.BaseViewModel
-import dev.filinhat.bikecalc.domain.development.usecase.CalculateDevelopmentUseCase
 import dev.filinhat.bikecalc.core.settings.SettingsStore
+import dev.filinhat.bikecalc.domain.development.usecase.CalculateDevelopmentUseCase
 import dev.filinhat.bikecalc.feature.development.data.DevelopmentSettings
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcAction
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcState
