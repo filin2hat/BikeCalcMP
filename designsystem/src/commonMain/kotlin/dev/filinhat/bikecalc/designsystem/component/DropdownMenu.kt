@@ -57,7 +57,7 @@ fun <T> DropdownMenu(
                 label = {
                     Text(
                         text = label,
-                        style = MaterialTheme.typography.labelSmall,
+                        style = MaterialTheme.typography.labelMedium,
                     )
                 },
                 readOnly = true,
@@ -66,7 +66,7 @@ fun <T> DropdownMenu(
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = isMenuExpanded)
                 },
-                textStyle = MaterialTheme.typography.bodyMedium,
+                textStyle = MaterialTheme.typography.bodyLarge,
                 colors =
                     ExposedDropdownMenuDefaults.outlinedTextFieldColors(
                         focusedContainerColor = MaterialTheme.colorScheme.background,

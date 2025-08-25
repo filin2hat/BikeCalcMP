@@ -126,7 +126,7 @@ private fun DevelopmentCalculatorScreen(
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = RowArrangement.spacedBy(16.dp),
+            horizontalArrangement = RowArrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             WheelSizeDropdown(
@@ -246,6 +246,9 @@ private fun DevelopmentCalculatorScreen(
                 keyboardType = KeyboardType.Number,
                 modifier = Modifier.fillMaxWidth(),
             )
+            if (index < frontTeethInputs.lastIndex) {
+                Spacer(modifier = Modifier.size(8.dp))
+            }
         }
 
         Spacer(modifier = Modifier.padding(8.dp))
