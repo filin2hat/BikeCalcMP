@@ -85,12 +85,12 @@ fun CompactNumericInputField(
         label = {
             Text(
                 text = label,
-                style = MaterialTheme.typography.labelSmall,
+                style = MaterialTheme.typography.labelMedium,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
             )
         },
-        textStyle = MaterialTheme.typography.bodyMedium,
+        textStyle = MaterialTheme.typography.bodyLarge,
         shape = MaterialTheme.shapes.medium,
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType),
