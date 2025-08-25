@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import bikecalcmp.feature.development.generated.resources.Res
 import bikecalcmp.feature.development.generated.resources.axis_x_rear_teeth
@@ -27,7 +28,13 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.axis.VerticalAxis
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.lineSeries
 import com.patrykandpatrick.vico.multiplatform.cartesian.layer.rememberLineCartesianLayer
+import com.patrykandpatrick.vico.multiplatform.cartesian.marker.rememberDefaultCartesianMarker
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
+import com.patrykandpatrick.vico.multiplatform.common.Fill
+import com.patrykandpatrick.vico.multiplatform.common.Insets
+import com.patrykandpatrick.vico.multiplatform.common.component.rememberShapeComponent
+import com.patrykandpatrick.vico.multiplatform.common.component.rememberTextComponent
+import com.patrykandpatrick.vico.multiplatform.common.shape.CorneredShape
 import dev.filinhat.bikecalc.core.common.util.formatDoubleToString
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcResult
 import org.jetbrains.compose.resources.stringResource
@@ -56,6 +63,36 @@ fun DevelopmentCharts(
                     .distinct()
                     .sorted()
             }
+
+        // Маркер для графика развития
+        val developmentMarker =
+            rememberDefaultCartesianMarker(
+                label =
+                    rememberTextComponent(
+                        background =
+                            rememberShapeComponent(
+                                fill = Fill(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                shape = CorneredShape.rounded(4.dp),
+                            ),
+                        padding = Insets(horizontal = 8.dp, vertical = 4.dp),
+                        margins = Insets(top = 4.dp),
+                    ),
+            )
+
+        // Маркер для графика передаточных отношений
+        val ratioMarker =
+            rememberDefaultCartesianMarker(
+                label =
+                    rememberTextComponent(
+                        background =
+                            rememberShapeComponent(
+                                fill = Fill(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                shape = CorneredShape.rounded(4.dp),
+                            ),
+                        padding = Insets(horizontal = 8.dp, vertical = 4.dp),
+                        margins = Insets(top = 4.dp),
+                    ),
+            )
 
         LaunchedEffect(results) {
             val seriesList: List<List<Float>> =
@@ -131,6 +168,7 @@ fun DevelopmentCharts(
                                 rearTeethList.getOrNull(index)?.toString() ?: index.toString()
                             },
                         ),
+                    marker = developmentMarker,
                 ),
             modelProducer = modelProducer,
             animationSpec = tween(durationMillis = 450),
@@ -186,6 +224,7 @@ fun DevelopmentCharts(
                                 rearTeethList.getOrNull(index)?.toString() ?: index.toString()
                             },
                         ),
+                    marker = ratioMarker,
                 ),
             modelProducer = ratioModelProducer,
             animationSpec = tween(durationMillis = 450),
