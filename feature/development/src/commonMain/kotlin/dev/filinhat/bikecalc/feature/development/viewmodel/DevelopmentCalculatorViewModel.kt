@@ -25,9 +25,10 @@ import kotlinx.coroutines.launch
 
 /**
  * ViewModel для экрана расчёта развития метража.
+ * Управляет состоянием UI, обработкой действий пользователя и сохранением настроек.
  *
  * @property calculateDevelopmentUseCase UseCase для расчёта развития метража
- * @property settingsStore Хранилище настроек
+ * @property settingsStore Хранилище настроек экрана
  */
 class DevelopmentCalculatorViewModel(
     private val calculateDevelopmentUseCase: CalculateDevelopmentUseCase,
@@ -46,6 +47,11 @@ class DevelopmentCalculatorViewModel(
         loadSettings()
     }
 
+    /**
+     * Обрабатывает действия пользователя.
+     *
+     * @param event Действие для обработки
+     */
     override fun onAction(event: DevelopmentCalcAction) =
         when (event) {
             is DevelopmentCalcAction.OnCalculateDevelopment -> calculateDevelopment(event.params)
@@ -54,6 +60,10 @@ class DevelopmentCalculatorViewModel(
             is DevelopmentCalcAction.OnSaveSettings -> saveSettings(event.settings)
         }
 
+    /**
+     * Загружает сохранённые настройки из хранилища.
+     * При ошибке загрузки используются дефолтные значения.
+     */
     private fun loadSettings() {
         _uiState.update { it.copy(isLoading = true) }
 
@@ -74,10 +84,20 @@ class DevelopmentCalculatorViewModel(
             }.launchIn(viewModelScope)
     }
 
+    /**
+     * Обновляет настройки в UI состоянии.
+     *
+     * @param settings Новые настройки для обновления
+     */
     private fun updateSettings(settings: dev.filinhat.bikecalc.feature.development.data.DevelopmentSettings) {
         _uiState.update { it.copy(settings = settings) }
     }
 
+    /**
+     * Сохраняет настройки в постоянное хранилище.
+     *
+     * @param settings Настройки для сохранения
+     */
     private fun saveSettings(settings: dev.filinhat.bikecalc.feature.development.data.DevelopmentSettings) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -88,6 +108,11 @@ class DevelopmentCalculatorViewModel(
         }
     }
 
+    /**
+     * Выполняет расчёт развития метража на основе переданных параметров.
+     *
+     * @param params Параметры для расчёта развития метража
+     */
     private fun calculateDevelopment(params: DevelopmentCalcParams) {
         viewModelScope.launch(Dispatchers.IO) {
             calculateDevelopmentUseCase(params).collect { results ->
@@ -96,6 +121,9 @@ class DevelopmentCalculatorViewModel(
         }
     }
 
+    /**
+     * Очищает результаты расчёта.
+     */
     private fun clearResult() {
         _uiState.update { it.copy(result = persistentListOf()) }
     }

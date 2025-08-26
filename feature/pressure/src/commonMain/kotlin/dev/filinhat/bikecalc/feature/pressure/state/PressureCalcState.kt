@@ -9,21 +9,19 @@ import kotlinx.collections.immutable.persistentListOf
 
 /**
  * Определяет состояния UI, которые может принимать ViewModel.
+ * Содержит все данные, необходимые для отображения экрана расчета давления.
+ *
+ * @property result Результат расчета давления (давление переднего и заднего колеса)
+ * @property selectedTabIndex Индекс выбранного таба (0 - новый расчет, 1 - предыдущие результаты)
+ * @property isLoading Признак загрузки данных или выполнения операции
+ * @property errorMessage Текст ошибки для отображения пользователю
+ * @property savedCalcResult Список сохраненных результатов расчета давления
+ * @property selectedTubeType Выбранный тип монтажа покрышки (камерная/бескамерная)
+ * @property showDeleteConfirmationForId ID элемента для подтверждения удаления (null если диалог не показан)
+ * @property showDeleteAllConfirmation Признак показа диалога подтверждения удаления всех записей
+ * @property settings Текущие настройки формы (вес, размеры, единицы измерения)
  */
 data class PressureCalcState(
-    /**
-     * Состояние успешного получения данных
-     *
-     * @param result Результат расчета давления
-     * @param selectedTabIndex Индекс выбранного таба
-     * @param isLoading Признак загрузки
-     * @param errorMessage Текст ошибки
-     * @param savedCalcResult Список сохраненных результатов расчета
-     * @param selectedTubeType Выбранный тип покрышки
-     * @param showDeleteConfirmationForId ID элемента для подтверждения удаления
-     * @param showDeleteAllConfirmation Признак показа диалога подтверждения удаления всех записей
-     * @param settings Текущие настройки формы
-     */
     val result: PressureCalcResult = PressureCalcResult(),
     val selectedTabIndex: Int = 0,
     val isLoading: Boolean = true,

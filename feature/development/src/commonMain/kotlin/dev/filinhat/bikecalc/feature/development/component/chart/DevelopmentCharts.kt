@@ -37,6 +37,14 @@ import dev.filinhat.bikecalc.core.common.util.formatDoubleToString
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcResult
 import org.jetbrains.compose.resources.stringResource
 
+/**
+ * Компонент для отображения графиков развития метража.
+ * Показывает два графика: график расстояния (метры на оборот) и график передаточного отношения.
+ *
+ * @param results Список результатов расчёта развития метража
+ * @param modifier Модификатор для настройки внешнего вида компонента
+ * @param showIndicator Флаг для отображения индикатора на графиках (по умолчанию true)
+ */
 @Composable
 fun DevelopmentCharts(
     results: List<DevelopmentCalcResult>,
@@ -95,19 +103,37 @@ fun DevelopmentCharts(
     }
 }
 
+/**
+ * Устанавливает данные для линейного графика.
+ *
+ * @param series Список списков значений для каждой серии данных
+ */
 private suspend fun CartesianChartModelProducer.setLineSeries(series: List<List<Float>>) {
     runTransaction {
         lineSeries { series.forEach { values -> series(*values.toTypedArray()) } }
     }
 }
 
+/**
+ * Строит матрицу данных для графиков на основе списков передних и задних зубьев.
+ *
+ * @param fronts Список передних зубьев
+ * @param rears Список задних зубьев
+ * @param block Функция для вычисления значения на основе пары передних и задних зубьев
+ * @return Матрица значений для построения графиков
+ */
 private fun buildMatrix(
     fronts: List<Int>,
     rears: List<Int>,
     block: (Int, Int) -> Float,
 ): List<List<Float>> = fronts.map { f -> rears.map { r -> block(f, r) } }
 
-/** Индикатор для графиков */
+/**
+ * Создает индикатор для графиков с настраиваемым отображением.
+ *
+ * @param showIndicator Флаг для отображения индикатора
+ * @return Настроенный индикатор для графиков
+ */
 @Composable
 private fun rememberChartIndicator(showIndicator: Boolean): CartesianMarker {
     val labelBackground =

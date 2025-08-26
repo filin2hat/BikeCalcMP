@@ -26,6 +26,18 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.marker.CartesianMarker
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoZoomState
 
+/**
+ * Секция графика с заголовком и подписями осей.
+ * Отображает линейный график с настраиваемыми осями и индикатором.
+ *
+ * @param title Заголовок графика
+ * @param xLabel Подпись оси X
+ * @param yLabel Подпись оси Y
+ * @param rearTeethList Список задних зубьев для отображения на оси X
+ * @param modelProducer Поставщик данных для графика
+ * @param valueFormatter Функция форматирования значений на оси Y
+ * @param indicator Индикатор для отображения значений при наведении
+ */
 @Composable
 internal fun ChartSection(
     title: String,

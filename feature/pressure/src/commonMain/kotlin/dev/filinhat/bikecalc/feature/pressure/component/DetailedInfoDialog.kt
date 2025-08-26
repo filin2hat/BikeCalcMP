@@ -36,6 +36,13 @@ import dev.filinhat.bikecalc.designsystem.theme.BikeCalcTheme
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/**
+ * Диалог с подробной информацией о сохраненном результате расчета давления.
+ * Отображает все параметры расчета в удобном для чтения формате с конвертацией единиц измерения.
+ *
+ * @param result Сохраненный результат расчета давления для отображения
+ * @param onDismissRequest Callback для закрытия диалога
+ */
 @Composable
 fun DetailedInfoDialog(
     result: SavedPressureCalcResult,
@@ -90,6 +97,12 @@ fun DetailedInfoDialog(
     )
 }
 
+/**
+ * Секция отображения информации о давлении в различных единицах измерения.
+ *
+ * @param title Заголовок секции
+ * @param pressureBar Давление в барах для конвертации в другие единицы
+ */
 @Composable
 private fun PressureInfoSection(
     title: String,
@@ -120,6 +133,12 @@ private fun PressureInfoSection(
     }
 }
 
+/**
+ * Секция отображения информации о весе в килограммах и фунтах.
+ *
+ * @param title Заголовок секции
+ * @param weightKg Вес в килограммах для конвертации в фунты
+ */
 @Composable
 private fun WeightInfoSection(
     title: String,
@@ -149,6 +168,12 @@ private fun WeightInfoSection(
     }
 }
 
+/**
+ * Секция отображения информации о размерах в дюймах.
+ *
+ * @param title Заголовок секции
+ * @param value Размер в дюймах для отображения
+ */
 @Composable
 private fun DimensionInfoSection(
     title: String,

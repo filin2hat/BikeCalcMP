@@ -7,7 +7,15 @@ import dev.filinhat.bikecalc.core.enums.wheel.WheelSize
 import kotlinx.serialization.Serializable
 
 /**
- * Модель данных для сохранения настроек экрана расчета давления
+ * Модель данных для сохранения настроек экрана расчета давления.
+ * Содержит все параметры, необходимые для расчета давления велосипеда.
+ *
+ * @property riderWeight Вес велосипедиста в виде строки (по умолчанию пустая строка)
+ * @property bikeWeight Вес велосипеда в виде строки (по умолчанию пустая строка)
+ * @property wheelSize Размер колеса велосипеда (по умолчанию null)
+ * @property tireSize Размер покрышки (по умолчанию null)
+ * @property weightUnit Единица измерения веса (по умолчанию KG)
+ * @property selectedTubeType Выбранный тип монтажа покрышки (по умолчанию TUBES)
  */
 @Serializable
 data class PressureSettings(

@@ -37,6 +37,17 @@ import dev.filinhat.bikecalc.designsystem.theme.BikeCalcTheme
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/**
+ * Карточка для отображения сохраненного результата расчета давления.
+ * Показывает краткую информацию о расчете: давление переднего и заднего колеса,
+ * вес велосипедиста и велосипеда, размер колеса и ширина покрышки.
+ * Поддерживает короткое нажатие для просмотра деталей и длинное для удаления.
+ *
+ * @param result Сохраненный результат расчета давления для отображения
+ * @param onClick Callback для обработки короткого нажатия (просмотр деталей)
+ * @param onLongClick Callback для обработки длинного нажатия (удаление результата)
+ * @param modifier Модификатор для настройки внешнего вида карточки
+ */
 @Composable
 fun PressureResultCard(
     result: SavedPressureCalcResult,

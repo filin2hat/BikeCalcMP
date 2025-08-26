@@ -51,8 +51,13 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Экран расчета давления велосипеда.
+ * Предоставляет интерфейс с двумя вкладками: новый расчет и предыдущие результаты.
+ * Включает функциональность для расчета давления, сохранения результатов и управления ими.
  *
- * @param viewModel [PressureCalculatorViewModel]
+ * @param viewModel ViewModel для экрана расчета давления
+ * @param keyboardController Контроллер клавиатуры для скрытия при необходимости
+ * @param focusManager Менеджер фокуса для управления полями ввода
+ * @param modifier Модификатор для настройки внешнего вида экрана
  */
 @Composable
 fun PressureCalculatorScreenRoot(
