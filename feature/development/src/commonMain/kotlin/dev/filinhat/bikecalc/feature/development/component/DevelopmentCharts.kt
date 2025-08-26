@@ -13,18 +13,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import bikecalcmp.feature.development.generated.resources.Res
 import bikecalcmp.feature.development.generated.resources.axis_x_rear_teeth
 import bikecalcmp.feature.development.generated.resources.axis_y_development_m
 import bikecalcmp.feature.development.generated.resources.axis_y_ratio
 import bikecalcmp.feature.development.generated.resources.distance_graph
-import bikecalcmp.feature.development.generated.resources.legend_chainring_format
 import bikecalcmp.feature.development.generated.resources.ratio_title
 import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.VerticalAxis
+import com.patrykandpatrick.vico.multiplatform.cartesian.axis.rememberAxisGuidelineComponent
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.rememberAxisLabelComponent
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.lineSeries
@@ -33,9 +36,14 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.marker.rememberDefaultC
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.multiplatform.common.Fill
 import com.patrykandpatrick.vico.multiplatform.common.Insets
+import com.patrykandpatrick.vico.multiplatform.common.LayeredComponent
+import com.patrykandpatrick.vico.multiplatform.common.component.ShapeComponent
+import com.patrykandpatrick.vico.multiplatform.common.component.TextComponent
 import com.patrykandpatrick.vico.multiplatform.common.component.rememberShapeComponent
 import com.patrykandpatrick.vico.multiplatform.common.component.rememberTextComponent
 import com.patrykandpatrick.vico.multiplatform.common.shape.CorneredShape
+import com.patrykandpatrick.vico.multiplatform.common.shape.MarkerCorneredShape
+import com.patrykandpatrick.vico.multiplatform.common.vicoTheme
 import dev.filinhat.bikecalc.core.common.util.formatDoubleToString
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcResult
 import org.jetbrains.compose.resources.stringResource
@@ -44,6 +52,7 @@ import org.jetbrains.compose.resources.stringResource
 fun DevelopmentCharts(
     results: List<DevelopmentCalcResult>,
     modifier: Modifier = Modifier,
+    showIndicator: Boolean = true,
 ) {
     if (results.isEmpty()) return
 
@@ -64,35 +73,59 @@ fun DevelopmentCharts(
                     .distinct()
                     .sorted()
             }
-
-        // Маркер для графика развития
-        val developmentMarker =
-            rememberDefaultCartesianMarker(
-                label =
-                    rememberTextComponent(
-                        background =
-                            rememberShapeComponent(
-                                fill = Fill(color = MaterialTheme.colorScheme.onSurfaceVariant),
-                                shape = CorneredShape.rounded(4.dp),
-                            ),
-                        padding = Insets(horizontal = 8.dp, vertical = 4.dp),
-                        margins = Insets(top = 4.dp),
-                    ),
+        val labelBackground =
+            rememberShapeComponent(
+                fill = Fill(MaterialTheme.colorScheme.background),
+                shape = MarkerCorneredShape(CorneredShape.Corner.Rounded),
+                strokeFill = Fill(MaterialTheme.colorScheme.outline),
+                strokeThickness = 1.dp,
             )
+        val indicatorFrontComponent =
+            rememberShapeComponent(Fill(MaterialTheme.colorScheme.surface), CorneredShape.Pill)
+        val guideline = rememberAxisGuidelineComponent()
 
-        // Маркер для графика передаточных отношений
-        val ratioMarker =
+        val indicator =
             rememberDefaultCartesianMarker(
                 label =
                     rememberTextComponent(
-                        background =
-                            rememberShapeComponent(
-                                fill = Fill(color = MaterialTheme.colorScheme.onSurfaceVariant),
-                                shape = CorneredShape.rounded(4.dp),
-                            ),
-                        padding = Insets(horizontal = 8.dp, vertical = 4.dp),
+                        background = labelBackground,
+                        padding = Insets(8.dp, 4.dp),
                         margins = Insets(top = 4.dp),
+                        minWidth = TextComponent.MinWidth.fixed(40.dp),
+                        style =
+                            TextStyle(
+                                color = MaterialTheme.colorScheme.onSurface,
+                                textAlign = TextAlign.Center,
+                                fontSize = 12.sp,
+                            ),
                     ),
+                guideline = guideline,
+                indicator =
+                    if (showIndicator) {
+                        { color ->
+                            LayeredComponent(
+                                back =
+                                    ShapeComponent(
+                                        Fill(color.copy(alpha = 0.15f)),
+                                        CorneredShape.Pill,
+                                    ),
+                                front =
+                                    LayeredComponent(
+                                        back =
+                                            ShapeComponent(
+                                                fill = Fill(color),
+                                                shape = CorneredShape.Pill,
+                                            ),
+                                        front = indicatorFrontComponent,
+                                        padding = Insets(5.dp),
+                                    ),
+                                padding = Insets(10.dp),
+                            )
+                        }
+                    } else {
+                        null
+                    },
+                indicatorSize = 36.dp,
             )
 
         LaunchedEffect(results) {
@@ -139,19 +172,6 @@ fun DevelopmentCharts(
             )
         }
 
-        if (frontTeethList.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(4.dp))
-            Column(modifier = Modifier.fillMaxWidth()) {
-                frontTeethList.forEach { front ->
-                    Text(
-                        text = stringResource(Res.string.legend_chainring_format, front),
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(4.dp))
-        }
-
         CartesianChartHost(
             chart =
                 rememberCartesianChart(
@@ -171,7 +191,7 @@ fun DevelopmentCharts(
                             },
                             label = rememberAxisLabelComponent(style = TextStyle(color = MaterialTheme.colorScheme.onBackground)),
                         ),
-                    marker = developmentMarker,
+                    marker = indicator,
                 ),
             modelProducer = modelProducer,
             animationSpec = tween(durationMillis = 250),
@@ -229,7 +249,7 @@ fun DevelopmentCharts(
                             },
                             label = rememberAxisLabelComponent(style = TextStyle(color = MaterialTheme.colorScheme.onBackground)),
                         ),
-                    marker = ratioMarker,
+                    marker = indicator,
                 ),
             modelProducer = ratioModelProducer,
             animationSpec = tween(durationMillis = 250),
