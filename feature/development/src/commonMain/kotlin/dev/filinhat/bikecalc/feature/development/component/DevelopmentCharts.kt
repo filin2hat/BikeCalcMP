@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import bikecalcmp.feature.development.generated.resources.Res
 import bikecalcmp.feature.development.generated.resources.axis_x_rear_teeth
@@ -25,6 +25,7 @@ import bikecalcmp.feature.development.generated.resources.ratio_title
 import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.VerticalAxis
+import com.patrykandpatrick.vico.multiplatform.cartesian.axis.rememberAxisLabelComponent
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.lineSeries
 import com.patrykandpatrick.vico.multiplatform.cartesian.layer.rememberLineCartesianLayer
@@ -160,6 +161,7 @@ fun DevelopmentCharts(
                             valueFormatter = { _, value, _ ->
                                 "${formatDoubleToString(value, 1)} м"
                             },
+                            label = rememberAxisLabelComponent(style = TextStyle(color = MaterialTheme.colorScheme.onBackground)),
                         ),
                     bottomAxis =
                         HorizontalAxis.rememberBottom(
@@ -167,11 +169,12 @@ fun DevelopmentCharts(
                                 val index = value.toInt()
                                 rearTeethList.getOrNull(index)?.toString() ?: index.toString()
                             },
+                            label = rememberAxisLabelComponent(style = TextStyle(color = MaterialTheme.colorScheme.onBackground)),
                         ),
                     marker = developmentMarker,
                 ),
             modelProducer = modelProducer,
-            animationSpec = tween(durationMillis = 450),
+            animationSpec = tween(durationMillis = 250),
             animateIn = true,
             placeholder = {},
             modifier =
@@ -216,6 +219,7 @@ fun DevelopmentCharts(
                             valueFormatter = { _, value, _ ->
                                 "${formatDoubleToString(value, 2)}×"
                             },
+                            label = rememberAxisLabelComponent(style = TextStyle(color = MaterialTheme.colorScheme.onBackground)),
                         ),
                     bottomAxis =
                         HorizontalAxis.rememberBottom(
@@ -223,11 +227,12 @@ fun DevelopmentCharts(
                                 val index = value.toInt()
                                 rearTeethList.getOrNull(index)?.toString() ?: index.toString()
                             },
+                            label = rememberAxisLabelComponent(style = TextStyle(color = MaterialTheme.colorScheme.onBackground)),
                         ),
                     marker = ratioMarker,
                 ),
             modelProducer = ratioModelProducer,
-            animationSpec = tween(durationMillis = 450),
+            animationSpec = tween(durationMillis = 250),
             animateIn = true,
             placeholder = {},
             modifier =
