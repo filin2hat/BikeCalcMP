@@ -26,23 +26,19 @@
 
 <div align="center">
 
-[![Kotlin](https://img.shields.io/badge/kotlin-2.2.0-blue.svg?logo=kotlin)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.2.10-blue.svg?logo=kotlin)](https://kotlinlang.org)
 [![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.8.2-4285F4.svg?logo=jetpackcompose)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20Desktop-green.svg)](https://kotlinlang.org/docs/multiplatform-mobile-getting-started.html)
 [![🚴‍♂️ BikeCalc Pro CI/CD](https://github.com/filin2hat/BikeCalcMP/actions/workflows/main.yml/badge.svg)](https://github.com/filin2hat/BikeCalcMP/actions/workflows/main.yml)
 
 [![RuStore](https://img.shields.io/badge/RuStore-5.0⭐_1k+_downloads-FF6B35?logo=android)](https://www.rustore.ru/catalog/app/dev.filinhat.bikecalc)
-[![Version](https://img.shields.io/badge/Version-4.1.0-brightgreen)](https://www.rustore.ru/catalog/app/dev.filinhat.bikecalc)
+[![Version](https://img.shields.io/badge/Version-4.2.0-brightgreen)](https://www.rustore.ru/catalog/app/dev.filinhat.bikecalc)
 
 </div>
 
 ## ⬇️ Скачать
 
--
-
-APK: [BikeCalc_Pro_4.1.0.apk](https://github.com/filin2hat/BikeCalcMP/releases/download/release4_1_0/composeApp-release.apk)
-
-- Страница релиза: [release](https://github.com/filin2hat/BikeCalcMP/releases/tag/release4_1_0)
+APK: [BikeCalc_Pro_4.2.0.apk](https://github.com/filin2hat/BikeCalcMP/releases/download/release4_2_0/composeApp-release.apk)
 
 ## 🎯 О проекте
 
@@ -172,8 +168,8 @@ cd BikeCalcMP
 
 ## 🔮 Планы развития
 
-- 🔧 **v2.0**: Калькулятор трансмиссии, экспорт в PDF
-- 🚀 **v3.0**: Web платформа, ML предсказания, интеграция с IoT
+- 🔧 **v5.0**: Калькулятор трансмиссии, экспорт в PDF
+- 🚀 **v6.0**: Web платформа, ML предсказания, интеграция с IoT
 
 ## 👥 Контакты
 
