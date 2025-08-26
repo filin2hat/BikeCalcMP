@@ -50,8 +50,8 @@ import dev.filinhat.bikecalc.core.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcParams
 import dev.filinhat.bikecalc.designsystem.component.CalculatePressureButton
 import dev.filinhat.bikecalc.designsystem.component.CompactNumericInputField
-import dev.filinhat.bikecalc.feature.development.component.DevelopmentCharts
 import dev.filinhat.bikecalc.feature.development.component.WheelSizeDropdown
+import dev.filinhat.bikecalc.feature.development.component.chart.DevelopmentCharts
 import dev.filinhat.bikecalc.feature.development.data.DevelopmentSettings
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcAction
 import dev.filinhat.bikecalc.feature.development.state.DevelopmentCalcState

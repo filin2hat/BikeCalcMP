@@ -9,7 +9,8 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 /**
- * Koin модуль для feature development с универсальным механизмом настроек
+ * Koin модуль для фичи development с универсальным механизмом настроек.
+ * Предоставляет зависимости для экрана расчёта развития метража.
  */
 val featureDevelopmentModule =
     module {

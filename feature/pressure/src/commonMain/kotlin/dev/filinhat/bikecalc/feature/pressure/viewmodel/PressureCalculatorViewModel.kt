@@ -31,7 +31,16 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
- * ViewModel экрана PressureCalculatorScreen
+ * ViewModel экрана расчета давления велосипеда.
+ * Управляет состоянием UI, обработкой действий пользователя, расчетом давления
+ * и сохранением результатов в базу данных.
+ *
+ * @property repository Репозиторий для работы с сохраненными результатами
+ * @property calculatePressureUseCase UseCase для расчета давления
+ * @property getSavedResultsUseCase UseCase для получения сохраненных результатов
+ * @property deleteResultUseCase UseCase для удаления отдельного результата
+ * @property deleteAllResultsUseCase UseCase для удаления всех результатов
+ * @property settingsStore Хранилище настроек экрана
  */
 class PressureCalculatorViewModel(
     private val repository: PressureCalcRepository,
@@ -56,6 +65,11 @@ class PressureCalculatorViewModel(
                 initialValue = _uiState.value,
             )
 
+    /**
+     * Обрабатывает действия пользователя.
+     *
+     * @param event Действие для обработки
+     */
     override fun onAction(event: PressureCalcAction) {
         when (event) {
             is PressureCalcAction.OnCalcPressure ->
@@ -133,6 +147,10 @@ class PressureCalculatorViewModel(
         }
     }
 
+    /**
+     * Загружает сохраненные настройки из хранилища.
+     * При ошибке загрузки используются дефолтные значения.
+     */
     private fun loadSettings() {
         settingsStore
             .getSettings()
@@ -148,6 +166,11 @@ class PressureCalculatorViewModel(
             }.launchIn(viewModelScope)
     }
 
+    /**
+     * Сохраняет настройки в постоянное хранилище.
+     *
+     * @param settings Настройки для сохранения
+     */
     private fun saveSettings(settings: PressureSettings) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -158,6 +181,12 @@ class PressureCalculatorViewModel(
         }
     }
 
+    /**
+     * Выполняет расчет давления на основе переданных параметров.
+     * Сохраняет результат в базу данных при успешном расчете.
+     *
+     * @param params Параметры для расчета давления
+     */
     private fun calcPressureResult(params: PressureCalcParams) {
         calculatePressureUseCase(params)
             .catch { throwable ->
@@ -200,6 +229,10 @@ class PressureCalculatorViewModel(
             .launchIn(viewModelScope)
     }
 
+    /**
+     * Наблюдает за изменениями сохраненных результатов в базе данных.
+     * Обновляет UI при изменении списка результатов.
+     */
     private fun observeSavedResults() {
         observeSavedResultsJob?.cancel()
         observeSavedResultsJob =

@@ -34,7 +34,13 @@ import dev.filinhat.bikecalc.core.enums.unit.PressureUnit
 import org.jetbrains.compose.resources.stringResource
 
 /**
- * Радио кнопки для выбора единиц отображения давления
+ * Радио кнопки для выбора единиц отображения давления.
+ * Позволяет пользователю выбрать предпочитаемые единицы измерения давления:
+ * BAR, PSI или KPa. Использует радио кнопки для выбора одной опции из списка.
+ *
+ * @param pressureUnits Список доступных единиц измерения давления
+ * @param onPressureChange Callback для обработки изменения выбранной единицы измерения
+ * @param modifier Модификатор для настройки внешнего вида компонента
  */
 @Composable
 fun ChangePressureRadioGroup(

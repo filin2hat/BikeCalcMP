@@ -9,7 +9,8 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 /**
- * Koin модуль для feature pressure с универсальным механизмом настроек
+ * Koin модуль для фичи pressure с универсальным механизмом настроек.
+ * Предоставляет зависимости для экрана расчета давления велосипеда.
  */
 val featurePressureModule =
     module {
