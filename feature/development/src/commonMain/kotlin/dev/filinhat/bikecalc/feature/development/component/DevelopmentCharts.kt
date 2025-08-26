@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -25,6 +24,7 @@ import bikecalcmp.feature.development.generated.resources.axis_y_ratio
 import bikecalcmp.feature.development.generated.resources.distance_graph
 import bikecalcmp.feature.development.generated.resources.ratio_title
 import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
+import com.patrykandpatrick.vico.multiplatform.cartesian.Zoom
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.VerticalAxis
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.rememberAxisGuidelineComponent
@@ -34,6 +34,7 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.data.lineSeries
 import com.patrykandpatrick.vico.multiplatform.cartesian.layer.rememberLineCartesianLayer
 import com.patrykandpatrick.vico.multiplatform.cartesian.marker.rememberDefaultCartesianMarker
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
+import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoZoomState
 import com.patrykandpatrick.vico.multiplatform.common.Fill
 import com.patrykandpatrick.vico.multiplatform.common.Insets
 import com.patrykandpatrick.vico.multiplatform.common.LayeredComponent
@@ -43,7 +44,6 @@ import com.patrykandpatrick.vico.multiplatform.common.component.rememberShapeCom
 import com.patrykandpatrick.vico.multiplatform.common.component.rememberTextComponent
 import com.patrykandpatrick.vico.multiplatform.common.shape.CorneredShape
 import com.patrykandpatrick.vico.multiplatform.common.shape.MarkerCorneredShape
-import com.patrykandpatrick.vico.multiplatform.common.vicoTheme
 import dev.filinhat.bikecalc.core.common.util.formatDoubleToString
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcResult
 import org.jetbrains.compose.resources.stringResource
@@ -195,8 +195,12 @@ fun DevelopmentCharts(
                 ),
             modelProducer = modelProducer,
             animationSpec = tween(durationMillis = 250),
-            animateIn = true,
+            animateIn = false,
             placeholder = {},
+            zoomState =
+                rememberVicoZoomState(
+                    initialZoom = remember { Zoom.min(Zoom.fixed(), Zoom.Content) },
+                ),
             modifier =
                 Modifier
                     .fillMaxWidth()
@@ -253,8 +257,12 @@ fun DevelopmentCharts(
                 ),
             modelProducer = ratioModelProducer,
             animationSpec = tween(durationMillis = 250),
-            animateIn = true,
+            animateIn = false,
             placeholder = {},
+            zoomState =
+                rememberVicoZoomState(
+                    initialZoom = remember { Zoom.min(Zoom.fixed(), Zoom.Content) },
+                ),
             modifier =
                 Modifier
                     .fillMaxWidth()
