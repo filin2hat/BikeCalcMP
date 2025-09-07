@@ -173,6 +173,9 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+
+    // LeakCanary - только для debug сборок Android
+    debugImplementation(libs.leakcanary.android)
 }
 
 compose.desktop {
