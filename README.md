@@ -10,7 +10,7 @@
 [![🚴‍♂️ BikeCalc Pro CI/CD](https://github.com/filin2hat/BikeCalcMP/actions/workflows/main.yml/badge.svg)](https://github.com/filin2hat/BikeCalcMP/actions/workflows/main.yml)
 
 [![RuStore](https://img.shields.io/badge/RuStore-5.0⭐_1k+_downloads-FF6B35?logo=android)](https://www.rustore.ru/catalog/app/dev.filinhat.bikecalc)
-[![Version](https://img.shields.io/badge/Version-4.2.0-brightgreen)](https://www.rustore.ru/catalog/app/dev.filinhat.bikecalc)
+[![Version](https://img.shields.io/badge/Version-4.3.0-brightgreen)](https://www.rustore.ru/catalog/app/dev.filinhat.bikecalc)
 
 </div>
 
@@ -32,7 +32,7 @@
 
 ## ⬇️ Скачать
 
-APK: [BikeCalc_Pro_4.2.0.apk](https://github.com/filin2hat/BikeCalcMP/releases/download/release4_2_0/composeApp-release.apk)
+APK: [BikeCalc_Pro_4.3.0.apk](https://github.com/filin2hat/BikeCalcMP/releases/download/release4_3_0/composeApp-release.apk)
 
 ### 🏆 Ключевые достижения:
 
@@ -142,6 +142,25 @@ cd BikeCalcMP
 - 🚀 Ускорение итеративного процесса разработки
 
 **[📖 Подробная документация по Hot Reload →](docs/HOT_RELOAD.md)**
+
+## 📚 Документация
+
+### 🏗️ Архитектура и разработка
+
+- **[🏗️ Архитектура проекта](docs/ARCHITECTURE.md)** - модульная структура, технологический стек
+- **[🚀 Установка и запуск](docs/SETUP.md)** - полная инструкция по настройке окружения
+- **[🛠️ Инструменты разработки](docs/DEVELOPMENT_TOOLS.md)** - LeakCanary, Detekt, KSP, Kotzilla
+- **[🔥 Hot Reload](docs/HOT_RELOAD.md)** - ускорение разработки UI
+
+### 🚀 CI/CD и развертывание
+
+- **[⚙️ CI/CD Pipeline](docs/CI_CD.md)** - автоматизация сборки и развертывания
+- **[📊 Kotzilla Analytics](docs/KOTZILLA.md)** - мониторинг производительности
+
+### 🎯 Для разработчиков
+
+- **[📋 История версий](docs/versoins_history.md)** - changelog проекта
+- **[🔧 Диаметры колес](docs/for_develop/wheel_diametrs.md)** - справочная информация
 
 ## 💼 Для рекрутеров
 

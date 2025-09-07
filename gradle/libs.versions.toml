@@ -1,11 +1,11 @@
 [versions]
 # Gradle & Android SDK
-agp = "8.12.1"
+agp = "8.13.0"
 android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
-appVersionCode = "16"
-appVersionName = "4.2.0"
+appVersionCode = "17"
+appVersionName = "4.3.0"
 namespace = "dev.filinhat.bikecalc"
 applicationId = "dev.filinhat.bikecalc"
 buildToolsVersion = "36.0.0"
@@ -64,6 +64,9 @@ detect = "1.23.8"
 
 # DataStore
 dataStore = "1.1.7"
+
+# LeakCanary
+leakcanary = "2.14"
 
 
 [libraries]
@@ -131,6 +134,9 @@ vico-multiplatform-m3 = { group = "com.patrykandpatrick.vico", name = "multiplat
 
 #Detect
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detect" }
+
+# LeakCanary
+leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
