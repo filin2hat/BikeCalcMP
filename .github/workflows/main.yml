@@ -53,11 +53,8 @@ jobs:
       - name: 🔍 Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
 
-      - name: 🧪 Run Unit Tests (KMP modules only)
-        run: ./gradlew :feature:pressure:test :feature:development:test --parallel --build-cache
-
-      - name: 🔍 Run Detekt Analysis
-        run: ./gradlew detekt --parallel
+      - name: 🧪 Run Detekt & Unit Tests
+        run: ./gradlew check --parallel --build-cache
         shell: bash
 
       - name: 📦 Upload Test & Lint Reports
