@@ -36,7 +36,7 @@ kotlin {
             implementation(project(":core:model"))
             implementation(project(":core:common"))
             implementation(project(":core:settings"))
-            implementation(project(":domain:pressure"))
+            implementation(project(":core:database"))
             implementation(project(":designsystem"))
 
             // Compose

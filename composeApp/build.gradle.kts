@@ -9,7 +9,6 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.hot.reload)
     alias(libs.plugins.jetbrains.kotlin.serialization)
-
     alias(libs.plugins.kotzilla)
 }
 
@@ -47,13 +46,9 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
-            // Ммодули
+            // Модули
             implementation(project(":feature:pressure"))
             implementation(project(":feature:development"))
-            implementation(project(":data:pressure"))
-            implementation(project(":data:development"))
-            implementation(project(":domain:development"))
-            implementation(project(":domain:pressure"))
             implementation(project(":designsystem"))
             implementation(project(":core:database"))
             implementation(project(":core:common"))
@@ -96,10 +91,8 @@ kotlin {
             implementation(kotlin("test"))
 
             // Доступ к типам и реализациям из модулей
-            implementation(project(":data:pressure"))
             implementation(project(":core:model"))
             implementation(project(":core:common"))
-            implementation(project(":domain:pressure"))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

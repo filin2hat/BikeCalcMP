@@ -41,17 +41,9 @@ include(":core:common")
 include(":core:database")
 include(":core:settings")
 
-// Domain modules
-include(":domain:pressure")
-include(":domain:development")
-
 // Design system
 include(":designsystem")
 
 // Feature modules
 include(":feature:pressure")
 include(":feature:development")
-
-// Data modules
-include(":data:pressure")
-include(":data:development")
