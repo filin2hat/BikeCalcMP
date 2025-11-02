@@ -53,11 +53,8 @@ jobs:
       - name: 🔍 Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
 
-      - name: 🧪 Run Unit Tests (KMP modules only)
-        run: ./gradlew :data:pressure:desktopTest --parallel --build-cache
-
-      - name: 🔍 Run Detekt Analysis
-        run: ./gradlew detekt --parallel
+      - name: 🧪 Run Detekt & Unit Tests
+        run: ./gradlew check --parallel --build-cache
         shell: bash
 
       - name: 📦 Upload Test & Lint Reports
@@ -89,10 +86,6 @@ jobs:
           - ":core:common"
           - ":core:database"
           - ":core:settings"
-          - ":domain:pressure"
-          - ":domain:development"
-          - ":data:pressure"
-          - ":data:development"
           - ":designsystem"
           - ":feature:pressure"
           - ":feature:development"
@@ -334,7 +327,7 @@ jobs:
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "### 📦 Artifacts" >> "$GITHUB_STEP_SUMMARY"
           echo "- Test/Lint reports: test-and-lint-reports" >> "$GITHUB_STEP_SUMMARY"
-          echo "- Module reports: reports-:core:model, reports-:core:common, reports-:core:database, reports-:core:settings, reports-:domain:pressure, reports-:domain:development, reports-:data:pressure, reports-:data:development, reports-:designsystem, reports-:feature:pressure, reports-:feature:development" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Module reports: reports-:core:model, reports-:core:common, reports-:core:database, reports-:core:settings, reports-:designsystem, reports-:feature:pressure, reports-:feature:development" >> "$GITHUB_STEP_SUMMARY"
 
       - name: 📝 Save CI Summary file
         shell: bash
@@ -351,7 +344,7 @@ jobs:
 
           ## 📦 Artifacts
           - Test/Lint reports: test-and-lint-reports
-          - Module reports: reports-:core:model, reports-:core:common, reports-:core:database, reports-:core:settings, reports-:domain:pressure, reports-:domain:development, reports-:data:pressure, reports-:data:development, reports-:designsystem, reports-:feature:pressure, reports-:feature:development
+          - Module reports: reports-:core:model, reports-:core:common, reports-:core:database, reports-:core:settings, reports-:designsystem, reports-:feature:pressure, reports-:feature:development
           EOF
 
       - name: 📤 Upload CI Summary
