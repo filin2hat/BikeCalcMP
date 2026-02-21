@@ -55,7 +55,7 @@ room = "2.8.4"
 composeIcons = "1.1.1"
 
 # Analytics
-kotzilla = "1.3.1"
+kotzilla = "2.0.4"
 
 # Charts
 uiToolingPreview = "1.10.1"
@@ -132,8 +132,8 @@ androidx-datastore-preferences = { group = "androidx.datastore", name = "datasto
 # Icons
 iconPack-lineAwesome = { module = "br.com.devsrsouza.compose.icons:line-awesome", version.ref = "composeIcons" }
 
-# Analytics
-kotzilla-sdk-ktor3 = { group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "kotzilla" }
+# Analytics (kotzilla-sdk-ktor3 removed in 1.4.0; plugin auto-adds kotzilla-sdk)
+kotzilla-sdk = { group = "io.kotzilla", name = "kotzilla-sdk", version.ref = "kotzilla" }
 
 # Charts
 vico-multiplatform = { group = "com.patrykandpatrick.vico", name = "multiplatform", version.ref = "vico" }

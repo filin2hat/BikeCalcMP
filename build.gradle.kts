@@ -23,6 +23,6 @@ subprojects {
 
     dependencies {
         // Избегаем обращения к version catalog здесь, чтобы не падать на ранних стадиях конфигурации
-        add("detektPlugins", "io.gitlab.arturbosch.detekt:detekt-formatting:1.23.6")
+        add("detektPlugins", "io.gitlab.arturbosch.detekt:detekt-formatting:1.23.8")
     }
 }

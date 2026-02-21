@@ -11,6 +11,10 @@ plugins {
     alias(libs.plugins.kotzilla)
 }
 
+kotzilla {
+    composeInstrumentation = false
+}
+
 kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -82,7 +86,7 @@ kotlin {
             implementation(libs.bundles.ktor)
             implementation(libs.bundles.coil)
             implementation(libs.iconPack.lineAwesome)
-            implementation(libs.kotzilla.sdk.ktor3)
+            implementation(libs.kotzilla.sdk)
             implementation(libs.vico.multiplatform)
             implementation(libs.vico.multiplatform.m3)
         }

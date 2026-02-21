@@ -13,6 +13,10 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven {
+            name = "kotzilla"
+            url = uri("https://repository.kotzilla.io/repository/kotzilla-platform/")
+        }
     }
     plugins {
         id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
@@ -33,6 +37,10 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
+        maven {
+            name = "kotzilla"
+            url = uri("https://repository.kotzilla.io/repository/kotzilla-platform/")
+        }
     }
 }
 
