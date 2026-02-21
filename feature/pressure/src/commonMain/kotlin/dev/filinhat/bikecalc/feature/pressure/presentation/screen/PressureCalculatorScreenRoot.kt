@@ -29,6 +29,7 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import bikecalcmp.feature.pressure.generated.resources.Res
@@ -47,7 +48,6 @@ import dev.filinhat.bikecalc.feature.pressure.presentation.state.PressureCalcAct
 import dev.filinhat.bikecalc.feature.pressure.presentation.state.PressureCalcState
 import dev.filinhat.bikecalc.feature.pressure.presentation.viewmodel.PressureCalculatorViewModel
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Экран расчета давления велосипеда.

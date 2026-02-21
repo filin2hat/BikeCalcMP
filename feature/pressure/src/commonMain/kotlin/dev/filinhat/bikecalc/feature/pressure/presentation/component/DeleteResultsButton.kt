@@ -12,12 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import bikecalcmp.feature.pressure.generated.resources.Res
 import bikecalcmp.feature.pressure.generated.resources.clear_results
 import dev.filinhat.bikecalc.designsystem.theme.BikeCalcTheme
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 private const val BUTTON_HEIGHT = 48
 
