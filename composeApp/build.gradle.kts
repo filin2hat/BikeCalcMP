@@ -13,6 +13,8 @@ plugins {
 
 kotzilla {
     composeInstrumentation = false
+    // Disable mapping upload in CI (no API key or HTTP 405)
+    uploadMappingFile = System.getenv("GITHUB_ACTIONS") != "true" && !project.hasProperty("skipKotzillaUpload")
 }
 
 kotlin {
