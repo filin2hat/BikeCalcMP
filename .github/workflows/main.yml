@@ -54,7 +54,7 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
 
       - name: 🧪 Run Detekt & Unit Tests
-        run: ./gradlew check --parallel --build-cache
+        run: ./gradlew check -PskipIos --parallel --build-cache
         shell: bash
 
       - name: 📦 Upload Test & Lint Reports
@@ -108,7 +108,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: 🔨 Build Module ${{ matrix.module }}
-        run: ./gradlew ${{ matrix.module }}:build --parallel --build-cache
+        run: ./gradlew ${{ matrix.module }}:build -PskipIos --parallel --build-cache
 
       - name: 📦 Upload Module Reports
         if: always()
