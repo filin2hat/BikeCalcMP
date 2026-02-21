@@ -11,6 +11,14 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
 }
 
+// When -PskipIos (e.g. on Linux CI), skip iOS tasks to avoid KSP-onlyIf on non-macOS
+val skipIos = project.hasProperty("skipIos")
+if (skipIos) {
+    gradle.taskGraph.whenReady {
+        allTasks.filter { it.name.contains("Ios", ignoreCase = true) }.forEach { it.enabled = false }
+    }
+}
+
 subprojects {
     pluginManager.apply("io.gitlab.arturbosch.detekt")
 
@@ -23,6 +31,6 @@ subprojects {
 
     dependencies {
         // Избегаем обращения к version catalog здесь, чтобы не падать на ранних стадиях конфигурации
-        add("detektPlugins", "io.gitlab.arturbosch.detekt:detekt-formatting:1.23.6")
+        add("detektPlugins", "io.gitlab.arturbosch.detekt:detekt-formatting:1.23.8")
     }
 }

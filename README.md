@@ -4,8 +4,8 @@
 
 ![BikeCalc Pro](screenshots/BikeCalc_Pro_Wallpaper.png)
 
-[![Kotlin](https://img.shields.io/badge/kotlin-2.2.10-blue.svg?logo=kotlin)](https://kotlinlang.org)
-[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.8.2-4285F4.svg?logo=jetpackcompose)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.3.10-blue.svg?logo=kotlin)](https://kotlinlang.org)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.10.1-4285F4.svg?logo=jetpackcompose)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20Desktop-green.svg)](https://kotlinlang.org/docs/multiplatform-mobile-getting-started.html)
 [![🚴‍♂️ BikeCalc Pro CI/CD](https://github.com/filin2hat/BikeCalcMP/actions/workflows/main.yml/badge.svg)](https://github.com/filin2hat/BikeCalcMP/actions/workflows/main.yml)
 
@@ -77,7 +77,7 @@ APK: [BikeCalc_Pro_4.3.0.apk](https://github.com/filin2hat/BikeCalcMP/releases/d
 - 💾 **Room + SQLite** - типобезопасная работа с базой данных
 - ⚙️ **Coroutines + Flow** - реактивное асинхронное программирование
 - 🔧 **Gradle Version Catalogs + KSP** - современные инструменты сборки
-- 🔥 **Compose Hot Reload** - мгновенное обновление UI без перезапуска
+- 🔥 **Compose Hot Reload** — мгновенное обновление UI без перезапуска (встроено в CMP 1.10+)
 
 **[📖 Полный список технологий →](docs/ARCHITECTURE.md#-технологический-стек)**
 
@@ -132,20 +132,19 @@ cd BikeCalcMP
 
 ## 🔥 Compose Hot Reload
 
-Для ускорения разработки UI используйте **Compose Hot Reload** — мгновенное обновление интерфейса
-без перезапуска приложения:
+**Compose Hot Reload** встроен в Compose Multiplatform 1.10.0+ — отдельное подключение не требуется.
+Мгновенное обновление UI без перезапуска приложения:
 
 ```bash
-# Запуск с автоматической перезагрузкой UI
-./gradlew :composeApp:hotRunDesktopAsync --autoReload
+# Запуск desktop-приложения с Hot Reload
+./gradlew :composeApp:hotRunDesktop
 ```
 
-**Возможности:**
+**Использование:** измените код в `commonMain` → сохраните файл (Ctrl+S) → UI обновится автоматически.
 
-- ⚡ Мгновенное обновление UI при изменении кода
+- ⚡ Мгновенное обновление UI при сохранении
 - 🔄 Сохранение состояния приложения
-- 🎨 Поддержка всех Compose компонентов и ViewModels
-- 🚀 Ускорение итеративного процесса разработки
+- 🎨 Поддержка Compose компонентов и ViewModels
 
 **[📖 Подробная документация по Hot Reload →](docs/HOT_RELOAD.md)**
 

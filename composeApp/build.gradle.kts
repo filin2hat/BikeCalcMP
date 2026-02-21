@@ -7,9 +7,14 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.compose.hot.reload)
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.kotzilla)
+}
+
+kotzilla {
+    composeInstrumentation = false
+    // Disable mapping upload in CI (no API key or HTTP 405)
+    uploadMappingFile = System.getenv("GITHUB_ACTIONS") != "true" && !project.hasProperty("skipKotzillaUpload")
 }
 
 kotlin {
@@ -38,7 +43,7 @@ kotlin {
         val commonTest by getting
 
         androidMain.dependencies {
-            implementation(compose.preview)
+            implementation(libs.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
 
             implementation(libs.koin.android)
@@ -56,13 +61,13 @@ kotlin {
             implementation(project(":core:settings"))
 
             // Compose
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.material)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            implementation(libs.runtime)
+            implementation(libs.foundation)
+            implementation(libs.material3)
+            implementation(libs.material)
+            implementation(libs.ui)
+            implementation(libs.components.resources)
+            implementation(libs.ui.tooling.preview)
 
             // Lifecycle & ViewModel
             implementation(libs.androidx.lifecycle.viewmodel)
@@ -83,7 +88,7 @@ kotlin {
             implementation(libs.bundles.ktor)
             implementation(libs.bundles.coil)
             implementation(libs.iconPack.lineAwesome)
-            implementation(libs.kotzilla.sdk.ktor3)
+            implementation(libs.kotzilla.sdk)
             implementation(libs.vico.multiplatform)
             implementation(libs.vico.multiplatform.m3)
         }
@@ -165,7 +170,7 @@ android {
 }
 
 dependencies {
-    debugImplementation(compose.uiTooling)
+    debugImplementation(libs.ui.tooling)
 
     // LeakCanary - только для debug сборок Android
     debugImplementation(libs.leakcanary.android)

@@ -1,102 +1,109 @@
+# =============================================================================
+# BikeCalc Pro — Version Catalog
+# =============================================================================
+
 [versions]
-# Gradle & Android SDK
-agp = "8.13.0"
+# ---- Build & Gradle ----
+agp = "8.13.2"
+kotlin = "2.3.10"
+ksp = "2.3.6"
+buildToolsVersion = "36.0.0"
+
+# ---- App metadata ----
+namespace = "dev.filinhat.bikecalc"
+applicationId = "dev.filinhat.bikecalc"
+appVersionCode = "17"
+appVersionName = "4.3.0"
+
+# ---- Android SDK ----
 android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
-appVersionCode = "17"
-appVersionName = "4.3.0"
-namespace = "dev.filinhat.bikecalc"
-applicationId = "dev.filinhat.bikecalc"
-buildToolsVersion = "36.0.0"
 
-# AndroidX
-androidx-activityCompose = "1.10.1"
-androidx-appcompat = "1.7.1"
-androidx-constraintlayout = "2.2.1"
+# ---- Compose Multiplatform ----
+compose-multiplatform = "1.10.1"
+foundation = "1.10.1"
+material = "1.10.1"
+material3 = "1.9.0"
+runtime = "1.10.1"
+componentsResources = "1.10.1"
+uiToolingPreview = "1.10.1"
+
+# ---- AndroidX ----
+androidx-activityCompose = "1.12.4"
 androidx-core-ktx = "1.17.0"
-androidx-lifecycle = "2.9.2"
-androidx-material = "1.12.0"
+androidx-lifecycle = "2.9.6"
 
-# Compose Multiplatform
-compose-multiplatform = "1.8.2"
-compose-hot-reload = "1.0.0-beta05"
+# ---- KotlinX ----
+kotlinx-coroutines = "1.10.2"
+kotlinx-serialization = "1.10.0"
+kotlinx-collectionsImmutable = "0.4.0"
 
-# Testing
+# ---- Architecture & Navigation ----
+navigationCompose = "2.9.2"
+koin = "4.1.1"
+
+# ---- Networking ----
+ktor = "3.4.0"
+
+# ---- Data & Storage ----
+room = "2.8.4"
+sqlite = "2.6.2"
+dataStore = "1.2.0"
+
+# ---- UI & Visualization ----
+coil3 = "3.3.0"
+vico = "2.4.3"
+composeIcons = "1.1.1"
+
+# ---- Analytics & Monitoring ----
+kotzilla = "2.0.4"
+
+# ---- Quality & Debug ----
+detect = "1.23.8"
+leakcanary = "2.14"
+
+# ---- Testing ----
 junit = "4.13.2"
 androidx-test-junit = "1.2.1"
 androidx-espresso-core = "3.6.1"
 
-# KotlinX
-kotlin = "2.2.10"
-kotlinx-coroutines = "1.10.2"
-ksp = "2.2.10-2.0.2"
-kotlinSerialization = "1.9.0"
-kotlinxCollectionsImmutable = "0.4.0"
-
-# Navigation
-navigationCompose = "2.9.0-beta05"
-
-# Dependency injection
-koin = "4.0.2"
-
-# Networking
-ktor = "3.2.3"
-
-# Image loader
-coil3 = "3.3.0"
-
-# Data base
-sqlite = "2.5.2"
-room = "2.7.2"
-
-# Icons
-composeIcons = "1.1.1"
-
-# Analytics
-kotzilla = "1.1.0"
-
-# Charts
-vico = "2.1.3"
-
-# Detect
-detect = "1.23.8"
-
-# DataStore
-dataStore = "1.1.7"
-
-# LeakCanary
-leakcanary = "2.14"
-
 
 [libraries]
-# AndroidX
+# ---- Compose Multiplatform ----
+components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "componentsResources" }
+foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "foundation" }
+ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "uiToolingPreview" }
+ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "uiToolingPreview" }
+ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
+material = { module = "org.jetbrains.compose.material:material", version.ref = "material" }
+material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
+runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "runtime" }
+
+# ---- AndroidX ----
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
 androidx-core-content = { group = "androidx.core", name = "core", version.ref = "androidx-core-ktx" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
-androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
-androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 
-# Kotlin
+# ---- KotlinX ----
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
-kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-collectionsImmutable" }
 
-# Navigation
+# ---- Navigation ----
 jetbrains-compose-navigation = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
-# Dependency injection
+# ---- Dependency injection (Koin) ----
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 
-# Networking
+# ---- Networking (Ktor) ----
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
@@ -105,54 +112,61 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 
-# Image loader
+# ---- Image loading (Coil) ----
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
 coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil3" }
 coil-network-ktor2 = { module = "io.coil-kt.coil3:coil-network-ktor2", version.ref = "coil3" }
 coil-network-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil3" }
 coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil3" }
 
-# Data base
+# ---- Database (Room & SQLite) ----
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 
-# DataStore (without an Android dependency)
+# ---- DataStore ----
 androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStore" }
 androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "dataStore" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 
-# Icons
-iconPack-lineAwesome = { module = "br.com.devsrsouza.compose.icons:line-awesome", version.ref = "composeIcons" }
-
-# Analytics
-kotzilla-sdk-ktor3 = { group = "io.kotzilla", name = "kotzilla-sdk-ktor3", version.ref = "kotzilla" }
-
-# Charts
+# ---- Charts (Vico) ----
 vico-multiplatform = { group = "com.patrykandpatrick.vico", name = "multiplatform", version.ref = "vico" }
 vico-multiplatform-m3 = { group = "com.patrykandpatrick.vico", name = "multiplatform-m3", version.ref = "vico" }
 
-#Detect
-detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detect" }
+# ---- Icons ----
+iconPack-lineAwesome = { module = "br.com.devsrsouza.compose.icons:line-awesome", version.ref = "composeIcons" }
 
-# LeakCanary
+# ---- Analytics (Kotzilla) ----
+kotzilla-sdk = { group = "io.kotzilla", name = "kotzilla-sdk", version.ref = "kotzilla" }
+
+# ---- Quality & Debug ----
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detect" }
 leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 
+
 [plugins]
+# ---- Android ----
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+
+# ---- Kotlin & Compose ----
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-compose-hot-reload = { id = "org.jetbrains.compose.hot-reload", version.ref = "compose-hot-reload" }
-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+# ---- Code generation ----
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
+
+# ---- Features ----
 kotzilla = { id = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detect" }
-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+
 
 [bundles]
+# Группа зависимостей Ktor для HTTP-клиента
 ktor = [
     "ktor-client-core",
     "ktor-client-content-negotiation",
@@ -160,10 +174,12 @@ ktor = [
     "ktor-client-logging",
     "ktor-serialization-kotlinx-json",
 ]
+
+# Группа зависимостей Coil для загрузки изображений
 coil = [
     "coil-compose",
     "coil-compose-core",
     "coil-network-ktor2",
     "coil-network-ktor3",
-    "coil-mp"
+    "coil-mp",
 ]

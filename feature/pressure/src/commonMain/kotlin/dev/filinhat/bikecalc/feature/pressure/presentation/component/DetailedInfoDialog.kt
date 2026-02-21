@@ -13,6 +13,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import bikecalcmp.feature.pressure.generated.resources.Res
 import bikecalcmp.feature.pressure.generated.resources.button_close
@@ -34,7 +35,6 @@ import dev.filinhat.bikecalc.core.common.util.toBikeDouble
 import dev.filinhat.bikecalc.core.model.pressure.SavedPressureCalcResult
 import dev.filinhat.bikecalc.designsystem.theme.BikeCalcTheme
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Диалог с подробной информацией о сохраненном результате расчета давления.
