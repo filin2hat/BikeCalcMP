@@ -3,6 +3,7 @@ package dev.filinhat.bikecalc.feature.development.presentation.component.chart
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,13 +27,11 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.marker.rememberDefaultC
 import com.patrykandpatrick.vico.multiplatform.common.Fill
 import com.patrykandpatrick.vico.multiplatform.common.Insets
 import com.patrykandpatrick.vico.multiplatform.common.LayeredComponent
+import com.patrykandpatrick.vico.multiplatform.common.MarkerCornerBasedShape
 import com.patrykandpatrick.vico.multiplatform.common.component.ShapeComponent
 import com.patrykandpatrick.vico.multiplatform.common.component.TextComponent
 import com.patrykandpatrick.vico.multiplatform.common.component.rememberShapeComponent
 import com.patrykandpatrick.vico.multiplatform.common.component.rememberTextComponent
-import com.patrykandpatrick.vico.multiplatform.common.fill
-import com.patrykandpatrick.vico.multiplatform.common.shape.CorneredShape
-import com.patrykandpatrick.vico.multiplatform.common.shape.MarkerCorneredShape
 import dev.filinhat.bikecalc.core.common.util.formatDoubleToString
 import dev.filinhat.bikecalc.core.model.development.DevelopmentCalcResult
 import org.jetbrains.compose.resources.stringResource
@@ -139,16 +138,16 @@ private fun rememberChartIndicator(showIndicator: Boolean): CartesianMarker {
     val labelBackground =
         rememberShapeComponent(
             fill = Fill(MaterialTheme.colorScheme.background),
-            shape = MarkerCorneredShape(CorneredShape.Corner.Rounded),
+            shape = MarkerCornerBasedShape(RoundedCornerShape(8.dp)),
             strokeFill = Fill(MaterialTheme.colorScheme.outline),
             strokeThickness = 1.dp,
         )
     val indicatorFront =
-        rememberShapeComponent(Fill(MaterialTheme.colorScheme.surface), CorneredShape.Pill)
+        rememberShapeComponent(Fill(MaterialTheme.colorScheme.surface), RoundedCornerShape(percent = 50))
     val guideline =
         rememberAxisGuidelineComponent(
             thickness = 3.dp,
-            fill = fill(MaterialTheme.colorScheme.primary),
+            fill = Fill(MaterialTheme.colorScheme.primary),
         )
 
     return rememberDefaultCartesianMarker(
@@ -170,10 +169,10 @@ private fun rememberChartIndicator(showIndicator: Boolean): CartesianMarker {
             if (showIndicator) {
                 { color ->
                     LayeredComponent(
-                        back = ShapeComponent(Fill(color.copy(alpha = 0.15f)), CorneredShape.Pill),
+                        back = ShapeComponent(Fill(color.copy(alpha = 0.15f)), RoundedCornerShape(percent = 50)),
                         front =
                             LayeredComponent(
-                                back = ShapeComponent(Fill(color), CorneredShape.Pill),
+                                back = ShapeComponent(Fill(color), RoundedCornerShape(percent = 50)),
                                 front = indicatorFront,
                                 padding = Insets(5.dp),
                             ),
